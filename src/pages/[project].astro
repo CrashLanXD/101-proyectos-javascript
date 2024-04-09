@@ -1,0 +1,25 @@
+---
+import { PROJECTS } from "../const";
+import InfoProject from "../components/InfoProject.astro";
+import Layout from "../layouts/Layout.astro";
+
+export function getStaticPaths () {
+  return PROJECTS.map((project) => {
+    return {
+      params: {
+        project: project.slug
+      },
+    }
+  })
+};
+
+const { project } = Astro.params;
+const index = PROJECTS.findIndex((p) => p.slug === project);
+const info = PROJECTS[index];
+const number = `${index + 1}`.padStart(2, "0");
+---
+
+<Layout title={`Proyecto ${number}: ${info.title}`}>
+  <iframe src={`/projects/${project}/index.html`}></iframe>
+  <InfoProject info={{ ...info, number}}/>
+</Layout>

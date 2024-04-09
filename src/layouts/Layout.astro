@@ -1,51 +1,106 @@
 ---
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
+const description =
+  "Explora una colección de 101 proyectos en JavaScript, desde simulaciones hasta juegos y algoritmos, diseñados para experimentar con diferentes conceptos de programación.";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Eduardo Sanchez Hernandez" />
+    <meta
+      name="keywords"
+      content="javascript, js, programming, programacion, desarrollo web, algoritmos, HTML, CSS, proyectos de código abierto, aprendizaje interactivo, frontend, backend, simulaciones, juegos en JavaScript, desarrollo web moderno, práctica de programación, desarrollo de aplicaciones, ejercicios de programación, JavaScript avanzado"
+    />
+    <meta name="theme-color" content="#F9EF1C" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@CrashLanXD" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  :root {
+    color-scheme: light dark;
+  }
+  @font-face {
+    font-family: "Argon";
+    src: url("../../public/fonts/MonaspaceArgon-Medium.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Krypton";
+    src: url("../../public/fonts/MonaspaceKrypton-Medium.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Neon";
+    src: url("../../public/fonts/MonaspaceNeon-Medium.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Radon";
+    src: url("../../public/fonts/MonaspaceRadon-Medium.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Xenon";
+    src: url("../../public/fonts/MonaspaceXenon-Medium.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  html {
+    font-family: system-ui, sans-serif;
+    background: rgb(24, 24, 27);
+  }
+  code {
+    font-family:
+      "Argon",
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+
+  .font-Argon {
+    font-family: "Argon";
+  }
+  .font-Krypton {
+    font-family: "Krypton";
+  }
+  .font-Neon {
+    font-family: "Neon";
+  }
+  .font-Xenon {
+    font-family: "Xenon";
+  }
+  .font-Radon {
+    font-family: "Radon";
+  }
 </style>

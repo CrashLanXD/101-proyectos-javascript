@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cellular Automata</title>
+    <style>
+      body {
+        background: #0a0a0a;
+        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      }
+
+      canvas {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: #1d1d1d;
+        margin: 0 auto;
+        display: block;
+      }
+
+      #configForm {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #configForm label {
+        color: white;
+        margin-right: 10px;
+      }
+
+      #configForm input[type="number"] {
+        width: 60px;
+      }
+
+      #configForm input[type="color"] {
+        vertical-align: middle;
+      }
+
+      #configForm button {
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="configForm">
+    <label for="ruleValue">Valor de la regla:</label>
+    <input type="number" id="ruleValue" name="ruleValue" min="0" max="255" value="73">
+    <label for="color">Color de los cuadros:</label>
+    <input type="color" id="color" name="color" value="#000000" class="border border-white rounded">
+    <button type="submit">Aplicar</button>
+  </form>
+    <canvas></canvas>
+
+    <script src="main.js"></script>
+  </body>
+</html>
