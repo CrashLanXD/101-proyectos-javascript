@@ -74,7 +74,15 @@ const description =
   html {
     font-family: system-ui, sans-serif;
     background: rgb(24, 24, 27);
+    scroll-behavior: smooth;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   code {
     font-family:
       "Argon",
