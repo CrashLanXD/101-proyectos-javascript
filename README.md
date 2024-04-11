@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://javascript101clxd.netlify.app">
-    <img src="/101-proyectos-js/public/readme.png" /> 
+    <img src="readme.png" /> 
   </a>
   <h3>
     <strong>101 proyectos de JavaScript con código</strong>
