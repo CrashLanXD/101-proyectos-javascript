@@ -20,6 +20,6 @@ const number = `${index + 1}`.padStart(2, "0");
 ---
 
 <Layout title={`Proyecto ${number}: ${info.title}`}>
-  <iframe src={`/projects/${project}/index.html`}></iframe>
+  <iframe title={`${info.title}`} class="w-screen h-dvh" src={`/projects/${project}/index.html`}></iframe>
   <InfoProject info={{ ...info, number}}/>
 </Layout>
