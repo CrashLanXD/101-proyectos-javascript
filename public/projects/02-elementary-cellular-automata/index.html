@@ -7,7 +7,8 @@
     <style>
       body {
         background: #0a0a0a;
-        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
       }
 
       canvas {
@@ -42,14 +43,77 @@
   </head>
   <body>
     <form id="configForm">
-    <label for="ruleValue">Valor de la regla:</label>
-    <input type="number" id="ruleValue" name="ruleValue" min="0" max="255" value="73">
-    <label for="color">Color de los cuadros:</label>
-    <input type="color" id="color" name="color" value="#000000" class="border border-white rounded">
-    <button type="submit">Aplicar</button>
-  </form>
+      <label for="ruleValue">Regla:</label>
+      <input
+        type="number"
+        id="ruleValue"
+        name="ruleValue"
+        min="0"
+        max="255"
+        value="73"
+      />
+      <button class="button" type="submit">Go!</button>
+    </form>
     <canvas></canvas>
 
+    <style>
+      #configForm label {
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      #configForm input {
+        background-color: rgb(249 250 251);
+        border-width: 1px;
+        border-color: rgb(209 213 219);
+        color: rgb(17 24 39);
+        border-radius: 0.5rem;
+        font-size: 0.875rem /* 14px */;
+        line-height: 1.25rem /* 20px */;
+        width: 100%;
+        padding: 6px;
+        margin-bottom: 4px;
+      }
+
+      #configForm input:focus {
+        border-color: rgb(59, 130, 246);
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(59 130 246);
+      }
+
+      .button {
+        margin-bottom: 4px;
+        background-color: #fff;
+        border: 1px solid #d5d9d9;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #0f1111;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Amazon Ember", sans-serif;
+        font-size: 13px;
+        line-height: 29px;
+        padding: 0 10px 0 11px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+        width: 100px;
+      }
+
+      .button:hover {
+        background-color: #f7fafa;
+      }
+
+      .button:focus {
+        border-color: #008296;
+        outline: 0;
+      }
+    </style>
     <script src="main.js"></script>
   </body>
 </html>

@@ -5,6 +5,13 @@ const ctx = canvas.getContext("2d");
 canvas.width = Math.round(innerWidth / 100) * 100 - 40;
 canvas.height = Math.round(innerHeight / 100) * 100 - 50;
 
+canvas.width -= 100;
+canvas.height -= 90;
+if (innerWidth < innerHeight) {
+  canvas.width += 120;
+  canvas.height += 60;
+}
+
 let deltaTime = 1000 / 20; // Time between frames
 let w = 5; // Width of each cell
 let grid; // Grid to hold cell states
@@ -53,23 +60,7 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-// Function to draw the grid lines
-function drawGrid() {
-  ctx.beginPath();
-  ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-  let w2 = w;
-  for (let i = 0; i < cols; i++) {
-    ctx.fillRect(0, w2, canvas.width, 1);
-    ctx.fillRect(w2, 0, 1, canvas.height);
-    w2 += w;
-  }
-  ctx.closePath();
-}
-
-// Function to draw the pixels (cells)
-// let num = Math.random() * 360;
 function drawPixel() {
-  //ctx.fillStyle = `hsl(${num}, 50%, 50%)`;
   ctx.fillStyle = '#000';
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
@@ -93,25 +84,21 @@ function setup() {
   cols = canvas.width / w;
   rows = canvas.height / w;
   grid = make2DArray(cols, rows);
-  drawGrid(cols, rows);
+  init(0.3);
 }
 
-// Function to initialize the grid with some initial lived cells
-let rand = size;
-function init() {
-  for (var i = 0; i < Math.floor(rand * rand * 0.3); i++) {
-    var x, y;
-    do {
-      x = Math.floor(Math.random() * rand);
-      y = Math.floor(Math.random() * rand);
-      if (grid[y][x] === 0) {
-        grid[y][x] = 1;
-        break;
-      }
-    } while (true);
+// Function to initialize the grid with some initial live cells
+function init(probability) {
+  for (let i = 0; i < size * size * probability; i++) {
+    let x = Math.floor(Math.random() * size);
+    let y = Math.floor(Math.random() * size);
+    
+    // Ensure that the cell is not already alive
+    if (grid[y][x] === 0) {
+      grid[y][x] = 1; // Set the cell as alive
+    }
   }
 }
 
 setup();
-init();
 draw();

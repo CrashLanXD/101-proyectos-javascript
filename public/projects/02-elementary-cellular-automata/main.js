@@ -4,6 +4,13 @@ const ctx = canvas.getContext("2d");
 canvas.width = Math.round(innerWidth / 100) * 100;
 canvas.height = Math.round(innerHeight / 100) * 300;
 
+canvas.width -= 100;
+canvas.height -= 40;
+if (innerWidth < innerHeight) {
+  canvas.width += 120;
+  canvas.height += 60;
+}
+
 let ruleSet;
 let w = 1;
 let y = 0;
@@ -15,7 +22,6 @@ function setup() {
   configForm.addEventListener("submit", function (event) {
     event.preventDefault();
     ruleValue = parseInt(document.getElementById("ruleValue").value);
-    cellColor = document.getElementById("color").value;
     reset();
     draw();
   });
@@ -53,7 +59,7 @@ function draw() {
 
   for (let i = 0; i < cells.length; i++) {
     let x = i * w;
-    ctx.fillStyle = cells[i] === 1 ? cellColor : "#fff";
+    ctx.fillStyle = cells[i] === 1 ? "#000" : "#fff";
     drawPixel(x, y, w);
   }
 
@@ -79,9 +85,7 @@ function draw() {
 function calculateState(a, b, c) {
   let neighborHood = "" + a + b + c;
   let value = 7 - parseInt(neighborHood, 2);
-
   return parseInt(ruleSet[value]);
 }
 
 setup();
-draw();
