@@ -1,54 +1,28 @@
-# Astro Starter Kit: Basics
+<div align="center">
+  <a href="https://javascript101clxd.netlify.app">
+    <img src="/101-proyectos-js/public/readme.png" /> 
+  </a>
+  <h3>
+    <strong>101 proyectos de JavaScript con código</strong>
+  </h3>
+</div>
 
-```sh
-npm create astro@latest -- --template basics
-```
+<div align="center">
+  <a href="https://javascript101clxd.netlify.app">
+    Website
+  </a>
+</div>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## :fire: Proyectos
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| #   | Proyecto                         | Descripción                                                                     | Código                                                                                                                                                                                                                        | Website                                                                                                                                                                                                                  |
+| --- | -------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **Falling-Sand**                 | Una simulación de Arena que cae y se acumula en una cuadrícula                  | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/01-falling-sand)                 | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/01-falling-sand/)                                                          |
+| 2   | **Elementary-Cellular-Automata** | Cada celda evoluciona según reglas simples basadas en el estado de sus vecinos. | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/02-elementary-cellular-automata) | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/02-elementary-cellular-automata/)                                          |
+| 3   | **The-Game-Of-Life**             | El famoso juego de simulación de vida de John Conway                            | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/03-game-of-life)                 | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)]([https://www.**javascript100**.dev/03-midu-typing-game](https://javascript101clxd.netlify.app/03-game-of-life/)) |
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## 👑 Contribuidores 👑
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+<a href="https://github.com/midudev/javascript-100-proyectos/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=CrashLanXD/101-proyectos-javascript" />
+</a>
