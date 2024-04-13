@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Breakout en JS</title>
+  </head>
+  <body>
+    <style>
+      body {
+        background-color: #0a0a0a;
+      }
+
+      canvas {
+        border: 25px solid #8e8e8e;
+        border-bottom: transparent;
+        background: #000;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .button-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+      }
+      button {
+        opacity: 0%;
+        margin-top: 5px;
+        height: 40px;
+        width: 48%;
+        font-size: 20px;
+        color: #7e7e7e;
+
+        border: 2px solid #0a0a0a;
+        background: #3c3c3ccb;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+    </style>
+    <canvas></canvas>
+
+    <div class="button-container">
+      <button id="l">←</button>
+      <button id="r">→</button>
+    </div>
+
+    <script src="audio.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -31,4 +31,16 @@ export const PROJECTS = [
     ],
     theme: { isDark: false },
   },
+  {
+    slug: "04-breakout",
+    title: "Breakout",
+    description:
+      "Juego mítico y clásico, Breakout del Atari para controlar con teclado",
+    learnings: [
+      "Ángulos",
+      "Movimiento con teclado",
+      "uso de canvas sin un grid",
+    ],
+    theme: { isDark: false },
+  },
 ];
