@@ -11,41 +11,90 @@
         background-color: #0a0a0a;
       }
 
+      main {
+        display: block;
+        margin: auto;
+        flex-direction: column;
+        height: 95dvh;
+        width: 96%;
+        position: relative;
+      }
+
       canvas {
         border: 25px solid #8e8e8e;
         border-bottom: transparent;
         background: #000;
-        margin: 0 auto;
+        margin: auto;
         display: block;
       }
 
-      .button-container {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-
-      }
       button {
         opacity: 0%;
-        margin-top: 5px;
-        height: 40px;
-        width: 48%;
-        font-size: 20px;
-        color: #7e7e7e;
+        top: 10%;
+        border: none;
+        background: #000;
+        width: 11%;
+        height: 80%;
+        position: absolute;
 
-        border: 2px solid #0a0a0a;
-        background: #3c3c3ccb;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        span {
+          display: block;
+        }
+
+        .arrow-left,
+        .arrow-right {
+          width: 0;
+          height: 0;
+          border-top: 20px solid transparent;
+          border-bottom: 20px solid transparent;
+          margin: 0 auto;
+        }
+
+        .arrow-left {
+          border-right: 20px solid #e8303c;
+        }
+
+        .arrow-right {
+          border-left: 20px solid #e8303c;
+        }
+      }
+
+      #l {
+        left: 10px;
+      }
+
+      #r {
+        right: 10px;
+      }
+
+      button:active {
+        background: #090909;
+
+        span {
+          transform: scale(0.9);
+        }
+      }
+
+      @media screen and (orientation: portrait) {
+        main {
+          width: 123%;
+          margin-top: 200px;
+        }
+        button {
+          height: 30%;
+          width: 45%;
+          top: 400px;
+        }
       }
     </style>
-    <canvas></canvas>
 
-    <div class="button-container">
-      <button id="l">←</button>
-      <button id="r">→</button>
-    </div>
+    <main>
+      <canvas></canvas>
+      <button id="l" title="left"><span class="arrow-left"></span></button>
+      <button id="r" title="right"><span class="arrow-right"></span></button>
+    </main>
 
     <script src="audio.js"></script>
-    <script src="main.js"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>

@@ -1,101 +1,112 @@
 const $CANVAS = document.querySelector("canvas");
 const CTX = $CANVAS.getContext("2d");
 
+// Set canvas dimensions
 $CANVAS.width = 600;
 $CANVAS.height = 350;
 const BORDER = $CANVAS.style.border;
 
+// Define colors
 const COLORS = [
-  "rgb(200, 72, 72)", // red
+  "rgb(200, 72, 72)",  // red
   "rgb(198, 108, 58)", // orange
   "rgb(180, 122, 48)", // amber
   "rgb(162, 162, 42)", // yellow
-  "rgb(71, 160, 72)", // green
-  "rgb(66, 73, 201)", // blue
+  "rgb(71, 160, 72)",  // green
+  "rgb(66, 73, 201)",  // blue
 ];
 
+// Define status for bricks
 const STATUS = {
   ACTIVE: 1,
   DESTROYED: 0,
 };
 
+// Define maximum number of lives
 const MAX_LIVES = 5;
 let lives = MAX_LIVES;
 let waitingForRestart = false;
 
 // ! PADDLE
 //#region PADDLE
-const PADDLE_WIDTH = 100;
-const PADDLE_HEIGHT = 10;
+let paddleWidth = 100; // paddle width changes depend the number of destroyed bricks
+const PADDLE_HEIGHT = 9;
 const PADDLE_SENSITIVITY = 17;
-const MAX_BOUNCE_ANGLE = 75;
 
-let paddleX = ($CANVAS.width - PADDLE_WIDTH) / 2;
-let paddleY = $CANVAS.height - 20;
+let paddleX = ($CANVAS.width - paddleWidth) / 2;
+let paddleY = $CANVAS.height - 15;
 
+// Function to handle paddle movement
 function paddleMovement() {
-  if (rightPressed && paddleX < $CANVAS.width - PADDLE_WIDTH)
+  if (rightPressed && paddleX < $CANVAS.width - paddleWidth)
     paddleX += PADDLE_SENSITIVITY;
   else if (leftPressed && paddleX > 0) paddleX -= PADDLE_SENSITIVITY;
 }
 
+// Function to draw the paddle on the canvas
 function drawPaddle() {
-  CTX.fillStyle = COLORS[0];
-  CTX.fillRect(paddleX, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT);
+  CTX.fillStyle = COLORS[0]; // Set paddle color to red
+  CTX.fillRect(paddleX, paddleY, paddleWidth, PADDLE_HEIGHT); // draw paddle rectangle
 }
 //#endregion
 
 // ? BALL
 //#region BALL
 const BALL_SIZE = 9;
+const BOUNCE_ANGLE = Math.PI / 3; // bounce angle -> 75
 let ballX = $CANVAS.width - 100;
 let ballY = $CANVAS.height - 140;
 
 let ballResetPosition = { x: $CANVAS.width - 100, y: $CANVAS.height - 140 };
 let ballResetVelocity = { x: -4, y: 2 };
 
+// set initial speed slower so that you can react
 let velocityX = -4;
 let velocityY = 2;
 
 let ballMaxSpeed = 6;
+const MEDIUM_SPEED = ballMaxSpeed * 1.3;
+const FAST_SPEED = ballMaxSpeed * 1.7;
 
+// Handle ball movement and collisions with walls and paddle
 function ballMovement() {
   ballX += velocityX;
   ballY += velocityY;
 
-  // DETECT COLLISIONS WITH:
-  //horizontal walls
+  // Detect collisions with horizontal walls
   if (ballX + BALL_SIZE > $CANVAS.width || ballX < 0) {
     velocityX = -velocityX;
-    playSound(900, 200);
+    playSound(900, 110); // play sound effect
   }
-  //vertical walls
+  // Detect collisions with vertical walls
   if (ballY < 0) {
     velocityY = -velocityY;
-    playSound(900, 200);
+    playSound(900, 110); // play same sound effect
   }
-  // paddle
+  // Detect collisions with paddle
   if (
     ballY + BALL_SIZE > paddleY &&
     ballX + BALL_SIZE > paddleX &&
     ballY < paddleY + PADDLE_HEIGHT &&
-    ballX < paddleX + PADDLE_WIDTH
+    ballX < paddleX + paddleWidth
   ) {
     velocityY = -velocityY;
-    const paddleCenterX = paddleX + PADDLE_WIDTH / 2;
+    // Calculate new angle for ball bounce
+    const paddleCenterX = paddleX + paddleWidth / 2;
     const ballCenterX = ballX + BALL_SIZE / 2;
-    // MAX ANGLE = 75
     const angle =
-      ((ballCenterX - paddleCenterX) / (PADDLE_WIDTH / 2)) * (Math.PI / 3);
+      ((ballCenterX - paddleCenterX) / (paddleWidth / 2)) * BOUNCE_ANGLE;
     velocityX = ballMaxSpeed * Math.sin(angle);
     velocityY = -ballMaxSpeed * Math.cos(angle);
-    playSound(650, 200);
+    playSound(590, 120); // Play sound effect
   }
 
+  // Check if ball goes below canvas
   if (ballY + BALL_SIZE > $CANVAS.height && !waitingForRestart) {
-    lives--;
+    lives--; // Decrement lives
     waitingForRestart = true;
 
+    // Reset ball position and velocity after delay
     setTimeout(() => {
       ballX = ballResetPosition.x;
       ballY = ballResetPosition.y;
@@ -106,9 +117,10 @@ function ballMovement() {
   }
 }
 
+// Function to draw the ball on the canvas
 function drawBall() {
-  CTX.fillStyle = COLORS[0];
-  CTX.fillRect(ballX, ballY, BALL_SIZE, BALL_SIZE);
+  CTX.fillStyle = COLORS[0]; // Set ball color to red
+  CTX.fillRect(ballX, ballY, BALL_SIZE, BALL_SIZE); // Draw ball square
 }
 //#endregion
 
@@ -117,11 +129,16 @@ function drawBall() {
 const BRICK_COL_COUNT = 17;
 const BRICK_ROW_COUNT = COLORS.length;
 const BRICK_WIDTH = $CANVAS.width / BRICK_COL_COUNT;
-const BRICK_HEIGHT = 20;
-const BRICK_OFFSET_TOP = 50;
+const BRICK_HEIGHT = PADDLE_HEIGHT * 1.4;
+const BRICK_OFFSET_TOP = BRICK_HEIGHT * 4.4;
 const BRICKS = [];
 
+let brickInitialized = false;
+
+// Function to initialize the brick with status ACTIVE
 const INITIALIZE_BRICKS = () => {
+  if (brickInitialized) return;
+
   for (let i = 0; i < BRICK_COL_COUNT; i++) {
     BRICKS[i] = [];
     for (let j = 0; j < BRICK_ROW_COUNT; j++) {
@@ -136,8 +153,10 @@ const INITIALIZE_BRICKS = () => {
       };
     }
   }
+  brickInitialized = true;
 };
 
+// Function to check collision with bricks
 function checkBricksCollisions() {
   for (let i = 0; i < BRICK_COL_COUNT; i++) {
     for (let j = 0; j < BRICK_ROW_COUNT; j++) {
@@ -151,9 +170,11 @@ function checkBricksCollisions() {
         ballY > BRICK.y &&
         ballY < BRICK.y + BRICK_HEIGHT
       ) {
-        velocityY = -velocityY;
-        BRICK.status = STATUS.DESTROYED;
-        playSound(500, 200);
+        brickInitialized = false; // Reset brick initialization flag
+        velocityY = -velocityY; // Invert ball velocity
+        BRICK.status = STATUS.DESTROYED; // Set brick status to DESTROYED
+        playSound(280, 110); // Play sound effect
+        handleWin(); // Handle win condition
       }
     }
   }
@@ -164,116 +185,7 @@ function checkBricksCollisions() {
 //#region LOGIC
 let leftPressed = false;
 let rightPressed = false;
-function initializeEvents() {
-  INITIALIZE_BRICKS();
 
-  document.addEventListener("keydown", keyDownHandler);
-  document.addEventListener("keyup", keyUpHandler);
-
-  function keyDownHandler(e) {
-    const { key } = e;
-    if (key === "Right" || key === "ArrowRight" || key.toLowerCase() === "d")
-      rightPressed = true;
-    else if (key === "Left" || key === "ArrowLeft" || key.toLowerCase() === "a")
-      leftPressed = true;
-  }
-
-  function keyUpHandler(e) {
-    const { key } = e;
-    if (key === "Right" || key === "ArrowRight" || key.toLowerCase() === "d")
-      rightPressed = false;
-    else if (key === "Left" || key === "ArrowLeft" || key.toLowerCase() === "a")
-      leftPressed = false;
-  }
-
-  if (isMobileDevice()) {
-    addTouchControls();
-    document.body.style.zoom = 0.8;
-  }
-}
-
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-}
-
-function addTouchControls() {
-  const leftButton = document.querySelector("#l");
-  leftButton.style.opacity = '100%';
-  leftButton.addEventListener("touchstart", () => {
-    leftPressed = true;
-    paddleMovement("left");
-  });
-  leftButton.addEventListener("touchend", () => {
-    leftPressed = false;
-  });
-  
-  const rightButton = document.querySelector("#r");
-  rightButton.style.opacity = '100%';
-  rightButton.addEventListener("touchstart", () => {
-    rightPressed = true;
-    paddleMovement("right");
-  });
-  rightButton.addEventListener("touchend", () => {
-    rightPressed = false;
-  });
-}
-
-function isGameOver() {
-  if (lives <= 0) {
-    $CANVAS.style.borderTop = `25px solid ${COLORS[0]}`;
-    $CANVAS.style.borderRight = `25px solid ${COLORS[0]}`;
-    $CANVAS.style.borderLeft = `25px solid ${COLORS[0]}`;
-    $CANVAS.style.borderBottom = "transparent";
-
-    ballX = ballResetPosition.x;
-    ballY = ballResetPosition.y;
-    velocityX = ballResetVelocity.x;
-    velocityY = ballResetVelocity.y;
-
-    setTimeout(() => {
-      $CANVAS.style.border = BORDER;
-      lives = MAX_LIVES;
-      INITIALIZE_BRICKS();
-    }, 2000);
-  }
-}
-
-function handleWin() {
-  let count = 0;
-  for (let i = 0; i < BRICK_COL_COUNT; i++) {
-    for (let j = 0; j < BRICK_ROW_COUNT; j++) {
-      const BRICK = BRICKS[i][j];
-      if (BRICK.status === STATUS.DESTROYED) {
-        count++;
-
-        if (count === BRICK_COL_COUNT * BRICK_ROW_COUNT) {
-          $CANVAS.style.borderTop = `25px solid ${COLORS[3]}`;
-          $CANVAS.style.borderRight = `25px solid ${COLORS[3]}`;
-          $CANVAS.style.borderLeft = `25px solid ${COLORS[3]}`;
-          $CANVAS.style.borderBottom = "transparent";
-
-          ballX = ballResetPosition.x;
-          ballY = ballResetPosition.y;
-          velocityX = ballResetVelocity.x;
-          velocityY = ballResetVelocity.y;
-
-          setTimeout(() => {
-            $CANVAS.style.border = BORDER;
-            lives = MAX_LIVES;
-            INITIALIZE_BRICKS();
-          }, 3000);
-        } else if (count > (BRICK_COL_COUNT * BRICK_ROW_COUNT) / 2)
-          ballMaxSpeed = 8;
-      }
-    }
-  }
-}
-//#endregion
-
-// ! DRAW
-//#region DRAW
 const FPS = 60;
 const MS_PER_FRAME = 1000 / FPS;
 
@@ -282,11 +194,12 @@ let msFPSPrev = window.performance.now() + 1000;
 let frames = 0;
 let framesPerSec = FPS;
 
+// Function to check and limit FPS
 function checkFPS() {
   const msNow = window.performance.now();
   const msPassed = msNow - msPrev;
 
-  if (msPassed < MS_PER_FRAME) return;
+  if (msPassed < MS_PER_FRAME) return false;
 
   const excessTime = msPassed % MS_PER_FRAME;
   msPrev = msNow - excessTime;
@@ -300,6 +213,153 @@ function checkFPS() {
   }
 }
 
+// Function to initialize game events
+function initializeEvents() {
+  INITIALIZE_BRICKS(); /// Initialize bricks
+
+  // Add event listener for paddle movement with keyboard
+  document.addEventListener("keydown", keyDownHandler);
+  document.addEventListener("keyup", keyUpHandler);
+
+  // Handle key down events
+  function keyDownHandler(e) {
+    const { key } = e;
+    if (key === "Right" || key === "ArrowRight" || key.toLowerCase() === "d")
+      rightPressed = true;
+    else if (key === "Left" || key === "ArrowLeft" || key.toLowerCase() === "a")
+      leftPressed = true;
+  }
+
+  // Handle key up events
+  function keyUpHandler(e) {
+    const { key } = e;
+    if (key === "Right" || key === "ArrowRight" || key.toLowerCase() === "d")
+      rightPressed = false;
+    else if (key === "Left" || key === "ArrowLeft" || key.toLowerCase() === "a")
+      leftPressed = false;
+  }
+
+  // Add touch control for mobile devices
+  if (isMobileDevice()) addTouchControls();
+}
+
+// * Main game loop
+function gameLoop() {
+  // ?LOGIC
+  // Update game logic
+  paddleMovement();
+  ballMovement();
+  checkBricksCollisions();
+
+  isGameOver();
+}
+
+// Check if the device is a mobile device
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
+
+// Add buttons for touch control for mobile devices
+function addTouchControls() {
+  const leftButton = document.querySelector("#l");
+  // make the left button visible
+  leftButton.style.opacity = "100%";
+  // Handle touch start events for left button
+  leftButton.addEventListener("touchstart", () => {
+    leftPressed = true;
+    paddleMovement("left");
+  });
+  // Handle touch end events for left button
+  leftButton.addEventListener("touchend", () => {
+    leftPressed = false;
+  });
+
+  const rightButton = document.querySelector("#r");
+  // make the right button visible
+  rightButton.style.opacity = "100%";
+  // Handle touch start events for right button
+  rightButton.addEventListener("touchstart", () => {
+    rightPressed = true;
+    paddleMovement("right");
+  });
+  // Handle touch end events for right button
+  rightButton.addEventListener("touchend", () => {
+    rightPressed = false;
+  });
+}
+
+function isGameOver() {
+  if (lives <= 0) {
+    // Display game over screen
+    $CANVAS.style.borderTop = `25px solid ${COLORS[0]}`;
+    $CANVAS.style.borderRight = `25px solid ${COLORS[0]}`;
+    $CANVAS.style.borderLeft = `25px solid ${COLORS[0]}`;
+    $CANVAS.style.borderBottom = "transparent";
+
+    // Reset ball position and velocity
+    velocityX = ballResetVelocity.x;
+    velocityY = ballResetVelocity.y;
+    ballX = ballResetPosition.x;
+    ballY = ballResetPosition.y;
+
+    // Reset lives and bricks
+    setTimeout(() => {
+      $CANVAS.style.border = BORDER;
+      lives = MAX_LIVES;
+      INITIALIZE_BRICKS();
+    }, 2000);
+  }
+}
+
+// Handle win condition
+function handleWin() {
+  let count = 0;
+  for (let i = 0; i < BRICK_COL_COUNT; i++) {
+    for (let j = 0; j < BRICK_ROW_COUNT; j++) {
+      const BRICK = BRICKS[i][j];
+      if (BRICK.status === STATUS.DESTROYED) {
+        count++;
+
+        // Check if all the bricks are destroyed
+        if (count === BRICK_COL_COUNT * BRICK_ROW_COUNT) {
+          // Display win screen
+          $CANVAS.style.borderTop = `25px solid ${COLORS[3]}`;
+          $CANVAS.style.borderRight = `25px solid ${COLORS[3]}`;
+          $CANVAS.style.borderLeft = `25px solid ${COLORS[3]}`;
+          $CANVAS.style.borderBottom = "transparent";
+
+          // Reset ball position and velocity
+          ballX = ballResetPosition.x;
+          ballY = ballResetPosition.y;
+          velocityX = ballResetVelocity.x;
+          velocityY = ballResetVelocity.y;
+
+          // Reset live and bricks
+          setTimeout(() => {
+            $CANVAS.style.border = BORDER;
+            // lives = MAX_LIVES;
+            INITIALIZE_BRICKS();
+          }, 3000);
+        } else if (count > (BRICK_COL_COUNT * BRICK_ROW_COUNT) / 1.2) { // HARD mode
+          // ! The difficulty remains even if you lose
+          // Increase ball speed and decrease paddle width after reaching certain brick destruction threshold
+          ballMaxSpeed = FAST_SPEED;
+          paddleWidth = 80;
+        } else if (count > (BRICK_COL_COUNT * BRICK_ROW_COUNT) / 2) { // MEDIUM mode
+          // Increase ball speed and decrease paddle width after reaching certain brick destruction threshold
+          ballMaxSpeed = MEDIUM_SPEED;
+          paddleWidth = 90;
+        }
+      }
+    }
+  }
+}
+//#endregion
+
+// ! DRAW
+//#region DRAW
 function drawFPS() {
   CTX.font = "12px system-ui";
   CTX.fillStyle = "white";
@@ -312,40 +372,41 @@ function drawLives() {
   CTX.fillText(`LIVES: ${lives}`, $CANVAS.width - 55, 14);
 }
 
+// Clear canvas
 const clearCanvas = () => CTX.clearRect(0, 0, $CANVAS.width, $CANVAS.height);
 
+// Function to draw bricks in the canvas
 function drawBricks() {
   for (let i = 0; i < BRICK_COL_COUNT; i++) {
     for (let j = 0; j < BRICK_ROW_COUNT; j++) {
       const BRICK = BRICKS[i][j];
       if (BRICK.status === STATUS.DESTROYED) continue;
       CTX.fillStyle = BRICK.color;
-      CTX.fillRect(BRICK.x, BRICK.y, BRICK_WIDTH + 1, BRICK_HEIGHT);
+      CTX.fillRect(BRICK.x, BRICK.y, BRICK_WIDTH + 1, BRICK_HEIGHT + 1);
     }
   }
 }
 
+// * Main draw function
 function draw() {
   window.requestAnimationFrame(draw);
-  checkFPS();
+  if (checkFPS()) return;
   clearCanvas();
   drawFPS();
 
   // !DRAW
+  // draw game elements
   drawBricks();
   drawPaddle();
   drawBall();
   drawLives();
 
   // ?LOGIC
-  paddleMovement();
-  ballMovement();
-  checkBricksCollisions();
-
-  isGameOver();
-  handleWin();
+  gameLoop();
 }
 //#endregion
 
-initializeEvents();
-draw();
+// * START
+initializeEvents(); // Initialize events
+draw(); // Start game
+// :D
