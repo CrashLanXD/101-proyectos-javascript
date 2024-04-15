@@ -43,4 +43,16 @@ export const PROJECTS = [
     ],
     theme: { isDark: false },
   },
+  {
+    slug: "05-space-invaders",
+    title: "Space Invaders",
+    description:
+      "Juego mítico y clásico del Atari 2600 (Aun en construcción) solo PC",
+    learnings: [
+      "clases",
+      "Movimiento con teclado",
+      "POO",
+    ],
+    theme: { isDark: false },
+  },
 ];
