@@ -44,7 +44,7 @@ function animate() {
   // ?LOGIC
 
   gameLoop();
-  // drawFPS();
+  drawFPS();
   drawLives();
 }
 
