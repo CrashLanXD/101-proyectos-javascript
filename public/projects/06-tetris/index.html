@@ -21,7 +21,6 @@
       }
 
       main {
-        background: red;
         display: flex;
         align-items: center;
 
@@ -38,6 +37,8 @@
 
           font-size: 80px;
           border-radius: 50%;
+
+          font-family: sans-serif;
 
           border: none;
 
@@ -74,14 +75,18 @@
         }
       }
 
-      /* @media (min-width: 640px) {} */
+      @media only screen and (max-device-height: 932px) and (orientation: portrait) {
+        canvas {
+          margin-top: 80px;
+        }
+      }
       @media only screen and (max-device-width: 932px) and (orientation: landscape) {
         canvas {
-          width: 60%;
+          width: 400px;
         }
 
         main {
-          width: 100%;
+          width: 900px;
 
           .left {
             top: 80px;
