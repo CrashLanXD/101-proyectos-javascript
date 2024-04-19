@@ -14,6 +14,39 @@ const COLORS = {
   font: "#414141",
 };
 
+const PIECES = [
+  [
+    [1, 1],
+    [1, 1],
+  ],
+  [[1, 1, 1, 1]],
+  [
+    [0, 1],
+    [1, 1],
+    [1, 0],
+  ],
+  [
+    [1, 0],
+    [1, 1],
+    [0, 1],
+  ],
+  [
+    [1, 1, 1],
+    [0, 0, 1],
+  ],
+  [
+    [0, 0, 1],
+    [1, 1, 1],
+  ],
+  [
+    [1, 0],
+    [1, 1],
+    [1, 0],
+  ],
+];
+
+let score = 0;
+
 function drawBlock(x, y, fillColor, strokeWidth, strokeColor) {
   ctx.fillStyle = fillColor;
   ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
@@ -61,14 +94,48 @@ class Board {
       }
     }
   }
+
+  removeRows() {
+    // Iterate from the lowest to the highest row
+    for (let j = this.rows; j >= 0; j--) {
+      let rowCompleted = true;
+      // Check if the current row all elements are non zero
+      for (let i = 0; i < this.cols; i++) {
+        if (this.grid[i][j] === 0) {
+          // If at least one is zero, the row is not complete
+          rowCompleted = false;
+          break;
+        }
+      }
+
+      // If the row is completed, delete it
+      if (rowCompleted) {
+        // Move the rows down to fill empty space left
+        for (let k = j; k > 0; k--) {
+          for (let i = 0; i < this.cols; i++) {
+            this.grid[i][k] = this.grid[i][k - 1];
+          }
+        }
+
+        // Fill the top row with zeros
+        for (let i = 0; i < this.cols; i++) {
+          this.grid[i][0] = 0;
+        }
+
+        // Increment j to recheck the same row after deleting it
+        j++;
+        score += 10;
+      }
+    }
+  }
 }
 
 class Piece {
   constructor() {
     this.shape = [
+      [1, 0],
       [1, 1],
-      [0, 1],
-      [0, 1],
+      [1, 0],
     ];
     this.position = {
       x: Math.floor((BOARD_COLS - this.shape.length) / 2),
@@ -94,9 +161,9 @@ class Piece {
     });
   }
 
-  checkCollision(dx, dy) {
-    for (let x = 0; x < this.shape.length; x++) {
-      for (let y = 0; y < this.shape[0].length; y++) {
+  checkCollision(dx, dy, shape = this.shape) {
+    for (let x = 0; x < shape.length; x++) {
+      for (let y = 0; y < shape[0].length; y++) {
         if (
           this.position.x + x + dx < 0 ||
           this.position.x + x + dx >= BOARD_COLS ||
@@ -106,13 +173,13 @@ class Piece {
           return true;
 
         if (
-          this.shape[x][y] !== 0 &&
+          shape[x][y] !== 0 &&
           board.grid[this.position.x + x + dx][this.position.y + y + dy] !== 0
         )
           return true;
       }
     }
-    return false;
+    return false; // no collision
   }
 
   lock() {
@@ -130,6 +197,7 @@ class Piece {
                 }
               }
             }
+            board.removeRows();
             this.locked = true;
             return;
           }
@@ -141,6 +209,25 @@ class Piece {
 
   spawn() {
     piece = new Piece();
+    piece.shape = PIECES[random(0, PIECES.length - 1)];
+  }
+
+  rotate() {
+    const rotated = [];
+    const currentShape = this.shape;
+
+    for (let i = 0; i < this.shape[0].length; i++) {
+      const row = [];
+      for (let j = this.shape.length - 1; j >= 0; j--) {
+        row.push(currentShape[j][i]);
+      }
+
+      rotated.push(row);
+    }
+
+    if (!this.checkCollision(0, 0, rotated)) {
+      this.shape = rotated;
+    }
   }
 }
 
@@ -149,25 +236,36 @@ function updatePiecePos(dx, dy) {
     piece.position.x += dx;
     piece.position.y += dy;
   } else {
-    if (dy > 0 && !piece.checkCollision(0, 1)) {
-      piece.position.y++;
-    } else if (!piece.locked) {
+    if (dy > 0 && piece.checkCollision(0, 1)) {
       piece.lock();
       piece.spawn();
+
+      if (piece.checkCollision(0, 0)) {
+        restartGame();
+        return;
+      }
     }
   }
 }
 
+function restartGame() {
+  isGameOver = true;
+  setTimeout(() => {
+    board = new Board();
+    piece = new Piece();
+    isGameOver = false;
+    draw();
+  }, 1500);
+}
+
+let isGameOver = false;
 let board;
 let piece;
 function init() {
   board = new Board();
   piece = new Piece();
 
-  for (let i = 0; i < board.cols - 2; i++) {
-    board.grid[i][board.rows - 1] = 1;
-  }
-  size(board.width + 1, board.height + 1);
+  size(board.width + 200, board.height + 1);
 
   addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a")
@@ -177,18 +275,33 @@ function init() {
     if (e.key === "ArrowDown" || e.key.toLowerCase() === "s")
       updatePiecePos(0, 1);
 
-    // ! DELETE ME!
-    if (e.key === "ArrowUp" || e.key.toLowerCase() === "w")
-      updatePiecePos(0, -1);
+    if (e.key === "ArrowUp" || e.key.toLowerCase() === "w") piece.rotate();
   });
 }
 
-function draw() {
-  fill(COLORS.bgGrid);
+let dropCounter = 0;
+let lastTime = 0;
+
+function draw(time = 0) {
+  if (!isGameOver) window.requestAnimationFrame(draw);
+  const deltaTime = time - lastTime;
+  lastTime = time;
+
+  dropCounter += deltaTime;
+  if (dropCounter > 1000) {
+    updatePiecePos(0, 1);
+    dropCounter = 0;
+  }
+
+  fill(0, 0, BOARD_WIDTH, BOARD_HEIGHT, COLORS.bgGrid);
+  fill(BOARD_WIDTH, 0, BOARD_WIDTH, BOARD_HEIGHT, COLORS.bgMenu);
+  fill(BOARD_WIDTH + 10, 60, BOARD_WIDTH - 120, 70, COLORS.bgGrid);
+  text("SCORE", BOARD_WIDTH + 50, 90, COLORS.blockBorder);
+  text(score, BOARD_WIDTH + 90, 120, COLORS.blockBorder);
   board.draw();
   board.drawGrid();
   piece.draw();
 }
 
 init();
-repeat(draw, f);
+draw();

@@ -19,13 +19,26 @@ function size(w, h) {
   $canvas.height = height;
 }
 
-function fill(color) {
+function fill(
+  x = 0,
+  y = 0,
+  w = $canvas.width,
+  h = $canvas.height,
+  color = "#000"
+) {
   ctx.fillStyle = color;
-  ctx.fillRect(0, 0, $canvas.width, $canvas.height);
+  ctx.fillRect(x, y, w, h);
 }
 
 function clear() {
   ctx.clearRect(0, 0, $canvas.width, $canvas.height);
+}
+
+function text(text, x, y, color = "white") {
+  ctx.font = "24px Arial";
+  ctx.fillStyle = color;
+
+  ctx.fillText(text, x, y);
 }
 
 function frameRate(frameRate) {
