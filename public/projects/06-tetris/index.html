@@ -21,7 +21,6 @@
       }
 
       main {
-
         background: red;
         display: flex;
         align-items: center;
@@ -47,7 +46,7 @@
 
           box-shadow: 0 5px 0 #860b47;
         }
-        
+
         button:active {
           transition-duration: 10ms;
           transform: translateY(3%);
@@ -84,10 +83,22 @@
         main {
           width: 100%;
 
-          .left { top: 80px; }
-          .right { top: 80px; }
-          .down { bottom: 80px; }
-          .rotate { bottom: 80px; }
+          .left {
+            top: 80px;
+            left: 10px;
+          }
+          .right {
+            top: 80px;
+            right: 10px;
+          }
+          .down {
+            bottom: 80px;
+            left: 10px;
+          }
+          .rotate {
+            right: 10px;
+            bottom: 80px;
+          }
         }
 
         button {
