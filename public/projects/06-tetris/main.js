@@ -1,58 +1,15 @@
-// CONSTANTS
-const BOARD_COLS = 10;
-const BOARD_ROWS = 20;
-const CELL_SIZE = 30;
-const BOARD_WIDTH = BOARD_COLS * CELL_SIZE;
-const BOARD_HEIGHT = BOARD_ROWS * CELL_SIZE;
-
-const COLORS = {
-  bgGrid: "#c4cfa1",
-  blockBorder: "#414141",
-  block: "#8b956d",
-  bgMenu: "#414141",
-  green: "#6b7353 ",
-  font: "#414141",
-};
-
-const PIECES = [
-  [
-    [1, 1],
-    [1, 1],
-  ],
-  [[1, 1, 1, 1]],
-  [
-    [0, 1],
-    [1, 1],
-    [1, 0],
-  ],
-  [
-    [1, 0],
-    [1, 1],
-    [0, 1],
-  ],
-  [
-    [1, 1, 1],
-    [0, 0, 1],
-  ],
-  [
-    [0, 0, 1],
-    [1, 1, 1],
-  ],
-  [
-    [1, 0],
-    [1, 1],
-    [1, 0],
-  ],
-];
-
 let score = 0;
+let isGameOver = false;
+let board;
+let piece;
+let offset = CELL_SIZE * 2;
 
 function drawBlock(x, y, fillColor, strokeWidth, strokeColor) {
   ctx.fillStyle = fillColor;
-  ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+  ctx.fillRect(x + offset, y, CELL_SIZE, CELL_SIZE);
   ctx.lineWidth = strokeWidth;
   ctx.strokeStyle = strokeColor;
-  ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
+  ctx.strokeRect(x + offset, y, CELL_SIZE, CELL_SIZE);
 }
 
 class Board {
@@ -72,10 +29,10 @@ class Board {
 
   drawGrid() {
     for (let i = 0; i <= this.cols; i++) {
-      rect(i * this.cellSize, 0, 1, this.height, COLORS.font);
+      rect(i * this.cellSize + offset, 0, 1, this.height, "red");
     }
     for (let i = 0; i <= this.rows; i++) {
-      rect(0, i * this.cellSize, this.width, 1, COLORS.font);
+      rect(offset, i * this.cellSize, this.width, 1, "blue");
     }
   }
 
@@ -86,9 +43,9 @@ class Board {
           drawBlock(
             i * CELL_SIZE,
             j * CELL_SIZE,
-            COLORS.block,
+            COLORS.green,
             3,
-            COLORS.blockBorder
+            COLORS.darkGreen
           );
         }
       }
@@ -152,9 +109,9 @@ class Piece {
           drawBlock(
             (i + this.position.x) * CELL_SIZE,
             (j + this.position.y) * CELL_SIZE,
-            COLORS.block,
+            COLORS.green,
             3,
-            COLORS.blockBorder
+            COLORS.darkGreen
           );
         }
       });
@@ -258,14 +215,18 @@ function restartGame() {
   }, 1500);
 }
 
-let isGameOver = false;
-let board;
-let piece;
 function init() {
   board = new Board();
   piece = new Piece();
 
-  size(board.width + 200, board.height + 1);
+  size(board.width + offset * 5, board.height + 1);
+
+  // DRAW
+  // BACKGROUND
+  fill(0, 0, $canvas.width, $canvas.height, COLORS.darkGreen);
+
+  // UI
+  drawStaticUI();
 
   addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a")
@@ -293,15 +254,79 @@ function draw(time = 0) {
     dropCounter = 0;
   }
 
-  fill(0, 0, BOARD_WIDTH, BOARD_HEIGHT, COLORS.bgGrid);
-  fill(BOARD_WIDTH, 0, BOARD_WIDTH, BOARD_HEIGHT, COLORS.bgMenu);
-  fill(BOARD_WIDTH + 10, 60, BOARD_WIDTH - 120, 70, COLORS.bgGrid);
-  text("SCORE", BOARD_WIDTH + 50, 90, COLORS.blockBorder);
-  text(score, BOARD_WIDTH + 90, 120, COLORS.blockBorder);
+  drawUI();
+
+  // text("SCORE", BOARD_WIDTH + 50, 90, COLORS.darkGreen);
+  // text(score, BOARD_WIDTH + 90, 120, COLORS.darkGreen);
   board.draw();
-  board.drawGrid();
   piece.draw();
 }
 
+function drawUI(params) {
+  // BACKGROUND
+  // fill(0, 0, $canvas.width, $canvas.height, COLORS.darkGreen);
+
+  // GRID
+  fill(
+    CELL_SIZE - 3,
+    0,
+    BOARD_WIDTH + offset + 6,
+    BOARD_HEIGHT,
+    COLORS.lightGreen
+  );
+
+  // WALLS
+  fill(CELL_SIZE, 0, CELL_SIZE, BOARD_HEIGHT, COLORS.green); // L
+  fill(BOARD_WIDTH + offset, 0, CELL_SIZE, BOARD_HEIGHT, COLORS.green); // R
+
+  text("SCORE", BOARD_WIDTH + offset * 2 + 35, 52, COLORS.darkGreen);
+  fill(BOARD_WIDTH + offset + 33, 81, 210, 24, COLORS.lightGreen);
+  text(score, BOARD_WIDTH + offset * 2, 102.5, COLORS.darkGreen);
+}
+
+function drawStaticUI() {
+  // SCORE
+  fill(
+    BOARD_WIDTH + offset + 33, //
+    45,
+    210,
+    70,
+    COLORS.lightGreen
+  );
+
+  fill(
+    BOARD_WIDTH + offset + 33, //
+    50,
+    210,
+    30,
+    COLORS.green
+  );
+
+  fill(
+    BOARD_WIDTH + offset + 33, //
+    73,
+    210,
+    4,
+    COLORS.lightGreen
+  );
+
+  fill(
+    BOARD_WIDTH + offset + 33, //
+    107,
+    210,
+    4,
+    COLORS.green
+  );
+
+  // SCORE AREA
+  fill(BOARD_WIDTH + offset * 2, 20, 150, 45, COLORS.lightGreen);
+  fill(BOARD_WIDTH + offset * 2 - 4, 24, 158, 37, COLORS.lightGreen);
+
+  fill(BOARD_WIDTH + offset * 2 + 2, 26, 146, 33, COLORS.green);
+  fill(BOARD_WIDTH + offset * 2 + 6, 24, 139, 37, COLORS.green);
+
+  fill(BOARD_WIDTH + offset * 2 + 11, 27.5, 129, 30, COLORS.lightGreen);
+  fill(BOARD_WIDTH + offset * 2 + 6, 30, 139, 24, COLORS.lightGreen);
+}
 init();
 draw();

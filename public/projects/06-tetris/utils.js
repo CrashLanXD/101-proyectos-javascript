@@ -35,7 +35,7 @@ function clear() {
 }
 
 function text(text, x, y, color = "white") {
-  ctx.font = "24px Arial";
+  ctx.font = "24px Monocraft Nerd Font";
   ctx.fillStyle = color;
 
   ctx.fillText(text, x, y);
