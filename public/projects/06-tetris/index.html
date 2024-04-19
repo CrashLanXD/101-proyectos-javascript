@@ -1,26 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tetris</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris</title>
 
-  <style>
-    body {
-      background: #131313;
-      display: grid;
-      place-content: center;
-    }
+    <style>
+      body {
+        background: #131313;
+        display: grid;
+        place-content: center;
+      }
 
-    canvas {
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
-  <canvas></canvas>
-  <script src="const.js"></script>
-  <script src="utils.js"></script>
-  <script src="main.js"></script>
-</body>
+      canvas {
+        margin-top: 10px;
+        width: 98%;
+        margin: auto;
+      }
+
+      main {
+        display: flex;
+        align-items: center;
+
+        height: 90dvh;
+        position: relative;
+
+        button {
+          opacity: 0%;
+          position: absolute;
+
+          width: 100px;
+          height: 100px;
+          background: #000;
+          color: #fff;
+          font-size: 70px;
+          border: none;
+          border-radius: 10px;
+
+          box-shadow: 0px 5px 0 white;
+        }
+
+        button:active {
+          transition: all;
+          background: rgb(29, 29, 29);
+          transform: translateY(5%);
+
+          box-shadow: 0px 2px 0 white;
+        }
+
+        .left {
+          top: 50px;
+          left: 10px;
+        }
+
+        .right {
+          top: 50px;
+          right: 10px;
+        }
+
+        .down {
+          bottom: 50px;
+          left: 10px;
+        }
+
+        .rotate {
+          bottom: 50px;
+          right: 10px;
+        }
+      }
+
+      /* @media (min-width: 640px) {} */
+      @media only screen and (max-device-width: 932px) and (orientation: landscape) {
+        canvas {
+          width: 60%;
+        }
+
+        button {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <canvas></canvas>
+      <button class="left">&lt;</button>
+      <button class="right">&gt;</button>
+      <button class="down">&or;</button>
+      <button class="rotate">&orarr;</button>
+    </main>
+    <script src="const.js"></script>
+    <script src="utils.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>

@@ -238,6 +238,39 @@ function init() {
 
     if (e.key === "ArrowUp" || e.key.toLowerCase() === "w") piece.rotate();
   });
+
+  // !FOR MOBILE DEVICES
+  if (isMobileDevice()) addTouchControls();
+}
+
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
+
+function addTouchControls() {
+  const $left = document.querySelector(".left");
+  $left.style.opacity = "100%";
+  const $right = document.querySelector(".right");
+  $right.style.opacity = "100%";
+  const $down = document.querySelector(".down");
+  $down.style.opacity = "100%";
+  const $rotate = document.querySelector(".rotate");
+  $rotate.style.opacity = "100%";
+
+  $left.addEventListener("click", () => {
+    updatePiecePos(-1, 0);
+  });
+  $right.addEventListener("click", () => {
+    updatePiecePos(1, 0);
+  });
+  $down.addEventListener("click", () => {
+    updatePiecePos(0, 1);
+  });
+  $rotate.addEventListener("click", () => {
+    piece.rotate();
+  });
 }
 
 let dropCounter = 0;
