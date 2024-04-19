@@ -265,9 +265,13 @@ function addTouchControls() {
   $right.addEventListener("click", () => {
     updatePiecePos(1, 0);
   });
-  $down.addEventListener("click", () => {
-    updatePiecePos(0, 1);
-  });
+
+  let temp;
+  $down.addEventListener("click", () => updatePiecePos(0, 1));
+  $down.addEventListener("touchstart", () => temp = setInterval(() => updatePiecePos(0, 1), 100));
+  $down.addEventListener("touchend", () => clearInterval(temp));
+  $down.addEventListener("touchcancel", () => clearInterval(temp));
+
   $rotate.addEventListener("click", () => {
     piece.rotate();
   });
