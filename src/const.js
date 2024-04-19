@@ -55,4 +55,16 @@ export const PROJECTS = [
     ],
     theme: { isDark: false },
   },
+  {
+    slug: "06-tetris",
+    title: "Tetris",
+    description:
+      "Juego mítico y clásico (Aun en construcción) solo PC",
+    learnings: [
+      "clases",
+      "Movimiento con teclado",
+      "POO",
+    ],
+    theme: { isDark: false },
+  },
 ];
