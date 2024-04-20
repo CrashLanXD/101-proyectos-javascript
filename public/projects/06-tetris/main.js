@@ -2,14 +2,20 @@ let score = 0;
 let isGameOver = false;
 let board;
 let piece;
+let nextPiece;
 let offset = CELL_SIZE * 2;
 
-function drawBlock(x, y, fillColor, strokeWidth, strokeColor) {
-  ctx.fillStyle = fillColor;
+function drawBlock(x, y, strokeWidth, strokeColor) {
+  ctx.fillStyle = COLORS.green1;
   ctx.fillRect(x + offset, y, CELL_SIZE, CELL_SIZE);
-  ctx.lineWidth = strokeWidth;
   ctx.strokeStyle = strokeColor;
-  ctx.strokeRect(x + offset, y, CELL_SIZE, CELL_SIZE);
+  ctx.lineWidth = strokeWidth;
+  ctx.strokeRect(x + offset + 2, y + 2, CELL_SIZE - 3, CELL_SIZE - 3);
+
+  ctx.lineWidth = 4;
+  ctx.strokeRect(x + offset + 9.4, y + 9.4, CELL_SIZE - 18, CELL_SIZE - 18);
+  ctx.fillStyle = COLORS.lightGreen;
+  ctx.fillRect(x + offset + 11, y + 11, CELL_SIZE - 22, CELL_SIZE - 22);
 }
 
 class Board {
@@ -40,13 +46,7 @@ class Board {
     for (let i = 0; i < this.cols; i++) {
       for (let j = 0; j < this.rows; j++) {
         if (this.grid[i][j] > 0) {
-          drawBlock(
-            i * CELL_SIZE,
-            j * CELL_SIZE,
-            COLORS.green,
-            3,
-            COLORS.darkGreen
-          );
+          drawBlock(i * CELL_SIZE, j * CELL_SIZE, 5, COLORS.darkGreen);
         }
       }
     }
@@ -79,9 +79,8 @@ class Board {
           this.grid[i][0] = 0;
         }
 
-        // Increment j to recheck the same row after deleting it
-        j++;
-        score += 10;
+        // Score :D
+        score += 100;
       }
     }
   }
@@ -90,9 +89,9 @@ class Board {
 class Piece {
   constructor() {
     this.shape = [
-      [1, 0],
       [1, 1],
-      [1, 0],
+      [0, 1],
+      [0, 1],
     ];
     this.position = {
       x: Math.floor((BOARD_COLS - this.shape.length) / 2),
@@ -109,8 +108,23 @@ class Piece {
           drawBlock(
             (i + this.position.x) * CELL_SIZE,
             (j + this.position.y) * CELL_SIZE,
-            COLORS.green,
-            3,
+            5,
+            COLORS.darkGreen
+          );
+        }
+      });
+    });
+  }
+
+  drawNextPiece() {
+    fill(BOARD_WIDTH + 139, BOARD_HEIGHT - 168, 132, 135, COLORS.lightGreen);
+    nextPiece.shape.forEach((col, i) => {
+      col.forEach((block, j) => {
+        if (block > 0) {
+          drawBlock(
+            i * CELL_SIZE + 400,
+            j * CELL_SIZE + 380,
+            5,
             COLORS.darkGreen
           );
         }
@@ -166,7 +180,9 @@ class Piece {
 
   spawn() {
     piece = new Piece();
-    piece.shape = PIECES[random(0, PIECES.length - 1)];
+    piece.shape = nextPiece.shape;
+    nextPiece = new Piece();
+    nextPiece.shape = PIECES[random(0, PIECES.length - 1)];
   }
 
   rotate() {
@@ -210,6 +226,7 @@ function restartGame() {
   setTimeout(() => {
     board = new Board();
     piece = new Piece();
+    score = 0;
     isGameOver = false;
     draw();
   }, 1500);
@@ -218,14 +235,16 @@ function restartGame() {
 function init() {
   board = new Board();
   piece = new Piece();
+  nextPiece = new Piece();
 
   size(board.width + offset * 5, board.height + 1);
 
-  // DRAW
+  piece.spawn();
+
   // BACKGROUND
   fill(0, 0, $canvas.width, $canvas.height, COLORS.darkGreen);
 
-  // UI
+  // STATIC UI
   drawStaticUI();
 
   addEventListener("keydown", (e) => {
@@ -268,7 +287,10 @@ function addTouchControls() {
 
   let temp;
   $down.addEventListener("click", () => updatePiecePos(0, 1));
-  $down.addEventListener("touchstart", () => temp = setInterval(() => updatePiecePos(0, 1), 100));
+  $down.addEventListener(
+    "touchstart",
+    () => (temp = setInterval(() => updatePiecePos(0, 1), 100))
+  );
   $down.addEventListener("touchend", () => clearInterval(temp));
   $down.addEventListener("touchcancel", () => clearInterval(temp));
 
@@ -291,18 +313,47 @@ function draw(time = 0) {
     dropCounter = 0;
   }
 
-  drawUI();
+  drawDynamicUI();
 
-  // text("SCORE", BOARD_WIDTH + 50, 90, COLORS.darkGreen);
-  // text(score, BOARD_WIDTH + 90, 120, COLORS.darkGreen);
   board.draw();
   piece.draw();
 }
 
-function drawUI(params) {
-  // BACKGROUND
-  // fill(0, 0, $canvas.width, $canvas.height, COLORS.darkGreen);
+function drawDynamicUI() {
+  // GRID
+  fill(
+    CELL_SIZE * 2,
+    0,
+    BOARD_WIDTH,
+    BOARD_HEIGHT,
+    COLORS.lightGreen
+  );
 
+  text("SCORE", BOARD_WIDTH + offset * 2 + 27, 54.2, COLORS.darkGreen);
+  fill(BOARD_WIDTH + offset + 33, 81, 210, 27, COLORS.lightGreen);
+  text(score, BOARD_WIDTH + offset * 2, 107, COLORS.darkGreen, 32);
+
+  // NEXT PIECE
+  fill(BOARD_WIDTH + 139, BOARD_HEIGHT - 168, 132, 135, COLORS.lightGreen);
+  piece.drawNextPiece();
+}
+
+function drawWalls(x, y) {
+  ctx.fillStyle = COLORS.green1;
+  ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+  ctx.strokeStyle = COLORS.darkGreen;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(x + 2, y + 2, CELL_SIZE - 3, CELL_SIZE - 3);
+
+  ctx.fillStyle = COLORS.lightGreen;
+  ctx.fillRect(x + 7.4, y + 7.4, CELL_SIZE - 14, 4);
+  ctx.fillRect(x + 7.4, y + 7.8, 4, 12);
+  ctx.fillStyle = COLORS.darkGreen;
+  ctx.fillRect(x + 7.4, y + 19.4, CELL_SIZE - 14, 4);
+  ctx.fillRect(x + 19.4, y + 10.8, 4, 12);
+}
+
+function drawStaticUI() {
   // GRID
   fill(
     CELL_SIZE - 3,
@@ -313,15 +364,14 @@ function drawUI(params) {
   );
 
   // WALLS
-  fill(CELL_SIZE, 0, CELL_SIZE, BOARD_HEIGHT, COLORS.green); // L
-  fill(BOARD_WIDTH + offset, 0, CELL_SIZE, BOARD_HEIGHT, COLORS.green); // R
+  for (let i = 0; i < BOARD_ROWS; i++) {
+    drawWalls(CELL_SIZE, i * CELL_SIZE);
+  }
 
-  text("SCORE", BOARD_WIDTH + offset * 2 + 35, 52, COLORS.darkGreen);
-  fill(BOARD_WIDTH + offset + 33, 81, 210, 24, COLORS.lightGreen);
-  text(score, BOARD_WIDTH + offset * 2, 102.5, COLORS.darkGreen);
-}
+  for (let i = 0; i < BOARD_ROWS; i++) {
+    drawWalls(BOARD_WIDTH + offset, i * CELL_SIZE);
+  }
 
-function drawStaticUI() {
   // SCORE
   fill(
     BOARD_WIDTH + offset + 33, //
@@ -349,9 +399,9 @@ function drawStaticUI() {
 
   fill(
     BOARD_WIDTH + offset + 33, //
-    107,
+    109,
     210,
-    4,
+    3,
     COLORS.green
   );
 
@@ -364,6 +414,15 @@ function drawStaticUI() {
 
   fill(BOARD_WIDTH + offset * 2 + 11, 27.5, 129, 30, COLORS.lightGreen);
   fill(BOARD_WIDTH + offset * 2 + 6, 30, 139, 24, COLORS.lightGreen);
+
+  // NEXT PIECE AREA
+  fill(BOARD_WIDTH + 130, BOARD_HEIGHT - 180, 150, 160, COLORS.lightGreen);
+  fill(BOARD_WIDTH + 124, BOARD_HEIGHT - 175, 161, 150, COLORS.lightGreen);
+
+  fill(BOARD_WIDTH + 132, BOARD_HEIGHT - 170, 145, 140, COLORS.darkGreen);
+  fill(BOARD_WIDTH + 136, BOARD_HEIGHT - 173, 138, 146, COLORS.darkGreen);
+
+  fill(BOARD_WIDTH + 139, BOARD_HEIGHT - 168, 132, 135, COLORS.lightGreen);
 }
 init();
 draw();

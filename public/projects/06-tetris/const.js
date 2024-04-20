@@ -12,7 +12,7 @@ const COLORS = {
   darkGreen: "#254834",
   lightGreen: "#92be33",
   green: "#46792f",
-  green1: "#4c753d",
+  green1: "#6c9c37",
 };
 
 // PIECES

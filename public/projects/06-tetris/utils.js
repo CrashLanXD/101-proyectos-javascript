@@ -34,8 +34,8 @@ function clear() {
   ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 }
 
-function text(text, x, y, color = "white") {
-  ctx.font = "24px Monocraft Nerd Font";
+function text(text, x, y, color = "white", fontSize = 30) {
+  ctx.font = `${fontSize}px Monocraft Nerd Font`;
   ctx.fillStyle = color;
 
   ctx.fillText(text, x, y);
