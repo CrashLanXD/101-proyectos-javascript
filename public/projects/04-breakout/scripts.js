@@ -372,9 +372,6 @@ function drawLives() {
   CTX.fillText(`LIVES: ${lives}`, $CANVAS.width - 55, 14);
 }
 
-// Clear canvas
-const clearCanvas = () => CTX.clearRect(0, 0, $CANVAS.width, $CANVAS.height);
-
 // Function to draw bricks in the canvas
 function drawBricks() {
   for (let i = 0; i < BRICK_COL_COUNT; i++) {
@@ -387,11 +384,25 @@ function drawBricks() {
   }
 }
 
+// Function to fill a rectangle on the canvas
+function fill(
+  x = 0,
+  y = 0,
+  w = $CANVAS.width,
+  h = $CANVAS.height,
+  color = "#000"
+) {
+  // Set the fill style to the provided color
+  CTX.fillStyle = color;
+  // Fill a rectangle with the provided dimensions and position
+  CTX.fillRect(x, y, w, h);
+}
+
 // * Main draw function
 function draw() {
   window.requestAnimationFrame(draw);
   if (checkFPS()) return;
-  clearCanvas();
+  fill();
   drawFPS();
 
   // !DRAW
