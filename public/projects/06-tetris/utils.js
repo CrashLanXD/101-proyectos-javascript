@@ -1,12 +1,15 @@
+// Select the canvas element from the DOM
 const $canvas = document.querySelector("canvas");
+// Get the 2D rendering context of the canvas
 const ctx = $canvas.getContext("2d");
 
+// Initialize variables for canvas width and height
 let width = innerWidth;
 let height = innerHeight;
 
-let f = undefined;
-
+// Function to set the size of the canvas
 function size(w, h) {
+  // If both argument are provided, set the canvas size accordingly
   if (w && h) {
     $canvas.width = w;
     $canvas.height = h;
@@ -15,10 +18,12 @@ function size(w, h) {
     return;
   }
 
+  // Otherwise, set the canvas size to default width and height
   $canvas.width = width;
   $canvas.height = height;
 }
 
+// Function to fill a rectangle on the canvas
 function fill(
   x = 0,
   y = 0,
@@ -26,75 +31,39 @@ function fill(
   h = $canvas.height,
   color = "#000"
 ) {
+  // Set the fill style to the provided color
   ctx.fillStyle = color;
+  // Fill a rectangle with the provided dimensions and position
   ctx.fillRect(x, y, w, h);
 }
 
-function clear() {
-  ctx.clearRect(0, 0, $canvas.width, $canvas.height);
-}
-
+// Function to draw text on the canvas
 function text(text, x, y, color = "white", fontSize = 30) {
+  // Set the font style for the canvas
+  // Monocraft is a special font, it probably doesn't work
   ctx.font = `${fontSize}px Monocraft Nerd Font`;
+  // Set the fill style for the text
   ctx.fillStyle = color;
 
+  // Draw the text at the specified position
   ctx.fillText(text, x, y);
 }
 
-function frameRate(frameRate) {
-  f = frameRate;
-}
-
-function repeat(fn, frames = 1) {
-  let frameCount = 0;
-  function loop() {
-    frameCount++;
-    if (frameCount > frames) {
-      frameCount = 0;
-      fn();
-    }
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-function rect(x, y, w, h, color) {
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, w, h);
-}
-
-function ellipse(x, y, radius, color) {
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.closePath;
-}
-
-function line(x1, y1, x2, y2, color) {
-  ctx.strokeStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(x1, y1);
-  ctx.lineTo(x2, y2);
-  ctx.stroke();
-}
-
+// Function to generate a random integer within a given range
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function getDistance(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-}
-
-function collision(o1, o2) {
-  return getDistance(o1.x, o1.y, o2.x, o2.y) <= o1.radius + o2.radius;
-}
-
+// Function to create a 2D array with given number of columns and rows
 function make2DArray(cols, rows) {
   let arr = new Array(cols);
+  // Loop trough each column
   for (let i = 0; i < cols; i++) {
+    // Create a new array for each column and fill it with zeros
     arr[i] = new Array(rows).fill(0);
   }
+
+  // Return the 2D array
   return arr;
 }
+// :D
