@@ -9,89 +9,83 @@
     <style>
       body {
         background-color: #0a0a0a;
-      }
-
-      main {
-        display: block;
-        margin: auto;
-        flex-direction: column;
-        height: 95dvh;
-        width: 96%;
-        position: relative;
+        display: grid;
+        place-content: center;
+        box-sizing: border-box;
       }
 
       canvas {
         border: 25px solid #8e8e8e;
         border-bottom: transparent;
         background: #000;
-        margin: auto;
-        display: block;
+        width: 360px;
+        margin-top: 40px;
       }
 
-      button {
-        opacity: 0%;
-        top: 10%;
-        border: none;
-        background: #000;
-        width: 11%;
-        height: 80%;
-        position: absolute;
+      main {
+        background: #fff;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 95dvh;
+        width: 95dvw;
+        position: relative;
 
-        span {
-          display: block;
-        }
-
-        .arrow-left,
-        .arrow-right {
-          width: 0;
-          height: 0;
-          border-top: 20px solid transparent;
-          border-bottom: 20px solid transparent;
-          margin: 0 auto;
-        }
-
-        .arrow-left {
-          border-right: 20px solid #e8303c;
-        }
-
-        .arrow-right {
-          border-left: 20px solid #e8303c;
+        button {
+          position: absolute;
+          bottom: 100px;
+          background: #202020;
+          border: none;
+          color: #fff;
+          height: 200px;
+          width: 170px;
+          box-shadow: 0 5px 0 #000;
+  
+          font-family: sans-serif;
+          font-size: 80px;
+          color: #15151571;
+  
+          &:active {
+            transition-duration: 10ms;
+            transform: translateY(3%);
+            box-shadow: 0 1px 0 #000;
+          }
         }
       }
+
 
       #l {
+        border-bottom: 6px inset rgba(0, 0, 0, 0.5);
+        border-left: 6px inset rgba(255, 255, 255, 0.5);
+        border-right: 6px solid rgba(0, 0, 0, 0.5);
+        border-top: 6px inset rgba(255, 255, 255, 0.5);
         left: 10px;
       }
 
       #r {
+        border-bottom: 6px inset rgba(0, 0, 0, 0.5);
+        border-left: 6px inset rgba(0, 0, 0, 0.5);
+        border-right: 6px inset rgba(255, 255, 255, 0.5);
+        border-top: 6px inset rgba(255, 255, 255, 0.5);
         right: 10px;
       }
 
-      button:active {
-        background: #090909;
+      
+        @media only screen and (max-device-width: 955px) and (orientation: landscape) {
+          main {
+            background: yellow;
+          }
 
-        span {
-          transform: scale(0.9);
+          canvas {
+            width: 460px;
+          }
         }
-      }
-
-      @media screen and (orientation: portrait) {
-        main {
-          width: 123%;
-          margin-top: 200px;
-        }
-        button {
-          height: 30%;
-          width: 45%;
-          top: 400px;
-        }
-      }
     </style>
 
     <main>
       <canvas></canvas>
-      <button id="l" title="left"><span class="arrow-left"></span></button>
-      <button id="r" title="right"><span class="arrow-right"></span></button>
+      <button id="l">&lt;</button>
+      <button id="r">&gt;</button>
     </main>
 
     <script src="audio.js"></script>
