@@ -76,35 +76,37 @@
         }
       }
 
-      @media only screen and (max-device-height: 932px) and (orientation: portrait) {
+      /* and (max-device-height: 932px)  */
+      @media only screen and (orientation: portrait) {
         canvas {
           margin-top: 20px;
         }
       }
-      @media only screen and (max-device-width: 932px) and (orientation: landscape) {
+      /* and (max-device-width: 932px) */
+      @media only screen and (orientation: landscape) {
         canvas {
-          /* width: 400px; */
-          width: 43%;
+          width: 210px;
         }
 
         main {
-          width: 100dvw;
+          width: 102dvw;
+          background: red;
 
           .left {
-            top: 80px;
-            left: 2px;
+            top: 60px;
+            left: 13px;
           }
           .right {
-            top: 80px;
-            right: 2px;
+            top: 60px;
+            right: 13px;
           }
           .down {
-            bottom: 80px;
-            left: 2px;
+            bottom: 60px;
+            left: 13px;
           }
           .rotate {
-            right: 2px;
-            bottom: 80px;
+            right: 13px;
+            bottom: 60px;
           }
         }
 
