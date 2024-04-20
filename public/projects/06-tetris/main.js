@@ -67,6 +67,7 @@ class Board {
 
         // Score :D
         score += 100;
+        j++;
       }
     }
   }
