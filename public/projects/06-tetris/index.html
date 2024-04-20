@@ -15,14 +15,15 @@
       canvas {
         margin-top: 10px;
         width: 98%;
-        margin: auto;
+        height: fit-content;
         -webkit-user-select: none;
         user-select: none;
       }
 
       main {
+        background: #fff;
         display: flex;
-        align-items: center;
+        justify-content: center;
 
         height: 90dvh;
         position: relative;
@@ -55,12 +56,12 @@
         }
 
         .left {
-          bottom: 130px;
+          bottom: 140px;
           left: 45px;
         }
 
         .right {
-          bottom: 130px;
+          bottom: 140px;
           right: 45px;
         }
 
@@ -77,31 +78,32 @@
 
       @media only screen and (max-device-height: 932px) and (orientation: portrait) {
         canvas {
-          margin-top: 80px;
+          margin-top: 20px;
         }
       }
       @media only screen and (max-device-width: 932px) and (orientation: landscape) {
         canvas {
-          width: 400px;
+          /* width: 400px; */
+          width: 43%;
         }
 
         main {
-          width: 900px;
+          width: 100dvw;
 
           .left {
             top: 80px;
-            left: 10px;
+            left: 2px;
           }
           .right {
             top: 80px;
-            right: 10px;
+            right: 2px;
           }
           .down {
             bottom: 80px;
-            left: 10px;
+            left: 2px;
           }
           .rotate {
-            right: 10px;
+            right: 2px;
             bottom: 80px;
           }
         }
