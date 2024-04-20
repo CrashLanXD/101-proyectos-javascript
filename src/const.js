@@ -35,7 +35,7 @@ export const PROJECTS = [
     slug: "04-breakout",
     title: "Breakout",
     description:
-      "Juego mítico y clásico, Breakout del Atari para controlar con teclado",
+      "¡Llega el nuevo juego de Breakout, Desafía tus habilidades y reflejos mientras rompes ladrillos con tu paleta. ¡Prepárate para horas de diversión con este emocionante desafío de habilidad!",
     learnings: [
       "Ángulos",
       "Movimiento con teclado",
@@ -47,24 +47,16 @@ export const PROJECTS = [
     slug: "05-space-invaders",
     title: "Space Invaders",
     description:
-      "Juego mítico y clásico del Atari 2600 (Aun en construcción) solo PC",
-    learnings: [
-      "clases",
-      "Movimiento con teclado",
-      "POO",
-    ],
+      "¡Prepárate para la batalla del siglo con Space Invaders! Defiende la Tierra de la invasión alienígena en este emocionante juego de disparos. ¡Destruye a los invasores antes de que sea demasiado tarde y conviértete en el héroe de la humanidad! ¿Tienes lo necesario para salvar el planeta?",
+    learnings: ["clases", "Movimiento con teclado", "POO"],
     theme: { isDark: false },
   },
   {
     slug: "06-tetris",
     title: "Tetris",
     description:
-      "Juego mítico y clásico (Aun en construcción) solo PC",
-    learnings: [
-      "clases",
-      "Movimiento con teclado",
-      "POO",
-    ],
+      "¡Domina la velocidad y la estrategia en este electrizante desafío de bloques en caída! Tetris: ¡el fenómeno de puzzle que te mantendrá pegado a la pantalla por horas de diversión sin parar!",
+    learnings: ["clases", "Movimiento con teclado", "POO"],
     theme: { isDark: false },
   },
 ];
