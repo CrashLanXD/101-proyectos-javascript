@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tetris</title>
-
+    <title>TETRIS</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400;1,700&display=swap");
       body {
         background: #131313;
         display: grid;
@@ -25,6 +25,7 @@
         justify-content: center;
 
         height: 90dvh;
+        width: 100%;
         position: relative;
 
         button {
@@ -36,6 +37,10 @@
           height: 100px;
 
           font-size: 80px;
+        }
+
+        .down,
+        .rotate {
           border-radius: 50%;
 
           font-family: sans-serif;
@@ -46,31 +51,49 @@
           color: #860b47;
 
           box-shadow: 0 5px 0 #860b47;
+          text-align: center;
+
+          &:active {
+            transition-duration: 10ms;
+            transform: translateY(3%);
+            box-shadow: 0 1px 0 #860b47;
+          }
         }
 
-        button:active {
-          transition-duration: 10ms;
-          transform: translateY(3%);
-          box-shadow: 0 1px 0 #860b47;
+        .left,
+        .right {
+          border-radius: 4px;
+          border: none;
+
+          background: #292929;
+          color: #18171a;
+
+          box-shadow: 0 5px 0 #1d1c21;
+
+          &:active {
+            transition-duration: 10ms;
+            transform: translateY(3%);
+            box-shadow: 0 1px 0 #1d1c21;
+          }
         }
 
         .left {
-          bottom: 140px;
+          bottom: 15px;
           left: 45px;
         }
 
         .right {
-          bottom: 140px;
+          bottom: 15px;
           right: 45px;
         }
 
         .down {
-          bottom: 15px;
+          bottom: 140px;
           left: 45px;
         }
 
         .rotate {
-          bottom: 15px;
+          bottom: 140px;
           right: 45px;
         }
       }
@@ -80,29 +103,35 @@
           margin-top: 20px;
         }
       }
-      @media only screen and (max-device-width: 955px) and (orientation: landscape) {
+      @media only screen and (max-device-width: 1100px) and (orientation: landscape) {
+        body {
+          display: flex;
+          justify-content: center;
+        }
+
         canvas {
-          width: 300px;
+          width: 40%;
+          margin: 0;
         }
 
         main {
-          width: 102dvw;
+          width: 100%;
 
           .left {
-            top: 50px;
-            left: 13px;
+            bottom: 55px;
+            left: 20px;
           }
           .right {
-            top: 50px;
-            right: 13px;
+            right: 20px;
+            bottom: 55px;
           }
           .down {
-            bottom: 55px;
-            left: 13px;
+            top: 40px;
+            left: 20px;
           }
           .rotate {
-            right: 13px;
-            bottom: 55px;
+            top: 40px;
+            right: 20px;
           }
         }
 
@@ -112,6 +141,7 @@
       }
     </style>
   </head>
+
   <body>
     <main>
       <canvas></canvas>
@@ -120,8 +150,11 @@
       <button class="down">&or;</button>
       <button class="rotate">&orarr;</button>
     </main>
+
     <script src="const.js"></script>
     <script src="utils.js"></script>
+    <script src="board.js"></script>
+    <script src="piece.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

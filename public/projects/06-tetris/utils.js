@@ -37,11 +37,21 @@ function fill(
   ctx.fillRect(x, y, w, h);
 }
 
+// Alternative fonts
+const fontFamilies = [
+  "Monocraft Nerd Font",
+  "Cousine",
+  "Arial",
+  "Helvetica",
+  "sans-serif",
+];
+const font = fontFamilies.join(", ");
 // Function to draw text on the canvas
 function text(text, x, y, color = "white", fontSize = 30) {
   // Set the font style for the canvas
-  // Monocraft is a special font, it probably doesn't work
-  ctx.font = `${fontSize}px Monocraft Nerd Font`;
+
+  // Monocraft is a special font, it probably doesn't work ¬_¬
+  ctx.font = `${fontSize}px ${font}`;
   // Set the fill style for the text
   ctx.fillStyle = color;
 
@@ -52,6 +62,18 @@ function text(text, x, y, color = "white", fontSize = 30) {
 // Function to generate a random integer within a given range
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+let lastNumber = null;
+function randomNoRepeat(min, max) {
+  let randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+
+  while (randomNumber === lastNumber) {
+    randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  lastNumber = randomNumber;
+  return randomNumber;
 }
 
 // Function to create a 2D array with given number of columns and rows
