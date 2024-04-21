@@ -153,8 +153,10 @@ function draw(time = 0) {
   const deltaTime = time - lastTime;
   lastTime = time;
 
+  const dropInterval = 1000 * (0.8 - (level - 1) * 0.007);
+
   dropCounter += deltaTime;
-  if (dropCounter > 1000) {
+  if (dropCounter > dropInterval) {
     updatePiecePos(0, 1);
     dropCounter = 0;
   }
