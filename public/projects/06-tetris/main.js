@@ -181,7 +181,7 @@ function drawDynamicUI() {
 
   // Draw the level
   fill(BOARD_WIDTH + offset * 2 + 7, 200, 137, 29, COLORS.lightGreen);
-  text(level, BOARD_WIDTH + offset * 2 + 12, 227, COLORS.darkGreen, 32);
+  text(maxLevel, BOARD_WIDTH + offset * 2 + 12, 227, COLORS.darkGreen, 32);
 
   // Draw the lines
   fill(BOARD_WIDTH + offset * 2 + 7, 285, 137, 29, COLORS.lightGreen);
