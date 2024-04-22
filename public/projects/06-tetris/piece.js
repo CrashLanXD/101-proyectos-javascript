@@ -102,7 +102,7 @@ class Piece {
     nextPiece.shape = PIECES[[random(0, PIECES.length - 1)]];
   }
 
-  // Rotate the piece clockwise
+  // Rotate the piece
   rotate(clockwise = false) {
     if (clockwise) {
       // Create a new array to hold the rotated shape
