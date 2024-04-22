@@ -103,24 +103,45 @@ class Piece {
   }
 
   // Rotate the piece clockwise
-  rotate() {
-    // Create a new array to hold the rotated shape
-    const rotated = [];
-    const currentShape = this.shape;
+  rotate(clockwise = false) {
+    if (clockwise) {
+      // Create a new array to hold the rotated shape
+      const rotated = [];
+      const currentShape = this.shape;
 
-    // Rotate each block of the shape
-    for (let i = 0; i < this.shape[0].length; i++) {
-      const row = [];
-      for (let j = this.shape.length - 1; j >= 0; j--) {
-        row.push(currentShape[j][i]);
+      // Rotate each block of the shape
+      for (let i = 0; i < this.shape[0].length; i++) {
+        const row = [];
+        for (let j = this.shape.length - 1; j >= 0; j--) {
+          row.push(currentShape[j][i]);
+        }
+
+        rotated.push(row);
       }
 
-      rotated.push(row);
-    }
+      // Check if rotation results in a collision
+      if (!this.checkCollision(0, 0, rotated)) {
+        this.shape = rotated; // Update the shape with the rotated one
+      }
+    } else {
+      // Create a new array to hold the rotated shape
+      const rotated = [];
+      const currentShape = this.shape;
 
-    // Check if rotation results in a collision
-    if (!this.checkCollision(0, 0, rotated)) {
-      this.shape = rotated; // Update the shape with the rotated one
+      // Rotate each block of the shape
+      for (let i = this.shape[0].length - 1; i >= 0; i--) {
+        const row = [];
+        for (let j = 0; j < this.shape.length; j++) {
+          row.push(currentShape[j][i]);
+        }
+
+        rotated.push(row);
+      }
+
+      // Check if rotation results in a collision
+      if (!this.checkCollision(0, 0, rotated)) {
+        this.shape = rotated; // Update the shape with the rotated one
+      }
     }
   }
 }

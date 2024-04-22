@@ -83,20 +83,21 @@ function drawBlock(x, y, type) {
 }
 
 // Draw the block with a pretty design? :D
+// border:
+let b = 3.5;
 function drawBlockType1(x, y) {
-  ctx.fillStyle = COLORS.lightGreen;
-  ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
   ctx.fillStyle = COLORS.darkGreen;
-  ctx.fillRect(offset + x + 7.3, y + 7.3, CELL_SIZE - 12.5, CELL_SIZE - 12.5);
-  ctx.strokeStyle = COLORS.darkGreen;
-  ctx.lineWidth = 3.9;
-  ctx.strokeRect(offset + x + 2, y + 2, CELL_SIZE - 2, CELL_SIZE - 2);
+  ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
+  ctx.fillStyle = COLORS.lightGreen;
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - b * 2, CELL_SIZE - b * 2);
+  ctx.fillStyle = COLORS.darkGreen;
+  ctx.fillRect(offset + x + 7.5, y + 7.5, CELL_SIZE - 15, CELL_SIZE - 15);
 }
 function drawBlockType2(x, y) {
-  ctx.fillStyle = COLORS.darkGreen;
+  ctx.fillStyle = COLORS.green4;
   ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
   ctx.fillStyle = COLORS.green2;
-  ctx.fillRect(offset + x + 3, y + 3, CELL_SIZE - 6, CELL_SIZE - 6);
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - b * 2, CELL_SIZE - b * 2);
   ctx.fillStyle = COLORS.green3;
   ctx.fillRect(offset + x + 14, y + 3, CELL_SIZE - 26, CELL_SIZE - 26); // 1
   ctx.fillRect(offset + x + 7, y + 6, CELL_SIZE - 26, CELL_SIZE - 26); // 2
@@ -108,57 +109,52 @@ function drawBlockType2(x, y) {
   ctx.fillRect(offset + x + 14, y + 23, CELL_SIZE - 26, CELL_SIZE - 26);
 }
 function drawBlockType3(x, y) {
-  ctx.fillStyle = COLORS.green;
+  ctx.fillStyle = COLORS.green4;
   ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
-  ctx.strokeStyle = COLORS.darkGreen;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(offset + x + 2, y + 2, CELL_SIZE - 3, CELL_SIZE - 3);
-
-  ctx.lineWidth = 4;
-  ctx.strokeRect(offset + x + 9.4, y + 9.4, CELL_SIZE - 18, CELL_SIZE - 18);
+  ctx.fillStyle = COLORS.green;
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - b * 2, CELL_SIZE - b * 2);
+  ctx.fillStyle = COLORS.green4;
+  ctx.fillRect(offset + x + 7.5, y + 7.5, CELL_SIZE - 15, CELL_SIZE - 15);
   ctx.fillStyle = COLORS.lightGreen;
-  ctx.fillRect(offset + x + 11, y + 11, CELL_SIZE - 22, CELL_SIZE - 22);
+  ctx.fillRect(offset + x + 11.3, y + 11.3, CELL_SIZE - 22.6, CELL_SIZE - 22.6);
 }
 function drawBlockType4(x, y) {
-  ctx.fillStyle = COLORS.green1;
+  ctx.fillStyle = COLORS.green4;
   ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
-  ctx.fillStyle = COLORS.darkGreen;
-  ctx.fillRect(offset + x + 11, y + 11, CELL_SIZE - 21, CELL_SIZE - 21);
-  ctx.strokeStyle = COLORS.darkGreen;
-  ctx.lineWidth = 3.2;
-  ctx.strokeRect(offset + x + 1, y + 1, CELL_SIZE - 1, CELL_SIZE - 1);
-}
-function drawBlockType5(x, y) {
   ctx.fillStyle = COLORS.green1;
-  ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
-  ctx.strokeStyle = COLORS.darkGreen;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(offset + x + 2, y + 2, CELL_SIZE - 3, CELL_SIZE - 3);
-
-  ctx.lineWidth = 4;
-  ctx.strokeRect(offset + x + 9.4, y + 9.4, CELL_SIZE - 18, CELL_SIZE - 18);
-  ctx.fillStyle = COLORS.lightGreen;
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - b * 2, CELL_SIZE - b * 2);
+  ctx.fillStyle = COLORS.green4;
   ctx.fillRect(offset + x + 11, y + 11, CELL_SIZE - 22, CELL_SIZE - 22);
 }
+function drawBlockType5(x, y) {
+  ctx.fillStyle = COLORS.green4;
+  ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
+  ctx.fillStyle = COLORS.green1;
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - b * 2, CELL_SIZE - b * 2);
+
+  ctx.fillStyle = COLORS.green4;
+  ctx.fillRect(offset + x + 7.5, y + 7.5, CELL_SIZE - 15, CELL_SIZE - 15);
+  ctx.fillStyle = COLORS.lightGreen;
+  ctx.fillRect(offset + x + 11.3, y + 11.3, CELL_SIZE - 22.6, CELL_SIZE - 22.6);
+}
 function drawBlockType6(x, y) {
-  ctx.fillStyle = COLORS.darkGreen;
+  ctx.fillStyle = COLORS.green4;
   ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
   ctx.fillStyle = COLORS.green;
-  ctx.fillRect(offset + x + 4, y + 4, CELL_SIZE - 8, CELL_SIZE - 8);
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - (b * 2), CELL_SIZE - (b * 2));
 }
 function drawBlockType7(x, y) {
-  ctx.fillStyle = COLORS.green1;
+  ctx.fillStyle = COLORS.green4;
   ctx.fillRect(offset + x, y, CELL_SIZE, CELL_SIZE);
-  ctx.strokeStyle = COLORS.darkGreen;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(offset + x + 2, y + 2, CELL_SIZE - 3, CELL_SIZE - 3);
+  ctx.fillStyle = COLORS.green1;
+  ctx.fillRect(offset + x + b, y + b, CELL_SIZE - (b * 2), CELL_SIZE - (b * 2));
 
   ctx.fillStyle = COLORS.lightGreen;
-  ctx.fillRect(offset + x + 7.4, y + 7.4, CELL_SIZE - 14, 4);
-  ctx.fillRect(offset + x + 7.4, y + 7.8, 4, 12);
-  ctx.fillStyle = COLORS.darkGreen;
-  ctx.fillRect(offset + x + 7.4, y + 19.4, CELL_SIZE - 14, 4);
-  ctx.fillRect(offset + x + 19.4, y + 10.8, 4, 12);
+  ctx.fillRect(offset + x + 7.4, y + 7.4, CELL_SIZE - 15, 4);
+  ctx.fillRect(offset + x + 7.4, y + 7.4, 4, 11);
+  ctx.fillStyle = COLORS.green4;
+  ctx.fillRect(offset + x + 7.4, y + 18.6, CELL_SIZE - 15, 4);
+  ctx.fillRect(offset + x + 18.6, y + 11.4, 4, 11);
 }
 function drawBlockTypeDeath(x, y) {
   ctx.fillStyle = COLORS.green4;
@@ -171,6 +167,28 @@ function drawBlockTypeDeath(x, y) {
   ctx.fillStyle = COLORS.green3;
   ctx.fillRect(offset + x + 3, y + CELL_SIZE - 6, CELL_SIZE - 6, 4);
   ctx.fillRect(offset + x + CELL_SIZE - 7, y + 8, 4, CELL_SIZE - 12);
+}
+function drawWalls(x, y) {
+  // Draw wall on the sides of the board with a pretty design? :D
+  ctx.fillStyle = COLORS.green2;
+  ctx.fillRect(x, y, CELL_SIZE, 24);
+  ctx.fillStyle = COLORS.green4;
+
+  ctx.fillRect(x, y + 9, CELL_SIZE, 4);
+  ctx.fillRect(x, y + 22, CELL_SIZE, 4.1);
+
+  ctx.fillRect(x + 5, y - 1, 3, 10);
+  ctx.fillRect(x + 20, y - 1, 3, 10);
+
+  ctx.fillRect(x + 11, y + 12, 3, 10);
+  ctx.fillRect(x + 27, y + 12, 3, 10);
+
+  ctx.fillStyle = COLORS.lightGreen;
+  ctx.fillRect(x + 9, y, 4, 4);
+  ctx.fillRect(x + 24, y, 4, 4);
+
+  ctx.fillRect(x, y + 13, 4, 4);
+  ctx.fillRect(x + 15, y + 13, 4, 4);
 }
 
 //#endregion

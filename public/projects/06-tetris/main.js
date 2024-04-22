@@ -192,30 +192,6 @@ function drawDynamicUI() {
   piece.drawNextPiece();
 }
 
-// Function to draw the walls on the board
-function drawWalls(x, y) {
-  // Draw wall on the sides of the board with a pretty design? :D
-  ctx.fillStyle = COLORS.green2;
-  ctx.fillRect(x, y, CELL_SIZE, 24);
-  ctx.fillStyle = COLORS.green4;
-
-  ctx.fillRect(x, y + 9, CELL_SIZE, 4);
-  ctx.fillRect(x, y + 22, CELL_SIZE, 4.1);
-
-  ctx.fillRect(x + 5, y, 3, 10);
-  ctx.fillRect(x + 20, y, 3, 10);
-
-  ctx.fillRect(x + 11, y + 12, 3, 10);
-  ctx.fillRect(x + 27, y + 12, 3, 10);
-
-  ctx.fillStyle = COLORS.lightGreen;
-  ctx.fillRect(x + 9, y, 4, 4);
-  ctx.fillRect(x + 24, y, 4, 4);
-
-  ctx.fillRect(x, y + 13, 4, 4);
-  ctx.fillRect(x + 15, y + 13, 4, 4);
-}
-
 // Function to draw static ui elements
 function drawStaticUI() {
   // GRID
