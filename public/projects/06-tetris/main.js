@@ -82,14 +82,15 @@ function init() {
 
   // Initialize the keyboard listener
   addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a")
+    if ((e.key === "ArrowLeft" || e.key.toLowerCase() === "a") && !isGameOver)
       updatePiecePos(-1, 0);
-    if (e.key === "ArrowRight" || e.key.toLowerCase() === "d")
+    if ((e.key === "ArrowRight" || e.key.toLowerCase() === "d") && !isGameOver)
       updatePiecePos(1, 0);
-    if (e.key === "ArrowDown" || e.key.toLowerCase() === "s")
+    if ((e.key === "ArrowDown" || e.key.toLowerCase() === "s") && !isGameOver)
       updatePiecePos(0, 1);
 
-    if (e.key === "ArrowUp" || e.key.toLowerCase() === "w") piece.rotate();
+    if ((e.key === "ArrowUp" || e.key.toLowerCase() === "w") && !isGameOver)
+      piece.rotate();
   });
 
   // FOR MOBILE DEVICES
@@ -119,27 +120,42 @@ function addTouchControls() {
   const $rotate = document.querySelector(".rotate");
   $rotate.style.opacity = "100%";
 
+  let leftInterval, rightInterval, downInterval;
   // Add the listeners for left and right buttons
-  $left.addEventListener("click", () => {
-    updatePiecePos(-1, 0);
+  $left.addEventListener("touchstart", () => {
+    if (!isGameOver) {
+      updatePiecePos(-1, 0);
+      leftInterval = setInterval(() => {
+        updatePiecePos(-1, 0);
+      }, 100);
+    }
   });
-  $right.addEventListener("click", () => {
-    updatePiecePos(1, 0);
+  $left.addEventListener("touchend", () => clearInterval(leftInterval));
+
+  $right.addEventListener("touchstart", () => {
+    if (!isGameOver) {
+      updatePiecePos(1, 0);
+      rightInterval = setInterval(() => {
+        updatePiecePos(1, 0);
+      }, 100);
+    }
   });
+  $right.addEventListener("touchend", () => clearInterval(rightInterval));
 
   // Add the listener for down button
-  let temp;
-  $down.addEventListener("click", () => updatePiecePos(0, 1));
-  $down.addEventListener(
-    "touchstart",
-    () => (temp = setInterval(() => updatePiecePos(0, 1), 100))
-  );
-  $down.addEventListener("touchend", () => clearInterval(temp));
-  $down.addEventListener("touchcancel", () => clearInterval(temp));
+  $down.addEventListener("touchstart", () => {
+    if (!isGameOver) {
+      updatePiecePos(0, 1);
+      downInterval = setInterval(() => {
+        updatePiecePos(0, 1);
+      }, 100);
+    }
+  });
+  $down.addEventListener("touchend", () => clearInterval(downInterval));
 
   // Add the listener for the rotate piece button
-  $rotate.addEventListener("click", () => {
-    piece.rotate();
+  $rotate.addEventListener("touchstart", () => {
+    if (!isGameOver) piece.rotate();
   });
 }
 
