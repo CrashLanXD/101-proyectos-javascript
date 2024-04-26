@@ -1,26 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Game of Life</title>
-  </head>
-  <body>
+    <title>The Game Of Life</title>
+
     <style>
+      html {
+        color-scheme: dark;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
-        background-color: rgb(24, 24, 27);
+        background: #181818;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      main {
+        width: 75%;
+        height: 100%;
+        float: left;
+        display: flex;
       }
 
       canvas {
-        border: 1px solid #cecece7e;
-        background: #eeeeee;
+        border: 1px solid #fff;
         margin: 0 auto;
-        display: block;
+        resize: both;
+        overflow: scroll;
+      }
+
+      aside {
+        position: absolute;
+        right: 0;
+        width: 20%;
+        background: #222222;
+        padding: 13px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .input {
+        height: 20px;
+        border-radius: 10px;
+        outline: 2px solid #d9a90d;
+        border: 0;
+        outline-offset: 3px;
+        padding-left: 10px;
+        transition: 0.25s;
+        margin: 10px 0 10px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+
+        &:focus {
+          outline-offset: 5px;
+          background: #2b2b2b;
+        }
+      }
+
+      .button {
+        border: none;
+        width: 100%;
+        height: 30px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        background: #1c1a1c;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        .text {
+          font-weight: 600;
+          color: #cacaca;
+          font-size: medium;
+        }
+
+        &:hover {
+          background: linear-gradient(0deg, #f3f37c, #d9a90d);
+          box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+            inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+            0px 0px 0px 4px rgba(255, 255, 255, 0.2), 0px 0px 190px 0px #fff017;
+          transform: translateY(-2px);
+        }
+
+        &:hover .text {
+          color: #101010;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+        body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        main {
+          width: 94dvw;
+        }
+        aside {
+          position: relative;
+          width: 94dvw;
+        }
       }
     </style>
+  </head>
+  <body>
+    <main>
+      <canvas></canvas>
+    </main>
+    <aside id="options">
+      <h2>CONTROLES</h2>
 
-    <canvas></canvas>
+      <label class="label" for="boardSize">Tamaño del Tablero:</label>
+      <input class="input" type="text" id="boardSize" value="400x280" />
 
-    <script src="main.js"></script>
+      <label class="label" for="cellSize">Tamaño de la Celda:</label>
+      <input class="input" type="number" id="cellSize" value="3" min="1" />
+
+      <label class="label" for="updateSpeed"
+        >Velocidad de Actualización (ms):</label
+      >
+      <input
+        class="input"
+        type="number"
+        id="updateSpeed"
+        value="100"
+        min="50"
+        max="1000"
+      />
+
+      <label class="label" for="probability">Probabilidad:</label>
+      <input
+        class="input"
+        type="number"
+        id="probability"
+        value="70"
+        min="0"
+        max="99"
+      />
+
+      <label class="label" for="gameRules">Regla:</label>
+      <select
+        class="input"
+        title="reglas del juego"
+        name="gameRules"
+        id="gameRules"
+      >
+        <option value="0">Juego de la Vida de Conway</option>
+        <option value="1">HighLife</option>
+        <option value="2">34 Life</option>
+      </select>
+
+      <p>Generación <span class="generations">1</span></p>
+      <button class="button" id="applyChanges">
+        <span class="text">Generar</span>
+      </button>
+    </aside>
+
+    <script src="utils.js"></script>
+    <script src="game.js"></script>
+    <script src="index.js"></script>
+    <script src="userInteraction.js"></script>
   </body>
 </html>

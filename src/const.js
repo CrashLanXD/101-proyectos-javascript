@@ -23,7 +23,7 @@ export const PROJECTS = [
     slug: "03-game-of-life",
     title: "Game of Life",
     description:
-      "El famoso juego de simulación de vida de John Conway, donde las células evolucionan según reglas predefinidas y forman patrones complejos.",
+      "Explora la fascinante simulación de la evolución y la supervivencia en el clásico Juego de la Vida. ¡Observa cómo las formas de vida se desarrollan y evolucionan ante tus ojos!",
     learnings: [
       "Reglas del juego de la vida",
       "Implementación de algoritmos de evolución",
