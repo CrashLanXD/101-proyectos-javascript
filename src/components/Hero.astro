@@ -5,13 +5,16 @@
     <span class="font-Argon text-6xl ml-10 text-amber-400 text-shadow-amber"
       >101,</span
     >
-    <span class="font-Neon text-5xl ml-10 text-yellow-300 text-shadow-yellow"
+    <span
+      class="font-Neon text-5xl ml-10 text-yellow-400 dark:text-yellow-300 text-shadow-yellow"
       >Proyectos,</span
     >
-    <span class="font-Radon text-5xl ml-10 text-orange-300 text-shadow-orange"
+    <span
+      class="font-Radon text-5xl ml-10 text-orange-400 dark:text-orange-300 text-shadow-orange"
       >en,</span
     >
-    <span class="font-Krypton text-4xl ml-10 text-amber-300 text-shadow-amber"
+    <span
+      class="font-Krypton text-4xl ml-10 text-amber-500/90 dark:text-amber-300 text-shadow-amber"
       >javascript</span
     >
     <br />
@@ -27,6 +30,15 @@
     );
     background-size: 32px 32px; /* Dot size */
     background-position: 50px 50px; /* Space between dots */
+  }
+
+  @media (prefers-color-scheme: light) {
+    .dotted-bg {
+      background-image: radial-gradient(
+        rgba(190, 127, 11, 0.664) 10%,
+        transparent 0
+      );
+    }
   }
 
   .text-shadow-lime {

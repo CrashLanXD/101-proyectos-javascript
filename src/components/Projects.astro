@@ -1,7 +1,6 @@
 ---
 import { PROJECTS } from "../const";
 ---
-
 <div
   class="grid gap-8 mb-6 lg:mb-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto"
 >
@@ -10,7 +9,7 @@ import { PROJECTS } from "../const";
       const num = `${index + 1}`.padStart(2, "0");
 
       return (
-        <article class="relative items-center text-black rounded-sm bg-zinc-200 dark:bg-slate-100/5">
+        <article class="relative items-center text-black rounded-sm bg-zinc-300/30 dark:bg-slate-100/5">
           <a
             href={`/${project.slug}`}
             class="group hover:scale-[1.02] block transition "
@@ -90,7 +89,7 @@ import { PROJECTS } from "../const";
   }
 
   <article
-    class="min-h-60 relative items-center text-black rounded-lg bg-neutral-300 dark:bg-slate-100/5"
+    class="min-h-60 relative items-center text-black rounded-lg bg-zinc-300/30 dark:bg-slate-100/5"
   >
     <span
       class="group flex justify-center flex-col h-full items-center font-semibold text-orange-400 dark:text-orange-300 text-center text-xl"
