@@ -78,9 +78,16 @@ const description =
   }
   html {
     font-family: system-ui, sans-serif;
-    background: rgb(24, 24, 27);
+    background: #e7e7e7;
     scroll-behavior: smooth;
   }
+  
+  @media (prefers-color-scheme: dark) {
+    html {
+      background: rgb(24, 24, 27);
+    }
+  }
+
 
   @media (prefers-reduced-motion: reduce) {
     html {

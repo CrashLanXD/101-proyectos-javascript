@@ -1,11 +1,18 @@
-<footer class="flex place-content-center w-full">
-  <div class="w-full mt-8 p-10">
+<footer
+  class="flex w-full mt-40 justify-between p-3 bg-[#d2d2d2] dark:bg-zinc-950/10"
+>
+  <div class="w-full p-10">
     <div class="flex gap-4 place-content-center text-sm">
       <span class="font-Krypton text-zinc-400">
         <a
-          class="group relative isolate flex transition hover:scale-105 text-zinc-400 hover:text-zinc-100"
-          href="https://github.com/midudev"
-          >Base del diseño e iniciativa por Midudev</a
+          class="group relative isolate flex transition text-zinc-800 dark:text-zinc-400 anchor"
+          href="https://midu.dev"
+          target="_blank"
+          type="noopener"
+          >Una iniciativa de-><span
+            class="text-neutral-800 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-zinc-100"
+            >Midudev</span
+          ></a
         ></span
       >
     </div>
@@ -13,17 +20,17 @@
       <a
         title="javascript 100 de midudev"
         aria-label="pagina de midu"
-        class="group relative isolate flex transition hover:scale-105 text-zinc-400 hover:text-zinc-100"
+        class="group relative isolate flex transition hover:underline text-zinc-800 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-100 font-Radon"
         href="https://www.javascript100.dev/"
         target="_blank"
         type="noopener"
       >
-        100 proyectos javascript de Midu
+        {"-> 100 proyectos js <-"}
       </a>
     </div>
     <div class="flex gap-2 place-content-center pt-2">
       <a
-        class="group relative isolate flex transition hover:scale-105 text-zinc-400 hover:text-zinc-300 font-Argon"
+        class="group relative isolate flex transition hover:scale-105 text-zinc-700 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-300 font-Argon"
         href="#home"
       >
         {"← Volver"}
@@ -31,3 +38,17 @@
     </div>
   </div>
 </footer>
+
+<style>
+  .anchor:hover {
+    span {
+      text-decoration: underline;
+
+      --tw-scale-x: 1.05;
+      --tw-scale-y: 1.05;
+      transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+        rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    }
+  }
+</style>
