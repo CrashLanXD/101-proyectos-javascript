@@ -1,24 +1,25 @@
 <section id="home" class="dotted-bg h-[400px] flex items-center pt-3">
   <div class="sm:ml-8 md:ml-16 w-80 mt-3">
-    <span class="font-Argon text-6xl text-amber-500 text-shadow-lime">(</span>
-    <br />
-    <span class="font-Argon text-6xl ml-10 text-amber-400 text-shadow-amber"
-      >101,</span
-    >
-    <span
-      class="font-Neon text-5xl ml-10 text-yellow-400 dark:text-yellow-300 text-shadow-yellow"
-      >Proyectos,</span
-    >
-    <span
-      class="font-Radon text-5xl ml-10 text-orange-400 dark:text-orange-300 text-shadow-orange"
-      >en,</span
-    >
-    <span
-      class="font-Krypton text-4xl ml-10 text-amber-500/90 dark:text-amber-300 text-shadow-amber"
-      >javascript</span
-    >
-    <br />
-    <span class="font-Argon text-6xl text-amber-500 text-shadow-lime">)</span>
+    <span class="font-Argon text-6xl text-amber-500 text-shadow-amber">(</span
+    ><br />
+    <div class="ml-10">
+      <span class="font-Argon text-6xl text-amber-400 text-shadow-amber"
+        >101,</span
+      ><br />
+      <span
+        class="font-Neon text-5xl text-yellow-400 dark:text-yellow-300 text-shadow-yellow"
+        >Proyectos,</span
+      ><br />
+      <span
+        class="font-Radon text-5xl text-orange-400 dark:text-orange-300 text-shadow-orange"
+        >en,</span
+      ><br />
+      <span
+        class="font-Krypton text-4xl text-amber-500/90 dark:text-amber-300 text-shadow-amber"
+        >javascript</span
+      >
+    </div>
+    <span class="font-Argon text-6xl text-amber-500 text-shadow-amber">)</span>
   </div>
 </section>
 
@@ -32,18 +33,6 @@
     background-position: 50px 50px; /* Space between dots */
   }
 
-  @media (prefers-color-scheme: light) {
-    .dotted-bg {
-      background-image: radial-gradient(
-        rgba(190, 127, 11, 0.664) 10%,
-        transparent 0
-      );
-    }
-  }
-
-  .text-shadow-lime {
-    text-shadow: 0 0 16px rgba(190, 242, 100, 0.5);
-  }
   .text-shadow-amber {
     text-shadow: 0 0 16px rgba(251, 169, 26, 0.5);
   }
@@ -52,5 +41,14 @@
   }
   .text-shadow-orange {
     text-shadow: 0 0 16px rgba(253, 186, 116, 0.5);
+  }
+
+  @media (prefers-color-scheme: light) {
+    .dotted-bg {
+      background-image: radial-gradient(
+        rgba(190, 127, 11, 0.664) 10%,
+        transparent 0
+      );
+    }
   }
 </style>
