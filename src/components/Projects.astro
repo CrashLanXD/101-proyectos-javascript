@@ -14,11 +14,12 @@ import { PROJECTS } from "../const";
           <Fragment>
             <article class="card relative items-center text-black rounded-t-[15px] rounded-b-sm bg-zinc-300/30 dark:bg-slate-100/5">
               <a href={`/${slug}`} class="group transition ">
-                <span class="group-hover:scale-[1.7] transition-all group-hover:top-4 group-hover:left-6 opacity-70 group-hover:opacity-100 absolute top-2 left-2 text-2xl font-bold font-Argon gradient">
+                <span class="group-hover:scale-[1.7] transition-all group-hover:top-4 group-hover:left-6 opacity-80 group-hover:opacity-100 absolute top-2 left-2 text-2xl font-bold font-Argon gradient">
                   #{num}
                 </span>
                 <img
-                  class="w-full rounded-[15px] hover:rounded-[0px] transition-all overflow-hidden object-cover aspect-ratio"
+                  class="w-full rounded-[15px] hover:rounded-[0px] transition-all overflow-hidden object-cover"
+                  style="aspect-ratio: 3 / 2;"
                   src={`./projects/${num}.webp`}
                   decoding="async"
                   loading="eager"
@@ -34,7 +35,7 @@ import { PROJECTS } from "../const";
                   {description}
                 </p>
 
-                <nav class="flex flex-wrap mt-4 gap-4 px-2 mb-2">
+                <nav class="flex flex-wrap mt-4 gap-4 mb-3">
                   <a
                     href={`https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/${slug}`}
                     target="_blank"
