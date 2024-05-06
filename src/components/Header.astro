@@ -3,7 +3,7 @@ import GitHubStar from "./GitHubStar.astro";
 ---
 
 <header
-  class="fixed top-0 z-10 flex justify-start items-center w-full bg-neutral-300 dark:bg-neutral-950 py-4 px-4"
+  class="fixed top-0 z-10 flex justify-start items-center w-full bg-neutral-300 dark:bg-neutral-950 py-4 px-4 h-[72px]"
 >
   <div
     class="flex justify-between items-center [&>p]:bg-gradient-to-r [&>p]:from-[#353535] [&>p]:to-[#000000] dark:[&>p]:from-[#e3e3e3] dark:[&>p]:to-[#ffffff] [&>p]:text-transparent [&>p]:bg-clip-text [&>p]:inline-block"
@@ -23,7 +23,22 @@ import GitHubStar from "./GitHubStar.astro";
     </p>
   </div>
   <GitHubStar class="mr-16" />
-  <p class="text-3xl text-neutral-900 dark:text-orange-200 hidden md:block">
-    :D
-  </p>
+  <a href="#home" aria-label="volver al inicio">
+    <!-- :D -->
+    <svg
+      class="size-11 text-[#060606] dark:text-white fill-[#969197] transition hover:scale-105"
+      xmlns="http://www.w3.org/2000/svg"
+      xml:space="preserve"
+      viewBox="0 0 700 700"
+      ><path
+        d="m156 367.9 44 13.1 15.7 184-59.7-61ZM500 381l44-13.1V504l-57.9 61zM145 495.2l-59-62.5v-85.2l59 17.9zm410 0V365.4l59-17.9v85.2zM33.7 331 77 345v80l-46-45Zm632.6 0c-.7-.5 2.7 49 2.7 49l-46 45v-80z"
+      ></path><path
+        fill="currentColor"
+        d="M550 330s-79 54.3-81 55v195l-65-108 2.2 172.8h-35V451.1l58.8-.1v-41H270v41l60.8-.1v193.9H296V472l-65 108 .1-195-81.1-55 200-185M222 325.5l71 52.5h114l71-52.5L350 197Zm-199 6L62 290l137-91 20-39 84-53V55l42-15v103L25 336.2ZM355 143V40l42 15v52l84 53 20 39 137 91 39 41.5-2 4.7z"
+      ></path><path
+        fill="currentColor"
+        d="m287 58 9-3v49l-82 51-21 40-105.5 72-.5-5zm326 204-.5 5L507 195l-21-40-82-51V55l9 3zm-217.5 98.9h-91L266 311l52-59.4h64l54 59.4z"
+      ></path></svg
+    >
+  </a>
 </header>
