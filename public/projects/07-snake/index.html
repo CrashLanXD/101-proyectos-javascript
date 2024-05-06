@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SNAKE</title>
+
+    <style>
+      body {
+        background: #383838;
+        display: grid;
+        place-content: center;
+        color: #b5af42;
+        font-family: 'Monocraft Nerd Font', system-ui;
+      }
+
+      canvas {
+        margin: 0 auto;
+        display: block;
+        width: 93%;
+      }
+
+      .score {
+        position: relative;
+      }
+
+      .max-score {
+        position: relative;
+        left: 70px;
+      }
+
+      .score-img {
+        width: 38px;
+        position: absolute;
+        top: 15px;
+        left: 13px;
+      }
+
+      .score-info {
+        font-size: 25px;
+        position: absolute;
+        top: 20px;
+        left: 55px;
+      }
+
+      .content {
+        background: #3a5122;
+        width: 540px;
+        height: 570px;
+      }
+
+      .game-info-bar {
+        width: 100%;
+        height: 70px;
+        background-color: #5d782e;
+        -webkit-user-select: none;
+        user-select: none;
+        margin-bottom: 25px;
+      }
+
+      .start-menu {
+        position: relative;
+        background: #3a5122ce;
+        width: 350px;
+        height: 400px;
+        left: 50%;
+        top: -75%;
+        transform: translateX(-50%);
+        border-radius: 10px;
+
+        #start {
+          font-family: 'Monocraft Nerd Font', system-ui;
+          background: #5d782e;
+
+          border: none;
+          position: relative;
+          width: 80%;
+          height: 70px;
+          font-size: 25px;
+          left: 10%;
+          top: 68%;
+          border-radius: 10px;
+          cursor: pointer;
+          box-shadow: 0 4px 0 #919b3a;
+          color: #b5af42;
+        }
+
+        #start:active {
+          transform: translateY(3%);
+          box-shadow: 0 0 0 #919b3a;
+        }
+
+        .info {
+          position: absolute;
+          width: 80%;
+          left: 50%;
+          transform: translateX(-50%);
+          top: 40px;
+          display: flex;
+          justify-content: space-between;
+
+          .score-span {
+            display: flex;
+            flex-direction: column;
+            font-size: 30px;
+            text-align: center;
+            img {
+              width: 90px;
+            }
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="game-info-bar">
+        <div class="score">
+          <img
+            class="score-img"
+            src="px_apple_22.png"
+            alt="score"
+            id="score"
+          />
+          <span class="score-info">0</span>
+        </div>
+        <div class="max-score">
+          <img
+            class="score-img"
+            src="px_trophy_00.png"
+            alt="score"
+            id="trophy"
+          />
+          <span class="score-info trophy">0</span>
+        </div>
+      </div>
+      <canvas></canvas>
+      <div class="start-menu">
+        <div class="info">
+          <div class="score-span">
+            <img
+              class="score"
+              src="px_apple_22.png"
+              alt="score"
+              id="score"
+            />
+            <span class="span-score">0</span>
+          </div>
+          <div class="score-span">
+            <img
+              class="trophy"
+              src="px_trophy_00.png"
+              alt="score"
+              id="trophy"
+            />
+            <span class="span-max-score">0</span>
+          </div>
+            
+        </div>
+        <button id="start">Play</button>
+      </div>
+    </div>
+
+    <script src="constants.js"></script>
+    <script src="food.js"></script>
+    <script src="snake.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
