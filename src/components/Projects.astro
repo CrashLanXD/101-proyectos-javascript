@@ -6,7 +6,7 @@ import MobileIcon from "./icons/MobileIcon.astro";
 
 <Fragment>
   <div
-    class="grid gap-8 mb-6 lg:mb-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto"
+    class="grid gap-8 mb-6 lg:mb-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto gridXL"
   >
     {
       PROJECTS.map(({ slug, title, description, compatibility }, index) => {
@@ -124,6 +124,12 @@ import MobileIcon from "./icons/MobileIcon.astro";
   </div>
 
   <style>
+    @media (min-width: 1750px) {
+      .gridXL {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        max-width: 95rem;
+      }
+    }
     a:hover {
       .gradient {
         background: linear-gradient(
