@@ -35,7 +35,7 @@ export const PROJECTS = [
     slug: "05-space-invaders",
     title: "Space Invaders",
     description:
-      "¡Prepárate para la batalla del siglo con Space Invaders! Defiende la Tierra de la invasión alienígena en este emocionante juego de disparos. ¡Destruye a los invasores antes de que sea demasiado tarde y conviértete en el héroe de la humanidad! ¿Tienes lo necesario para salvar el planeta?",
+      "¡Prepárate para la batalla del siglo con Space Invaders!. ¡Destruye a los invasores antes de que sea demasiado tarde y conviértete en el héroe de la humanidad! ¿Tienes lo necesario para salvar el planeta?",
     compatibility: { pc: true, mobile: false },
     theme: { isDark: false },
   },
