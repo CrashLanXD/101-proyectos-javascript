@@ -1,0 +1,39 @@
+---
+import NotFoundLayout from "../layouts/NotFoundLayout.astro";
+---
+
+<NotFoundLayout title="404 Not Found">
+  <header class="w-full fixed top-0">
+    <div class="flex py-3 px-6">
+      <a href="/">
+        <h2
+          class="text-xl font-semibold tracking-widest uppercase text-neutral-900 dark:text-neutral-50"
+        >
+          &lAarr; back
+        </h2>
+      </a>
+    </div>
+  </header>
+  <div
+    class="h-auto mx-auto grid place-items-center text-center mt-32 font-mono"
+  >
+    <img
+      class="rounded-md w-72"
+      src="imgs/thisIsFine.webp"
+      alt="this is fine..."
+      loading="eager"
+      decoding="async"
+    />
+    <h1
+      class="text-6xl m-4 leading-snug md:text-7xl text-neutral-900 dark:text-neutral-100"
+    >
+      404.
+    </h1>
+    <p
+      class="text-lg font-medium text-neutral-900 dark:text-neutral-400 mx-auto md:max-w-sm"
+    >
+      The requested url was not found!. <br />
+      <strong class="font-thin">That's all I kwnow...</strong>
+    </p>
+  </div>
+</NotFoundLayout>
