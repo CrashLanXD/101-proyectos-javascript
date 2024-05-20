@@ -1,54 +1,35 @@
-<section class="dotted-bg h-[400px] flex items-center pt-3">
-  <div class="sm:ml-8 md:ml-16 w-80 mt-3">
-    <span class="font-Argon text-6xl text-amber-500 text-shadow-amber">(</span
-    ><br />
-    <div class="ml-10">
-      <span class="font-Argon text-6xl text-amber-400 text-shadow-amber"
-        >101,</span
-      ><br />
-      <span
-        class="font-Neon text-5xl text-yellow-400 dark:text-yellow-300 text-shadow-yellow"
-        >Proyectos,</span
-      ><br />
-      <span
-        class="font-Radon text-5xl text-orange-400 dark:text-orange-300 text-shadow-orange"
-        >en,</span
-      ><br />
-      <span
-        class="font-Krypton text-4xl text-amber-500/90 dark:text-amber-300 text-shadow-amber"
-        >javascript</span
-      >
-    </div>
-    <span class="font-Argon text-6xl text-amber-500 text-shadow-amber">)</span>
+<section class="h-96 mx-auto flex items-center my-20 relative">
+  <div
+    class="z-[-2] absolute w-[98%] opacity-40 mx-auto inset-0 bg-[#000000] bg-[radial-gradient(var(--accent-600)_3px,var(--background-100)_1px)] bg-[size:32px_32px]"
+  >
+  </div>
+  <div class="mx-auto text-5xl sm:text-6xl 2xl:text-7xl font-Krypton md:ml-16 2xl:mx-auto flex effect">
+    <p class="text-amber-400 2xl:[&>br]:hidden md:ml-20 2xl:mx-auto">
+      <span>(</span><br />101<span>,</span><br />Proyectos<span>,</span><br
+      />en<span>,</span><br />javascript<br /><span>)</span>
+    </p>
   </div>
 </section>
 
 <style>
-  .dotted-bg {
-    background-image: radial-gradient(
-      rgba(255, 194, 82, 0.568) 10%,
-      transparent 0
-    );
-    background-size: 32px 32px; /* Dot size */
-    background-position: 50px 50px; /* Space between dots */
-  }
-
-  .text-shadow-amber {
+  .effect {
     text-shadow: 0 0 16px rgba(251, 169, 26, 0.5);
-  }
-  .text-shadow-yellow {
-    text-shadow: 0 0 16px rgba(253, 224, 71, 0.5);
-  }
-  .text-shadow-orange {
-    text-shadow: 0 0 16px rgba(253, 186, 116, 0.5);
-  }
 
-  @media (prefers-color-scheme: light) {
-    .dotted-bg {
-      background-image: radial-gradient(
-        rgba(190, 127, 11, 0.664) 10%,
-        transparent 0
-      );
+    p > :first-child,
+    p > :last-child {
+      margin-left: -40px;
+    }
+    @media (width >= 1536px) {
+      p > :first-child,
+      p > :last-child {
+        margin: 0;
+      }
+    }
+    span {
+      text-shadow: none;
+      color: transparent;
+      -webkit-text-stroke-color: var(--accent-700);
+      -webkit-text-stroke-width: 2px;
     }
   }
 </style>
