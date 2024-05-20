@@ -4,28 +4,59 @@ import CLXD from "./icons/CLXD.astro";
 ---
 
 <header
-  class="fixed top-0 z-10 flex justify-start items-center w-full bg-neutral-300 dark:bg-neutral-950 py-4 px-4 h-[72px]"
+  id="main-header"
+  class="fixed z-50 top-0 w-full bg-[--background-50] border-b-2 border-x-2 border-[--accent-500] rounded-b-3xl transition-opacity"
 >
-  <div
-    class="flex justify-between items-center [&>p]:bg-gradient-to-r [&>p]:from-[#353535] [&>p]:to-[#000000] dark:[&>p]:from-[#e3e3e3] dark:[&>p]:to-[#ffffff] [&>p]:text-transparent [&>p]:bg-clip-text [&>p]:inline-block"
-  >
-    <p
-      class="sm:text-lg lg:text-3xl font-Argon mr-2 text-orange-500 dark:bg-gradient-to-r dark:to-[#edab1c] dark:from-[#edca1c]"
+  <div class="max-w-screen-xl h-full mx-auto py-2 flex flex-row-reverse justify-around items-center">
+    <GitHubStar />
+    <button
+      id="goToTop"
+      class="text-2xl font-Krypton tracking-wide text-[--background-950] font-semibold hover:text-[--accent-800] transition-colors"
     >
-      {"{"}
-    </p>
-    <p class="sm:text-lg lg:text-2xl font-Krypton mr-2">101</p>
-    <p class="sm:text-lg lg:text-2xl font-Radon mr-2">Proyectos</p>
-    <p class="sm:text-lg lg:text-2xl font-Neon">JavaScript</p>
-    <p
-      class="sm:text-lg lg:text-3xl font-Argon ml-2 text-orange-500 [&>p]:dark:to-[#edab1c] [&>p]:dark:from-[#edca1c]"
+      <p class="hidden md:block">{`{ 101 Proyectos JavaScript }`}</p>
+      <p class="block md:hidden">{`{ 101 }`}</p>
+    </button>
+    <a
+      title="Ir a CrashLan.dev"
+      aria-label="Ir al porfiolio de CrashLanXD"
+      href="https://crashlanxd.vercel.app"
+      target="_blank"
+      rel="noopener noreferrer"
     >
-      {"}"}
-    </p>
+      <CLXD class="size-11 text-[--text-900] fill-[--text-700] hover:text-[--accent-800] hover:fill-[--accent-400] transition-colors"/>
+    </a>
   </div>
-  <GitHubStar class="mr-16" />
-  <a href="#home" aria-label="volver al inicio">
-    <!-- :D -->
-    <CLXD class="size-11 text-[#060606] dark:text-white fill-[#969197] transition hover:scale-105"/>
-  </a>
 </header>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", () => {
+    document.getElementById("goToTop").addEventListener("click", () => {
+      window.scrollTo({ top: 0 });
+    });
+  });
+
+  let lastScrollTop;
+  window.addEventListener("scroll", function () {
+    let currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+    if (currentScroll > lastScrollTop) {
+      // Abajo
+      document.getElementById("main-header").classList.remove("opacity-100");
+      document.getElementById("main-header").classList.add("opacity-0");
+      setTimeout(() => {
+        document.getElementById("main-header").classList.remove("visible");
+        document.getElementById("main-header").classList.add("hidden");
+      }, 150);
+    } else {
+      // Arriba
+      document.getElementById("main-header").classList.remove("hidden");
+      document.getElementById("main-header").classList.add("visible");
+      setTimeout(() => {
+        document.getElementById("main-header").classList.remove("opacity-0");
+        document.getElementById("main-header").classList.add("opacity-100");
+      }, 150);
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+</script>
