@@ -1,35 +1,32 @@
 ---
 const { info } = Astro.props;
 const { theme = {} } = info;
-const { isDark = false } = theme;
+// const { isDark = false } = theme;
 ---
 
-<div class="hidden sm:block absolute left-2 bottom-2 px-4 py-1 rounded-lg">
+<div
+  class="hidden sm:block absolute left-2 bottom-2 px-4 py-1 rounded-lg font-Krypton"
+>
   <div class="flex items-center">
-    <p class="text-xl font-Argon mr-2 text-orange-500 text-shadow-white">
+    <p class="text-xl mr-2 text-orange-500 text-shadow-white">
       {"{"}
     </p>
 
-    <p class="text-md font-Krypton mr-2 text-orange-50 text-shadow-white">
-      101
-    </p>
-    <p class="text-md font-Radon mr-2 text-orange-50 text-shadow-white">
-      Proyectos
-    </p>
-    <p class="text-md font-Neon text-orange-50 text-shadow-white">JS</p>
+    <p class="text-md mr-2 text-orange-50 text-shadow-white">101</p>
+    <p class="text-md mr-2 text-orange-50 text-shadow-white">Proyectos</p>
+    <p class="text-md text-orange-50 text-shadow-white">JS</p>
 
-    <p class="text-xl font-Argon ml-2 text-orange-500 text-shadow-white">
+    <p class="text-xl ml-2 text-orange-500 text-shadow-white">
       {"}"}
     </p>
   </div>
 
-  <h2 class = "text-orange-400 font-Krypton text-base text-center tracking-tighter">
+  <h2 class="text-orange-400 text-base text-center tracking-tighter">
     {`#${info.number}-> ${info.title}`}
   </h2>
 
-  <a
-    class= "text-xs hover:underline font-Argon text-center text-white/90"
-    href="/">← Volver a los proyectos</a
+  <a class="text-xs hover:underline text-center text-white/90" href="/"
+    >← Volver a los proyectos</a
   >
 </div>
 
