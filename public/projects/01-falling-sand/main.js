@@ -1,4 +1,5 @@
-  const canvas = document.querySelector("canvas");
+// !This code is very bad, it will soon be completely refactored, I do not recommend looking at it ;)
+const canvas = document.querySelector("canvas");
   const ctx = canvas.getContext("2d");
   canvas.style.cursor = "pointer";
 
