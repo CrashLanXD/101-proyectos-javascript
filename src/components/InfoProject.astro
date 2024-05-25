@@ -1,37 +1,35 @@
 ---
 const { info } = Astro.props;
-const { theme = {} } = info;
+// const { theme = {} } = info;
 // const { isDark = false } = theme;
 ---
 
 <div
-  class="hidden sm:block absolute left-2 bottom-2 px-4 py-1 rounded-lg font-Krypton"
+  class="hidden sm:flex sm:flex-col absolute left-2 bottom-2 px-4 py-1 font-Krypton gap-y-1"
 >
-  <div class="flex items-center">
-    <p class="text-xl mr-2 text-orange-500 text-shadow-white">
-      {"{"}
-    </p>
+  <p class="text-orange-50 effect mx-auto text-base capitalize">
+    <span>{"{"}</span> 101 {info.title.length >= 16 ? "proyectos JS" : ""}
+    <span>{"}"}</span>
+  </p>
 
-    <p class="text-md mr-2 text-orange-50 text-shadow-white">101</p>
-    <p class="text-md mr-2 text-orange-50 text-shadow-white">Proyectos</p>
-    <p class="text-md text-orange-50 text-shadow-white">JS</p>
-
-    <p class="text-xl ml-2 text-orange-500 text-shadow-white">
-      {"}"}
-    </p>
-  </div>
-
-  <h2 class="text-orange-400 text-base text-center tracking-tighter">
-    {`#${info.number}-> ${info.title}`}
+  <h2 class="text-orange-400 text-base tracking-tighter mx-auto">
+    {`#${info.number}> ${info.title}`}
   </h2>
 
-  <a class="text-xs hover:underline text-center text-white/90" href="/"
-    >← Volver a los proyectos</a
+  <a
+    class="text-xs hover:underline text-center text-white/90 mx-auto hover:text-[#ffdd99] transition-colors"
+    href="/">← Volver</a
   >
 </div>
 
 <style>
-  .text-shadow-white {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+  .effect {
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+    span {
+      text-shadow: none;
+      color: transparent;
+      -webkit-text-stroke-color: var(--accent-700);
+      -webkit-text-stroke-width: 1px;
+    }
   }
 </style>
