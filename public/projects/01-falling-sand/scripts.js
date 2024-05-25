@@ -1,7 +1,6 @@
 const $canvas = document.getElementById("canvas");
 const ctx = $canvas.getContext("2d");
 
-$canvas.style["background"] = "#121212";
 $canvas.style["image-rendering"] = "pixelated";
 
 //#region world vars
@@ -77,7 +76,7 @@ let rect = $canvas.getBoundingClientRect();
 
 if (innerHeight > innerWidth) {
   debug = false;
-  setup(350, 700, 1);
+  setup(innerWidth - 30, 700, 1);
 } else setup(700, 400, 1);
 
 //#endregion world vars

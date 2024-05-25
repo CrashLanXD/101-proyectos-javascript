@@ -3,25 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Falling Sand</title>
-
+    <title>Falling sand</title>
     <style>
       body {
-        background: rgb(24, 24, 27);
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        background: #1a1a1a;
+        font-size: large;
+        color: #fff;
+        font-family: monospace;
+        text-align: center;
       }
 
+      main { padding-top: 20px; }
+
       canvas {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgb(39, 39, 42);
         margin: 0 auto;
-        display: block;
         image-rendering: pixelated;
+        background: #141414;
+        border: 1px solid #e6e6e66f;
+        max-width: 100%;
+      }
+
+      .table {
+        margin: 0 auto;
+        max-width: 800px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      input[type="button"], input[type="submit"] {
+        border: none;
+        background: #0d0d0d;
+        font-size: large;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 10px 20px;
+        transition: background 0.3s;
+      }
+
+      input[type="button"]:hover, input[type="submit"]:hover { background: #000; }
+
+      #sand         { background: #f4a460; }
+      #water        { background: #4682b4; }
+      #wood         { background: #8b4513; }
+      #fill         { background: #32cd32; }
+      #smoke        { background: #696969; }
+      #ice          { background: #00ffff; }
+      #stone        { background: #696969; }
+      #clear        { background: #860000; }
+      #fire         { background: #ff0000; }
+      #eraser       { background: #8a2be2; }
+      #dropperMinus { background: #dc143c; }
+      #dropperPlus  { background: #ff69b4; }
+
+      @media (width >= 1000px) {
+        .table {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
       }
     </style>
   </head>
   <body>
-    <canvas></canvas>
-    <script src="main.js"></script>
+    <main>
+      <canvas id="canvas"></canvas>
+      <div class="table">
+          <input type="button" id="sand" value="Sand" />
+          <input type="button" id="water" value="Water" />
+          <input type="button" id="wood" value="Wood" />
+          <input type="button" id="smoke" value="Smoke" />
+          <input type="button" id="ice" value="Ice" />
+          <input type="button" id="stone" value="Stone" />
+          <input type="button" id="fire" value="Fire" />
+          <input type="button" id="clear" value="Clear" />
+          <input type="button" id="fill" value="Fill" />
+          <input type="button" id="eraser" value="Eraser" />
+          <input type="button" id="dropperMinus" value="Dropper--" />
+          <input type="button" id="dropperPlus" value="Dropper++" />
+          <label for="size">Size:</label>
+          <input type="text" id="size" value="1000x500" />
+          <input type="submit" value="Restart" id="submit" />
+      </div>
+    </main>
+    <p>
+      Version anterior: Sand falling de colores... <a href="sand.html">aquí.</a>
+    </p>
+    <script src="element.js"></script>
+    <script src="scripts.js"></script>
+    <script src="controller.js"></script>
   </body>
 </html>

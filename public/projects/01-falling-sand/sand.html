@@ -1,117 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Falling sand</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Falling Sand</title>
+
     <style>
       body {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        background: #474746;
-        font-size: large;
-        color: #fff;
+        background: rgb(24, 24, 27);
       }
+
       canvas {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgb(39, 39, 42);
         margin: 0 auto;
+        display: block;
         image-rendering: pixelated;
-      }
-      .table {
-        margin: 0 auto;
-        width: 1000px;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        font-family: monospace;
-        row-gap: 4px;
-        column-gap: 4px;
-
-        input {
-          border: none;
-          text-align: start;
-          background: #0d0d0d;
-          font-size: large;
-          color: #fff;
-          border-radius: 4px;
-
-          &:hover {
-            background: #000;
-            transition: 0.3s;
-          }
-        }
-      }
-
-      #sand {
-        color: darkkhaki;
-      }
-      #ice {
-        color: aqua;
-      }
-      #water {
-        color: cadetblue;
-      }
-      #stone {
-        color: dimgray;
-      }
-      #wood {
-        color: brown;
-      }
-      #smoke {
-        color: darkgray;
-      }
-      #fire {
-        color: red;
-      }
-      #eraser {
-        color: blueviolet;
-      }
-      #fill,
-      #clear {
-        color: yellowgreen;
-      }
-      #dropperMinus,
-      #dropperPlus {
-        color: crimson;
-      }
-
-      @media (width <= 500px) {
-        .table {
-          max-width: 200px;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-
-          input {
-            grid-column: span 2;
-            column-span: 2;
-          }
-        }
       }
     </style>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
-    <div class="table">
-      <input type="button" id="sand" value="sand" />
-      <input type="button" id="water" value="water" />
-      <input type="button" id="wood" value="wood" />
-      <input type="button" id="fill" value="fill" />
-      <input type="button" id="smoke" value="smoke" />
-      <input type="button" id="ice" value="ice" />
-      <input type="button" id="stone" value="stone" />
-      <input type="button" id="clear" value="clear" />
-      <input type="button" id="fire" value="fire" />
-      <input type="button" id="eraser" value="eraser" />
-      <input type="button" id="dropperMinus" value="dropper--" />
-      <input type="button" id="dropperPlus" value="dropper++" />
-      <label>
-        size:
-        <input type="text" id="size" value="1000x500" />
-      </label>
-      <input type="submit" value="restart" id="submit" />
-    </div>
-    <script src="element.js"></script>
+    <canvas></canvas>
     <script src="main.js"></script>
-    <script src="controller.js"></script>
   </body>
 </html>
