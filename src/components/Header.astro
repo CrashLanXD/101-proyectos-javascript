@@ -7,7 +7,9 @@ import CLXD from "./icons/CLXD.astro";
   id="main-header"
   class="fixed z-50 top-0 w-full bg-[--background-50] border-b-2 border-x-2 border-[--accent-500] rounded-b-3xl transition-opacity"
 >
-  <div class="max-w-screen-xl h-full mx-auto py-2 flex flex-row-reverse justify-around items-center">
+  <div
+    class="max-w-screen-xl h-full mx-auto py-2 flex flex-row-reverse justify-around items-center"
+  >
     <GitHubStar />
     <button
       id="goToTop"
@@ -23,40 +25,44 @@ import CLXD from "./icons/CLXD.astro";
       target="_blank"
       rel="noopener noreferrer"
     >
-      <CLXD class="size-11 text-[--text-900] fill-[--text-700] hover:text-[--accent-800] hover:fill-[--accent-400] transition-colors"/>
+      <CLXD
+        class="size-11 text-[--text-900] fill-[--text-700] hover:text-[--accent-800] hover:fill-[--accent-400] transition-colors"
+      />
     </a>
   </div>
 </header>
 
-<script is:inline>
+<script is:inline type="module">
   document.addEventListener("astro:page-load", () => {
-    document.getElementById("goToTop").addEventListener("click", () => {
+    const $header = document.getElementById("main-header");
+    const $goToTopButton = document.getElementById('goToTop');
+    $goToTopButton?.addEventListener("click", () => {
       window.scrollTo({ top: 0 });
     });
-  });
 
-  let lastScrollTop;
-  window.addEventListener("scroll", function () {
-    let currentScroll = window.scrollY || document.documentElement.scrollTop;
+    let lastScrollTop;
+    window.addEventListener("scroll", function () {
+      let currentScroll = window.scrollY || document.documentElement.scrollTop;
 
-    if (currentScroll > lastScrollTop) {
-      // Abajo
-      document.getElementById("main-header").classList.remove("opacity-100");
-      document.getElementById("main-header").classList.add("opacity-0");
-      setTimeout(() => {
-        document.getElementById("main-header").classList.remove("visible");
-        document.getElementById("main-header").classList.add("hidden");
-      }, 150);
-    } else {
-      // Arriba
-      document.getElementById("main-header").classList.remove("hidden");
-      document.getElementById("main-header").classList.add("visible");
-      setTimeout(() => {
-        document.getElementById("main-header").classList.remove("opacity-0");
-        document.getElementById("main-header").classList.add("opacity-100");
-      }, 150);
-    }
+      if (currentScroll > lastScrollTop) {
+        // Abajo
+        $header?.classList.remove("opacity-100");
+        $header?.classList.add("opacity-0");
+        setTimeout(() => {
+          $header?.classList.remove("visible");
+          $header?.classList.add("hidden");
+        }, 150);
+      } else {
+        // Arriba
+        $header?.classList.remove("hidden");
+        $header?.classList.add("visible");
+        setTimeout(() => {
+          $header?.classList.remove("opacity-0");
+          $header?.classList.add("opacity-100");
+        }, 150);
+      }
 
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
   });
 </script>
