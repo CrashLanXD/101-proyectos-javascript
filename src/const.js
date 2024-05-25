@@ -3,7 +3,7 @@ export const PROJECTS = [
     slug: "01-falling-sand",
     title: "Falling Sand",
     description:
-      "Una simulación de arena que cae y se acumula en una cuadrícula, permitiendo a los usuarios experimentar con diferentes efectos.",
+      "Experimenta la interacción entre arena, agua, fuego y más en este entorno dinámico.",
     compatibility: { pc: true, mobile: true },
     theme: { isDark: true },
   },
