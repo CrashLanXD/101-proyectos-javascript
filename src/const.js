@@ -9,9 +9,9 @@ export const PROJECTS = [
   },
   {
     slug: "02-elementary-cellular-automata",
-    title: "Elementary Cellular Automata",
+    title: "Cellular Automata",
     description:
-      "Una implementación de autómatas celulares elementales, donde cada celda evoluciona según reglas simples basadas en el estado de sus vecinos.",
+      "Una implementación de Elementary Cellular Automata, donde cada celda evoluciona según reglas simples basadas en el estado de sus vecinos.",
     compatibility: { pc: true, mobile: true },
     theme: { isDark: false },
   },
@@ -19,7 +19,7 @@ export const PROJECTS = [
     slug: "03-game-of-life",
     title: "Game of Life",
     description:
-      "Explora la fascinante simulación de la evolución y la supervivencia en el clásico Juego de la Vida. ¡Observa cómo las formas de vida se desarrollan y evolucionan ante tus ojos!",
+      "Simulación de la evolución y la supervivencia en el clásico Juego de la Vida. ¡Observa cómo las formas de vida se desarrollan y evolucionan!",
     compatibility: { pc: true, mobile: true },
     theme: { isDark: false },
   },
