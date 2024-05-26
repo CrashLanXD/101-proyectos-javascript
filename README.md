@@ -2,7 +2,7 @@
 
 { 101 Proyectos JS } es una página web creada con Astro donde encontrarás una colección de 101 proyectos desarrollados exclusivamente con JavaScript vanilla, sin el uso de ninguna biblioteca adicional. Cada proyecto está disponible como código abierto bajo la Licencia MIT.
 
-![alt text](image.png)
+![(101, proyectos, en, javascript)](image.png)
 
 ## Características 🚀
 
