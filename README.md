@@ -1,37 +1,45 @@
-<div align="center">
-  <a href="https://javascript101clxd.netlify.app">
-    <img src="readme.png" /> 
-  </a>
-  <h3>
-    <strong>101 proyectos de JavaScript con código</strong>
-  </h3>
-</div>
+# 101 Proyectos JS
 
-<div align="center">
-  <a href="https://javascript101clxd.netlify.app">
-    Website
-  </a>
-</div>
+{ 101 Proyectos JS } es una página web creada con Astro donde encontrarás una colección de 101 proyectos desarrollados exclusivamente con JavaScript vanilla, sin el uso de ninguna biblioteca adicional. Cada proyecto está disponible como código abierto bajo la Licencia MIT.
 
-## :fire: Proyectos
+![alt text](image.png)
 
-| #   | Proyecto                         | Descripción                                                                                                           | Código                                                                                                                                                                                                                        | Website                                                                                                                                                                              |
-| --- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1   | **Falling-Sand**                 | Una simulación de Arena que cae y se acumula en una cuadrícula                                                        | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/01-falling-sand)                 | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/01-falling-sand/)                 |
-| 2   | **Elementary-Cellular-Automata** | Cada celda evoluciona según reglas simples basadas en el estado de sus vecinos.                                       | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/02-elementary-cellular-automata) | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/02-elementary-cellular-automata/) |
-| 3   | **The-Game-Of-Life**             | El famoso juego de simulación de vida de John Conway                                                                  | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/03-game-of-life)                 | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/03-game-of-life/)                 |
-| 4   | **Breakout**                     | Juego mítico y clásico, Breakout del Atari para controlar con teclado                                                 | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/04-breakout)                     | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/04-breakout/)                     |
-| 5   | **Space-Invaders**               | El más emocionante juego de arcade de todos los tiempos ¡Compite contra los invasores alienígenas con tu cañón láser! | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/05-space-invaders)               | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/05-space-invaders/)               |
-| 6   | **Tetris**                       | Uno de los juegos más icónicos de todos los tiempos. Desafía tus habilidades de encaje y rapidez                      | [![GitHub Badge](https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/06-tetris)                       | [![netlify Badge](https://img.shields.io/badge/Website-000?logo=netlify&logoColor=05bdba&style=flat-square)](https://javascript101clxd.netlify.app/06-tetris/)                       |
+## Características 🚀
 
-<div align="center">
-  
-  [![Netlify Status](https://api.netlify.com/api/v1/badges/8ac31212-7fce-480b-aa9e-16825275f35b/deploy-status)](https://app.netlify.com/sites/javascript101clxd/deploys)
-  
-</div>
+- Colección de 101 proyectos de JavaScript puro.
+- Desarrollado con tecnologías web estándar: HTML, CSS y JavaScript.
+- Cada proyecto es independiente y está disponible como código abierto.
 
-## 👑 Contribuidores 👑
+## Instalación 🛠️
 
-<a href="https://github.com/midudev/javascript-100-proyectos/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=CrashLanXD/101-proyectos-javascript" />
-</a>
+Para utilizar { 101 Proyectos JS } localmente, sigue estos pasos:
+1. Clona el repositorio desde [GitHub](https://github.com/CrashLanXD/101-proyectos-javascript).
+2. Abre una terminal y navega hasta el directorio del repositorio clonado.
+3. Instala las dependencias: `pnpm install`
+4. Inicia  el servidor de desarrollo: `pnpm run dev`
+
+## Estado del Proyecto 🌐
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8ac31212-7fce-480b-aa9e-16825275f35b/deploy-status)](https://app.netlify.com/sites/javascript101clxd/deploys)
+
+## Contribución
+
+Si deseas realizar mejoras en los proyectos existentes, sigue estas instrucciones:
+1. Haz un fork del repositorio.
+2. Crea una nueva rama para tu contribución.
+3. Realiza los cambios y asegúrate de seguir las pautas de contribución.
+4. Envía un pull request con tus cambios.
+
+## Licencia
+
+Todos los proyectos en { 101 Proyectos JS } están disponibles bajo la Licencia MIT. Para obtener más detalles, consulta el archivo [LICENSE](https://github.com/CrashLanXD/101-proyectos-javascript/blob/master/LICENSE).
+
+## Contribuidores 
+
+![contribuidores](https://contrib.rocks/image?repo=CrashLanXD/101-proyectos-javascript)
+
+## Contacto 📬
+
+Si tienes preguntas, comentarios o sugerencias, no dudes en ponerte en contacto:
+- Correo electrónico: [crashlanxd@gmail.com](mailto:crashlanxd@gmail.com)
+- X / Twitter: [@crashlanxd](https://x.com/crashlanxd)
