@@ -2,6 +2,7 @@
 import { PROJECTS } from "../const";
 import PCIcon from "./icons/PCIcon.astro";
 import MobileIcon from "./icons/MobileIcon.astro";
+import { Image } from "astro:assets";
 ---
 
 <Fragment>
@@ -18,13 +19,13 @@ import MobileIcon from "./icons/MobileIcon.astro";
               <span class="group-hover:scale-[1.7] transition-all group-hover:top-4 group-hover:left-6 opacity-80 group-hover:opacity-100 absolute top-2 left-2 text-2xl font-bold font-Krypton gradient">
                 #{num}
               </span>
-              <img
-                class="w-full rounded-[15px] group-hover:rounded-[0px] transition-all overflow-hidden object-cover"
-                style="aspect-ratio: 3 / 2;"
-                src={`./projects/thumbnails/${num}.webp`}
-                decoding="async"
+              <Image
+                src={`/projects/thumbnails/${num}.webp`}
+                alt={`proyecto ${num} '${title}'`}
+                width={300}
+                height={200}
                 loading="eager"
-                alt={`imagen del proyecto ${title}`}
+                class="w-full rounded-[15px] group-hover:rounded-[0px] transition-all overflow-hidden object-cover"
               />
             </a>
 
@@ -150,6 +151,10 @@ import MobileIcon from "./icons/MobileIcon.astro";
       100% {
         background-position: 0% 50%;
       }
+    }
+
+    img {
+      aspect-ratio: 3 / 2;
     }
   </style>
 </Fragment>
