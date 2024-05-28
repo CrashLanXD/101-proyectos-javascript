@@ -1,24 +1,26 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
-import projects from "../utils/projects.json"
+import projects from "../utils/projects.json";
 ---
 
 <Fragment>
   <main
     class="container max-w-6xl 2xl:max-w-screen-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 gap-4"
   >
-  {projects.map(({title, description, slug, compatibility}, index) => {
-    const num = `${index + 1}`.padStart(2, "0");
-    return (
-      <ProjectCard 
-        slug={slug}
-        num={num}
-        title={title}
-        description={description}
-        compatibility={compatibility}
-      />
-    );
-  })}
+    {
+      projects.map(({ title, description, slug, compatibility }, index) => {
+        const num = `${index + 1}`.padStart(2, "0");
+        return (
+          <ProjectCard
+            slug={slug}
+            num={num}
+            title={title}
+            description={description}
+            compatibility={compatibility}
+          />
+        );
+      })
+    }
 
     <article
       class="min-h-80 relative items-center rounded-lg bg-neutral-300/30 dark:bg-neutral-100/5"
