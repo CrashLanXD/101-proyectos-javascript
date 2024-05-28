@@ -1,10 +1,10 @@
 ---
-import { PROJECTS } from "../const";
+import projects from "../utils/projects.json";
 import InfoProject from "../components/InfoProject.astro";
 import Layout from "../layouts/Layout.astro";
 
 export function getStaticPaths () {
-  return PROJECTS.map((project) => {
+  return projects.map((project) => {
     return {
       params: {
         project: project.slug
@@ -14,8 +14,8 @@ export function getStaticPaths () {
 };
 
 const { project } = Astro.params;
-const index = PROJECTS.findIndex((p) => p.slug === project);
-const info = PROJECTS[index];
+const index = projects.findIndex((p) => p.slug === project);
+const info = projects[index];
 const number = `${index + 1}`.padStart(2, "0");
 ---
 
