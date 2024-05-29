@@ -1,45 +1,69 @@
-<footer
-  class="flex w-full mt-40 justify-between p-3 bg-zinc-200 dark:bg-zinc-950/10 font-Krypton"
->
-  <div class="w-full p-10">
-    <div class="flex gap-4 place-content-center text-sm">
-      <span class="text-zinc-400">
-        <a
-          class="group relative isolate flex transition text-zinc-800 dark:text-zinc-400 anchor"
-          href="https://midu.dev"
-          target="_blank"
-          type="noopener"
-          >Una iniciativa de-><span
-            class="text-neutral-800 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-zinc-100"
-            >Midudev</span
-          ></a
-        ></span
+---
+import { Image } from "astro:assets";
+import CLXD from "./icons/CLXD.astro";
+import WorldIcon from "./icons/WorldIcon.astro";
+import XIcon from "./icons/XIcon.astro";
+---
+
+<footer class="font-Krypton mt-40 bg-[--background-50] rounded-t-lg">
+  <div
+    class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col text-[--text-500]"
+  >
+    <a
+      title="made by CrashLanXD <3"
+      href="https://crashlanxd.vercel.app"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex font-medium text-sm items-center md:justify-start justify-center group"
+    >
+      <CLXD
+        class="size-12 p-1 text-white fill-neutral-500 bg-[#121212] rounded-full"
+      />
+      <span
+        class="ml-3 text-lg group-hover:text-[--accent-800] transition-colors"
+        >CLXD</span
       >
-    </div>
-    <div class="flex gap-2 place-content-center">
+    </a>
+    <p
+      class="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-[--text-800] sm:py-2 sm:mt-0 mt-4 flex items-center gap-1"
+    >
+      Una iniciativa de <a
+        class="px-1 flex w-24 bg-white/90 rounded-full"
+        href="https://midu.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          src={"https://midu.dev/logo.png"}
+          alt={"logo de midudev"}
+          width={92}
+          height={28}
+        />
+      </a>
       <a
-        title="javascript 100, página web original de midudev"
-        class="group relative isolate flex transition hover:underline text-zinc-800 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-100"
+        aria-label="100 proyectos de JavaScript - página web original por @midudev"
+        title="100 proyectos de JavaScript - página web original por @midudev"
         href="https://www.javascript100.dev/"
         target="_blank"
-        type="noopener"
+        class="hover:text-[--accent-800] transition-colors"
+        rel="noopener noreferrer"
       >
-        {"-> 100 proyectos js <-"}
+        <WorldIcon class="size-6" />
       </a>
-    </div>
+    </p>
+    <span
+      class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+    >
+      <a
+        aria-label="visita mi X @crashlanxd"
+        title="@crashlanxd"
+        href="https://x.com/crashlanxd"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-[--accent-800] transition-colors"
+      >
+        <XIcon class="size-6" />
+      </a>
+    </span>
   </div>
 </footer>
-
-<style>
-  .anchor:hover {
-    span {
-      text-decoration: underline;
-
-      --tw-scale-x: 1.05;
-      --tw-scale-y: 1.05;
-      transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-        rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    }
-  }
-</style>
