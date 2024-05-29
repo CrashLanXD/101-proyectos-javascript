@@ -15,7 +15,7 @@ interface Props {
 const { slug, num, title, description, compatibility } = Astro.props;
 ---
 
-<article class="relative flex flex-col items-center text-black rounded-t-[15px] rounded-b-md bg-neutral-300/30 dark:bg-neutral-100/5">
+<article class="relative flex flex-col items-center text-black rounded-t-[15px] rounded-b-md bg-[--background-200]">
   <a href={`/${slug}`} class="group transition">
     <span class="group-hover:scale-[1.7] transition-all group-hover:top-4 group-hover:left-6 opacity-80 group-hover:opacity-100 absolute top-2 left-2 text-2xl font-bold font-Krypton gradient">
       #{num}
@@ -42,7 +42,7 @@ const { slug, num, title, description, compatibility } = Astro.props;
           href={`https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-black dark:text-white bg-neutral-300 dark:bg-black/60 transition border-black/60 rounded-md hover:bg-neutral-400 dark:hover:bg-zinc-900"
+          class="text-[--text-950] dark:text-white bg-[--background-200] dark:bg-black/60 transition border-black/60 dark:border-white/10 rounded-md hover:bg-neutral-400/50 dark:hover:bg-zinc-900"
         >
           <GitHubIcon class="size-5 mr-1" />
           Código
@@ -52,7 +52,7 @@ const { slug, num, title, description, compatibility } = Astro.props;
           href={`/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="text-amber-700 dark:text-amber-400 bg-[#d8d8d8] dark:bg-black/50 transition border-amber-500 dark:border-orange-700/60 rounded-md hover:bg-yellow-300/10"
+          class="text-amber-700 dark:text-amber-400 bg-[--secondary-100] dark:bg-black/50 transition border-amber-500 dark:border-orange-700/60 rounded-md hover:bg-[--secondary-200] dark:hover:bg-yellow-300/10"
         >
           <WorldIcon class="size-5 mr-1" />
           Visitar
