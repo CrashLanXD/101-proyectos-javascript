@@ -191,7 +191,7 @@ class Bricks {
         const brick = this.bricks[i][j];
         if (brick.status === BRICK_STATUS.DESTROYED) continue;
         ctx.fillStyle = COLORS[j];
-        ctx.fillRect(brick.x - 1, brick.y, this.width + 2, this.height + 1);
+        ctx.fillRect(~~brick.x, ~~brick.y, ~~this.width + 1, ~~this.height + 1);
       }
     }
   }
@@ -299,7 +299,6 @@ function touchControls() {
 function tick() {
   requestAnimationFrame(tick);
   clear();
-  drawCanvasBorder();
   ball.update();
   paddle.update();
   bricksBoard.draw();
@@ -354,7 +353,7 @@ function drawCanvasBorder() {
 
 function clear() {
   ctx.fillStyle = "#000";
-  ctx.fillRect(OFFSET, OFFSET, W - OFFSET * 2, H);
+  ctx.fillRect(OFFSET, OFFSET + OFFSET_TOP, W - OFFSET * 2, H);
 }
 
 // UI => score and lives
