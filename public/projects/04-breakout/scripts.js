@@ -38,9 +38,14 @@ let paddleY = $CANVAS.height - 15;
 
 // Function to handle paddle movement
 function paddleMovement() {
-  if (rightPressed && paddleX < $CANVAS.width - paddleWidth)
+  if (rightPressed && paddleX + paddleWidth < $CANVAS.width) {
     paddleX += PADDLE_SENSITIVITY;
-  else if (leftPressed && paddleX > 0) paddleX -= PADDLE_SENSITIVITY;
+    if (paddleX + paddleWidth > $CANVAS.width) paddleX = $CANVAS.width - paddleWidth;
+  }
+  else if (leftPressed && paddleX > 0) {
+    paddleX -= PADDLE_SENSITIVITY;
+    if (paddleX < 0) paddleX = 0;
+  }
 }
 
 // Function to draw the paddle on the canvas
