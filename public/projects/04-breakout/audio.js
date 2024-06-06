@@ -1,21 +1,43 @@
-let lastSoundTime = 0;
-let soundCooldown = 190;
+const DEFAULT_FREQUENCY = 300;
+const DEFAULT_DURATION = 0.5;
 
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const SOUND_TYPES = {
+  ball_fall: { type: "sawtooth", frequency: 280, duration: 0.11 },
+  ball_h_walls: { type: "square", frequency: 900, duration: 0.11 },
+  ball_v_walls: { type: "square", frequency: 900, duration: 0.11 },
+  ball_paddle: { type: "square", frequency: 590, duration: 0.12 },
+  ball_bricks: { type: "square", frequency: 280, duration: 0.12 },
+};
 
-function playSound(frequency, duration) {
-  const CURRENT_TIME = performance.now();
-  if (CURRENT_TIME - lastSoundTime > soundCooldown) {
-    const oscillator = audioContext.createOscillator();
-    oscillator.type = "square";
-    oscillator.frequency.value = frequency;
-    oscillator.connect(audioContext.destination);
+class Audio {
+  constructor() {
+    this.audioContext = new window.AudioContext();
+  }
+
+  playSound({
+    type = "sine",
+    frequency = DEFAULT_FREQUENCY,
+    duration = DEFAULT_DURATION,
+  } = {}) {
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(
+      frequency,
+      this.audioContext.currentTime
+    );
+
+    oscillator.connect(gainNode);
+    gainNode.connect(this.audioContext.destination);
+
     oscillator.start();
-
-    setTimeout(() => {
-      oscillator.stop();
-    }, duration);
-
-    lastSoundTime = CURRENT_TIME;
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.00001,
+      this.audioContext.currentTime + duration
+    );
+    oscillator.stop(this.audioContext.currentTime + duration);
   }
 }
+
+const audio = new Audio();
