@@ -63,7 +63,7 @@ class Ball {
 
   draw() {
     ctx.fillStyle = COLORS[0];
-    ctx.fillRect(this.x, this.y, this.size, this.size);
+    ctx.fillRect(~~this.x, ~~this.y, this.size, this.size);
   }
 
   move() {
