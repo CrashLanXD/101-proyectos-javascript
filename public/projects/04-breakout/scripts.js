@@ -243,7 +243,7 @@ const ball = new Ball(W - 125, H - 165, 9);
 
 // Initial config and events
 function setup() {
-  drawCanvasBorder();
+  updateUI();
 
   addEventListener("keydown", (e) => {
     const { key } = e;
@@ -348,7 +348,6 @@ function drawCanvasBorder() {
 
   ctx.fillStyle = COLORS[0];
   ctx.fillRect(W - OFFSET, H - 15, OFFSET, 15);
-  updateUI();
 }
 
 function clear() {
@@ -359,6 +358,7 @@ function clear() {
 // UI => score and lives
 function updateUI() {
   clearOffsetTop();
+  drawCanvasBorder();
   setNumber(score, 220);
   setNumber(lives, W - 230);
 }
