@@ -1,3 +1,9 @@
+// ! UPDATE !
+/**
+ * This code is not recommended for use.
+ * It will be updated very soon.
+ */
+
 // VARIABLES
 let score = 0; // Player's score
 let lines = 0; // Destroyed lines
