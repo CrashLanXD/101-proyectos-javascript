@@ -1,25 +1,66 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <title>TETRIS</title>
   </head>
-
   <body>
     <main>
-      <canvas></canvas>
-      <button class="left">&lt;</button>
-      <button class="right">&gt;</button>
-      <button class="down">&or;</button>
-      <button class="rotate">&orarr;</button>
+      <canvas id="canvas"></canvas>
+
+      <div id="button-container">
+        <div class="d-pad">
+          <div class="d-pad-row">
+            <button id="left" class="left"></button>
+            <div class="center"></div>
+            <button id="right" class="right"></button>
+          </div>
+          <div class="d-pad-row">
+            <div class="empty"></div>
+            <button id="down" class="down"></button>
+            <div class="empty"></div>
+          </div>
+        </div>
+        <div class="ab-buttons">
+          <button id="b" class="button b">B</button>
+          <button id="a" class="button a">A</button>
+        </div>
+      </div>
     </main>
 
-    <script src="const.js"></script>
-    <script src="utils.js"></script>
-    <script src="board.js"></script>
-    <script src="piece.js"></script>
-    <script src="main.js"></script>
+    <label for="changePallete" class="select-label">Paleta:</label>
+    <select id="changePallete">
+      <option value="original">original</option>
+      <option value="pocket">pocket</option>
+      <option value="color">color</option>
+      <option value="debug">debug</option>
+      <option value="a">a</option>
+    </select>
+
+    <label for="changeLevel" class="select-label">Nivel:</label>
+    <select id="changeLevel">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+    </select>
+
+    <script src="js/pieces.js"></script>
+    <script src="js/blockTypes.js"></script>
+    <script src="js/colorPalletes.js"></script>
+    <script src="js/text.js"></script>
+    <script src="js/setup.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/piece.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
   </body>
 </html>
