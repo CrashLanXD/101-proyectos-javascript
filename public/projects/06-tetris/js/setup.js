@@ -51,23 +51,23 @@ let lastTaskTime = 0;
 /*
 The bugs started to appear -_-
 
-TODO: 1. **Redesign Controls:**
+TODO: 1. **Redesign Controls:** []
   - Make the controls more comfortable and reminiscent of the original Game Boy.
   - **Explanation:** Enhance the control layout to mimic the Game Boy's design, improving user comfort.
 
-TODO: 2. **Improve Responsiveness:**
+TODO: 2. **Improve Responsiveness:** []
   - Ensure the game fits correctly on mobile devices in both vertical and horizontal orientations.
   - **Explanation:** Adjust the layout for optimal display on mobile devices, ensuring it looks and functions well in both portrait and landscape modes.
 
-TODO: 3. **Fix "I" Tetromino Rotation:**
+TODO: 3. **Fix "I" Tetromino Rotation:** [x]
   - When rotating the "I" tetromino upwards (clockwise: false), it currently stays in the same position as when rotated downwards.
-  - **Solution:** Modify the `rotate()` function to include a condition: if the piece is "I" and `clockwise` is false, use `move(0, 3)` to elevate it by 3 positions. This will ensure it rotates correctly.
+  - **Solution:** Modify the `rotate()` function to include a condition: if the piece is "I" and `clockwise` is false, use `move(0, -3)` to elevate it by 3 positions. This will ensure it rotates correctly.
 
-TODO: 4. **Remove Pause on Row Clear:**
+TODO: 4. **Remove Pause on Row Clear:** [x]
   - Temporarily remove the pause that occurs when rows are cleared.
   - **Explanation:** Since a destruction animation is planned (but not yet implemented), the current pause makes the game appear frozen. Removing the pause will maintain game flow until the animation is added.
 
-TODO: 5. **Enhance Smoothness on Mobile:**
+TODO: 5. **Enhance Smoothness on Mobile:** []
   - Improve the fluidity of piece dropping on mobile devices.
   - **Explanation:** The current issue is that when holding the down button, the automatic fall interval overlaps with the manual drop, causing inconsistent movement. A possible solution is to disable the automatic fall while the down button is pressed and re-enable it upon release.
 
