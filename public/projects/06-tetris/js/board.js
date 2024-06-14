@@ -6,7 +6,7 @@ class Board {
     this.w = this.cols * this.blockSize;
     this.h = this.rows * this.blockSize;
     this.grid = this.init();
-    this.points = [40, 100, 300, 1200]
+    this.points = [40, 100, 300, 1200];
   }
 
   init() {
@@ -39,14 +39,12 @@ class Board {
       }
     }
 
-    setTimeout(() => {
-      if (rowsRemoved > 0) {
-        const newScore = rowsRemoved * this.points[rowsRemoved - 1] * (level + 1);
-        setScore(score + newScore);
-        setLines(lines + rowsRemoved);
-        isGamePaused = false;
-      }
-    }, 400);
+    if (rowsRemoved > 0) {
+      const newScore = rowsRemoved * this.points[rowsRemoved - 1] * (level + 1);
+      setScore(score + newScore);
+      setLines(lines + rowsRemoved);
+      isGamePaused = false;
+    }
   }
 
   isRowCompleted(y) {
