@@ -23,6 +23,10 @@ class Piece {
       deathEffect();
       board.restart();
       piece.spawn();
+      setScore(0);
+      setLevel(0);
+      setLines(0);
+      drawDynamicUI();
       setTimeout(() => (isGamePaused = false), 1700);
       return;
     }

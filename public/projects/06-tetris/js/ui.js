@@ -24,6 +24,13 @@ function drawStaticUI() {
   drawNextPieceArea(10, 99, 42);
 }
 
+function drawDynamicUI() {
+  setScore(score);
+  setLevel(level);
+  setLines(lines);
+  piece.drawNextPiece();
+}
+
 function drawWalls() {
   for (
     let i = 0;
@@ -148,6 +155,7 @@ function setPallete(pallete) {
     3: activeColorPalette.secondary,
   };
   drawStaticUI();
+  drawDynamicUI();
 }
 
 function setNumber(number, type) {

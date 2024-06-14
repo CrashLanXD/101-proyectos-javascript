@@ -200,11 +200,7 @@ function main() {
 
   setPallete(COLOR_PALLETES[$changePallete.value ?? "color"]);
   drawStaticUI();
-
-  setNumber(score, "score");
-  setNumber(level, "level");
-  setNumber(lines, "lines");
-  piece.drawNextPiece();
+  drawDynamicUI();
 
   addKeyListener();
   addTouchControls();
