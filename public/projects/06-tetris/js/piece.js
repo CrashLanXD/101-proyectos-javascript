@@ -18,8 +18,6 @@ class Piece {
     if (isGamePaused) return;
     if (piece.checkCollision(0, 0)) {
       isGamePaused = true;
-      console.log("DEAD");
-      
       deathEffect();
       board.restart();
       piece.spawn();
@@ -36,7 +34,7 @@ class Piece {
       this.position.y += dy;
       return;
     }
-    // collision width floor | piece
+    // collision with floor | piece
     if (piece.checkCollision(0, 1)) piece.lock();
   }
 
@@ -49,6 +47,13 @@ class Piece {
       ? transposed.map((row) => row.reverse())
       : transposed.reverse();
     if (!this.checkCollision(0, 0, rotated)) this.shape = rotated;
+
+    if (this.shape[0][0] !== "i") return;
+    const isVertical = this.shape[0].length === 1;
+    if (!clockwise) {
+      this.move(0, isVertical ? -3 : 3);
+      // Move [up : down] when rotating counterclockwise to [vertical : horizontal]
+    }
   }
 
   draw() {
@@ -96,10 +101,11 @@ class Piece {
         const newY = this.position.y + y + dy;
 
         // Collision detected! => WALL
-        if (newX < 0 || newX >= COLS || newY < 0 || newY >= ROWS) return true;
+        if (newX < 0 || newX >= COLS || newY >= ROWS) return true;
 
-        // Collision detected! => PIECE
-        if (board.grid[newX][newY] !== 0) return true;
+        // Collision detected! => PIECE (ignoring undefined cells)
+        const block = board.grid[newX][newY];
+        if (block !== 0 && block !== undefined) return true;
       }
     }
     return false;
