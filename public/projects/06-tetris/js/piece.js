@@ -46,12 +46,14 @@ class Piece {
     const rotated = clockwise
       ? transposed.map((row) => row.reverse())
       : transposed.reverse();
-    if (!this.checkCollision(0, 0, rotated)) this.shape = rotated;
+    const shouldRotate = !this.checkCollision(0, 0, rotated);
+    if (shouldRotate) this.shape = rotated;
 
     if (this.shape[0][0] !== "i") return;
     const isVertical = this.shape[0].length === 1;
     if (!clockwise) {
       this.move(0, isVertical ? -3 : 3);
+      if (!shouldRotate) this.move(0, isVertical ? 3 : -3);
       // Move [up : down] when rotating counterclockwise to [vertical : horizontal]
     }
   }
