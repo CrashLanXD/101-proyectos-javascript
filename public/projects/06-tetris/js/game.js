@@ -193,6 +193,12 @@ function main() {
     setLevel(parseInt(e.target.value))
   );
 
+  const $pauseButton = document.getElementById("pauseButton");
+  $pauseButton.addEventListener("click", () => {
+    $pauseButton.classList.toggle("paused");
+    isGamePaused = !isGamePaused;
+  });
+
   board = new Board();
   piece = new Piece();
 

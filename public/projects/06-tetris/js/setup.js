@@ -51,11 +51,11 @@ let lastTaskTime = 0;
 /*
 The bugs started to appear -_-
 
-TODO: 1. **Redesign Controls:** []
+TODO: 1. **Redesign Controls:** [x]
   - Make the controls more comfortable and reminiscent of the original Game Boy.
   - **Explanation:** Enhance the control layout to mimic the Game Boy's design, improving user comfort.
 
-TODO: 2. **Improve Responsiveness:** []
+TODO: 2. **Improve Responsiveness:** [x]?
   - Ensure the game fits correctly on mobile devices in both vertical and horizontal orientations.
   - **Explanation:** Adjust the layout for optimal display on mobile devices, ensuring it looks and functions well in both portrait and landscape modes.
 
