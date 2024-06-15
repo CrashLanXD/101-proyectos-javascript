@@ -5,7 +5,7 @@
     "description":
       "Experimenta la interacción entre arena, agua, fuego y más en este entorno dinámico.",
     "compatibility": { "pc": true, "mobile": true },
-    "theme": { "isDark": true }
+    "theme": { "isDarkModeOnly": true }
   },
   {
     "slug": "02-elementary-cellular-automata",
@@ -13,7 +13,7 @@
     "description":
       "Una implementación de Elementary Cellular Automata, donde cada celda evoluciona según reglas simples basadas en el estado de sus vecinos.",
     "compatibility": { "pc": true, "mobile": true },
-    "theme": { "isDark": false }
+    "theme": { "isDarkModeOnly": true }
   },
   {
     "slug": "03-game-of-life",
@@ -21,7 +21,7 @@
     "description":
       "Simulación de la evolución y la supervivencia en el clásico Juego de la Vida. ¡Observa cómo las formas de vida se desarrollan y evolucionan!",
     "compatibility": { "pc": true, "mobile": true },
-    "theme": { "isDark": false }
+    "theme": { "isDarkModeOnly": true }
   },
   {
     "slug": "04-breakout",
@@ -29,7 +29,7 @@
     "description":
       "¡Llega el nuevo juego de Breakout, Desafía tus habilidades y reflejos mientras rompes ladrillos con tu paleta. ¡Prepárate para horas de diversión con este emocionante desafío de habilidad!",
     "compatibility": { "pc": true, "mobile": true },
-    "theme": { "isDark": false }
+    "theme": { "isDarkModeOnly": true }
   },
   {
     "slug": "05-space-invaders",
@@ -37,7 +37,7 @@
     "description":
       "¡Prepárate para la batalla del siglo con Space Invaders!. ¡Destruye a los invasores antes de que sea demasiado tarde y conviértete en el héroe de la humanidad! ¿Tienes lo necesario para salvar el planeta?",
     "compatibility": { "pc": true, "mobile": false },
-    "theme": { "isDark": false }
+    "theme": { "isDarkModeOnly": true }
   },
   {
     "slug": "06-tetris",
@@ -45,7 +45,7 @@
     "description":
       "¡Domina la velocidad y la estrategia en este electrizante desafío de bloques en caída! Tetris: ¡el fenómeno de puzzle que te mantendrá pegado a la pantalla por horas de diversión sin parar!",
     "compatibility": { "pc": true, "mobile": true },
-    "theme": { "isDark": false }
+    "theme": { "isDarkModeOnly": false }
   },
   {
     "slug": "07-snake",
@@ -53,6 +53,6 @@
     "description":
       "Dirige a la serpiente a través del campo de juego mientras se alimenta. Pero ten cuidado, Evita chocar contra las paredes o contra tu propia cola.",
     "compatibility": { "pc": true, "mobile": false },
-    "theme": { "isDark": false }
+    "theme": { "isDarkModeOnly": true }
   }
 ]

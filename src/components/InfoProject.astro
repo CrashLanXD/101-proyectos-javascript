@@ -1,13 +1,17 @@
 ---
 const { info } = Astro.props;
-// const { theme = {} } = info;
-// const { isDark = false } = theme;
+const { theme = {} } = info;
+const { isDarkModeOnly = true } = theme;
+
+const textColorClass = isDarkModeOnly ? 'text-orange-50' : 'text-black dark:text-orange-50';
+const hoverTextColorClass = isDarkModeOnly ? 'hover:text-[#ffdd99]' : 'hover:text-orange-900 dark:hover:text-[#ffdd99]';
+const linkTextColorClass = isDarkModeOnly ? 'text-white/90' : 'text-black/90 dark:text-white/90';
 ---
 
 <div
   class="hidden sm:flex sm:flex-col absolute left-2 bottom-2 px-4 py-1 font-Krypton"
 >
-  <p class="text-orange-50 effect mx-auto text-base capitalize">
+  <p class={`${textColorClass} effect mx-auto text-base capitalize`}>
     <span>{"{"}</span> 101 {info.title.length >= 16 ? "proyectos JS" : ""}
     <span>{"}"}</span>
   </p>
@@ -17,7 +21,7 @@ const { info } = Astro.props;
   </h2>
 
   <a
-    class="text-xs hover:underline text-center text-white/90 mx-auto hover:text-[#ffdd99] transition-colors"
+    class={`text-xs hover:underline text-center ${linkTextColorClass} mx-auto ${hoverTextColorClass} transition-colors`}
     href="/">← Volver</a
   >
 </div>
