@@ -75,8 +75,8 @@ class Piece {
       this.position.x += 1;
       this.position.y -= 2;
       if (this.checkCollision(0, 0, rotated)) {
-        this.position.x += 1;
-        this.position.y -= 2;
+        this.position.x -= 1;
+        this.position.y += 2;
       } else {
         this.shape = rotated;
       }
