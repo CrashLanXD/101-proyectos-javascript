@@ -94,4 +94,57 @@ const BLOCK_TYPES =  {
     [0,2,2,2,2,2,2,0],
     [0,0,0,0,0,0,0,0],
   ],
+
+  iH_s:[
+    [0,0,0,0,0,0,0,0],
+    [0,2,3,2,2,3,2,2],
+    [0,2,2,2,2,2,2,2],
+    [0,3,2,2,3,2,3,2],
+    [0,2,2,2,2,2,2,2],
+    [0,2,3,2,2,2,3,2],
+    [0,2,2,2,3,2,2,2],
+    [0,0,0,0,0,0,0,0],
+  ],
+  iH_v:[
+    [0,0,0,0,0,0,0,0],
+    [3,2,3,2,3,2,2,2],
+    [2,2,2,2,2,2,3,2],
+    [2,2,3,2,2,2,2,2],
+    [3,2,2,2,2,3,2,2],
+    [2,2,2,3,2,2,2,3],
+    [2,3,2,2,2,3,2,2],
+    [0,0,0,0,0,0,0,0],
+  ],
+  iH_e:[
+    [0,0,0,0,0,0,0,0],
+    [3,2,2,2,3,2,2,0],
+    [2,2,3,2,2,2,2,0],
+    [2,2,2,2,2,3,2,0],
+    [2,3,2,3,2,2,2,0],
+    [2,2,2,2,2,2,3,0],
+    [2,2,3,2,3,2,2,0],
+    [0,0,0,0,0,0,0,0],
+  ],  
+  iV_s:[],
+  iV_v:[],
+  iV_e:[],
 };
+
+BLOCK_TYPES["iV_s"] = rotateMatrix(BLOCK_TYPES["iH_s"]);
+BLOCK_TYPES["iV_v"] = rotateMatrix(BLOCK_TYPES["iH_v"]);
+BLOCK_TYPES["iV_e"] = rotateMatrix(BLOCK_TYPES["iH_e"]);
+
+function rotateMatrix(matrix) {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  const rotated = [];
+
+  for (let col = 0; col < cols; col++) {
+    rotated[col] = [];
+    for (let row = rows - 1; row >= 0; row--) {
+      rotated[col][rows - 1 - row] = matrix[row][col];
+    }
+  }
+
+  return rotated;
+}
