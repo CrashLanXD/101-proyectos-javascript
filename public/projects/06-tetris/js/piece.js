@@ -153,11 +153,3 @@ class Piece {
     piece.spawn();
   }
 }
-
-// This will be moved to another file & [2], [3] are to improve the design...
-const I_ROTATIONS = [
-  [["i", "i", "i", "i"]],
-  [["i"], ["i"], ["i"], ["i"]],
-  [["iH_s", "iH_v", "iH_v", "iH_e"]],
-  [["iV_s"], ["iV_v"], ["iV_v"], ["iV_e"]],
-];

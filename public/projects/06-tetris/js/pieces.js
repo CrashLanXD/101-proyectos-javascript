@@ -7,7 +7,7 @@ const PIECES = {
     ["o", "o"],
   ],
   i: [
-    ["i", "i", "i", "i"]
+    ["iH_s", "iH_v", "iH_v", "iH_e"]
   ],
   s: [
     [ 0 , "s", "s"],
@@ -30,4 +30,17 @@ const PIECES = {
     [ 0 , "t",  0 ],
   ],
 };
+//;;;;;;;;;;;;;;;;;;;;;//
+
+//;;;;;;;;;;;;;;;;;;;;;//
+// i {[H]orizontal / [V]ertical} _ {[s]tart / [v]ia / [e]nd}
+const I_ROTATIONS = [
+  PIECES["i"],
+  [
+    ["iV_s"],
+    ["iV_v"],
+    ["iV_v"],
+    ["iV_e"]
+  ]
+];
 //;;;;;;;;;;;;;;;;;;;;;//
