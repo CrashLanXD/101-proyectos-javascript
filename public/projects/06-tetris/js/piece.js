@@ -40,21 +40,46 @@ class Piece {
 
   rotate({ clockwise = true }) {
     if (isGamePaused) return;
-    const transposed = this.shape[0].map((_, colIndex) =>
-      this.shape.map((row) => row[colIndex])
-    );
-    const rotated = clockwise
-      ? transposed.map((row) => row.reverse())
-      : transposed.reverse();
-    const shouldRotate = !this.checkCollision(0, 0, rotated);
-    if (shouldRotate) this.shape = rotated;
 
-    if (this.shape[0][0] !== "i") return;
+    const isTetrominoI = this.shape.length === 1 || this.shape.length === 4;
+    if (!isTetrominoI) {
+      const transposed = this.shape[0].map((_, colIndex) =>
+        this.shape.map((row) => row[colIndex])
+      );
+      const rotated = clockwise
+        ? transposed.map((row) => row.reverse())
+        : transposed.reverse();
+      if (!this.checkCollision(0, 0, rotated)) {
+        this.shape = rotated;
+      }
+      return;
+    }
+
+    this.rotateIPiece();
+  }
+
+  rotateIPiece() {
     const isVertical = this.shape[0].length === 1;
-    if (!clockwise) {
-      this.move(0, isVertical ? -3 : 3);
-      if (!shouldRotate) this.move(0, isVertical ? 3 : -3);
-      // Move [up : down] when rotating counterclockwise to [vertical : horizontal]
+    const rotated = I_ROTATIONS[isVertical ? 0 : 1];
+
+    if (isVertical) {
+      this.position.x -= 1;
+      this.position.y += 2;
+      if (this.checkCollision(0, 0, rotated)) {
+        this.position.x += 1;
+        this.position.y -= 2;
+      } else {
+        this.shape = rotated;
+      }
+    } else {
+      this.position.x += 1;
+      this.position.y -= 2;
+      if (this.checkCollision(0, 0, rotated)) {
+        this.position.x += 1;
+        this.position.y -= 2;
+      } else {
+        this.shape = rotated;
+      }
     }
   }
 
@@ -79,7 +104,8 @@ class Piece {
         const block = this.nextPieces[0][y][x];
         if (block == 0) continue;
         drawBlock(
-          ui.x + 15 + x * BLOCK_SIZE, 112 + y * BLOCK_SIZE,
+          ui.x + 15 + x * BLOCK_SIZE,
+          112 + y * BLOCK_SIZE,
           BLOCK_TYPES[block]
         );
       }
@@ -127,3 +153,11 @@ class Piece {
     piece.spawn();
   }
 }
+
+// This will be moved to another file & [2], [3] are to improve the design...
+const I_ROTATIONS = [
+  [["i", "i", "i", "i"]],
+  [["i"], ["i"], ["i"], ["i"]],
+  [["iH_s", "iH_v", "iH_v", "iH_e"]],
+  [["iV_s"], ["iV_v"], ["iV_v"], ["iV_e"]],
+];
