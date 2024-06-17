@@ -1,4 +1,4 @@
-const COLOR_PALLETES = {
+const COLOR_PALETTES = {
   original: {
     text:       [33 , 66 , 49 ],
     background: [140, 173, 40 ],

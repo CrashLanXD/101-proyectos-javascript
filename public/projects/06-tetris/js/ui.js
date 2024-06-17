@@ -146,8 +146,8 @@ function clear(x = 0, y = 0, w = W, h = H) {
   rect(x, y, w, h);
 }
 
-function setPallete(pallete) {
-  activeColorPalette = pallete;
+function setPalette(palette) {
+  activeColorPalette = palette;
   colorMap = {
     0: activeColorPalette.text,
     1: activeColorPalette.background,

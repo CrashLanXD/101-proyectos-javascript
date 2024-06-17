@@ -183,9 +183,9 @@ function getTaskInterval(level) {
 }
 
 function main() {
-  const $changePallete = document.getElementById("changePallete");
-  $changePallete.addEventListener("change", (e) =>
-    setPallete(COLOR_PALLETES[e.target.value])
+  const $changePalette = document.getElementById("changePalette");
+  $changePalette.addEventListener("change", (e) =>
+    setPalette(COLOR_PALETTES[e.target.value])
   );
 
   const $changeLevel = document.getElementById("changeLevel");
@@ -204,7 +204,7 @@ function main() {
 
   TASK_INTERVAL = getTaskInterval(level);
 
-  setPallete(COLOR_PALLETES[$changePallete.value ?? "color"]);
+  setPalette(COLOR_PALETTES[$changePalette.value ?? "color"]);
   drawStaticUI();
   drawDynamicUI();
 
