@@ -184,9 +184,20 @@ function getTaskInterval(level) {
 
 function main() {
   const $changePalette = document.getElementById("changePalette");
-  $changePalette.addEventListener("change", (e) =>
-    setPalette(COLOR_PALETTES[e.target.value])
-  );
+  $changePalette.addEventListener("change", (e) => {
+    const selectedPallete = e.target.value;
+
+    if (selectedPallete === "random") {
+      setPalette({
+        text:       [~~(Math.random() * 256), ~~(Math.random() * 256), ~~(Math.random() * 256)],
+        background: [~~(Math.random() * 256), ~~(Math.random() * 256), ~~(Math.random() * 256)],
+        primary:    [~~(Math.random() * 256), ~~(Math.random() * 256), ~~(Math.random() * 256)],
+        secondary:  [~~(Math.random() * 256), ~~(Math.random() * 256), ~~(Math.random() * 256)]
+      });
+    } else {
+      setPalette(COLOR_PALETTES[selectedPallete]);
+    }
+  });
 
   const $changeLevel = document.getElementById("changeLevel");
   $changeLevel.addEventListener("change", (e) =>
