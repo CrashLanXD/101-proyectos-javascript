@@ -25,7 +25,7 @@ const COLOR_PALETTES = {
     background: [ 0 , 255,  0 ],
     primary:    [ 0 ,  0 , 255],
     secondary:  [255,  0 , 255],
-    },
+  },
     
   a: {
     text:       [250, 212 , 0 ],

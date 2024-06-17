@@ -1,15 +1,15 @@
 class Piece {
   constructor() {
     this.keys = Object.keys(PIECES);
-    this.shape = this.randPiece();
+    this.shape = this.getRandomPiece();
     this.position = {
       x: ~~((COLS - this.shape[0].length) / 2),
       y: 1,
     };
-    this.nextPieces = [this.randPiece()];
+    this.nextPieces = [this.getRandomPiece()];
   }
 
-  randPiece() {
+  getRandomPiece() {
     const randomKey = this.keys[~~(Math.random() * this.keys.length)];
     return PIECES[randomKey];
   }
@@ -114,7 +114,7 @@ class Piece {
 
   spawn() {
     this.shape = this.nextPieces.shift();
-    this.nextPieces.push(this.randPiece());
+    this.nextPieces.push(this.getRandomPiece());
     this.position.y = 1;
     this.position.x = ~~((COLS - this.shape[0].length) / 2);
     this.drawNextPiece();

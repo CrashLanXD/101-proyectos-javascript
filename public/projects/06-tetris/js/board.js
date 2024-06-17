@@ -14,9 +14,7 @@ class Board {
   }
 
   restart() {
-    this.grid = Array.from({ length: this.cols }, () =>
-      Array(this.rows).fill(0)
-    );
+    this.grid = this.init();
   }
 
   get(x, y) {
@@ -48,7 +46,11 @@ class Board {
   }
 
   isRowCompleted(y) {
-    for (let x = 0; x < this.cols; x++) if (this.grid[x][y] == 0) return false;
+    for (let x = 0; x < this.cols; x++) {
+      if (this.grid[x][y] == 0) {
+        return false;
+      }
+    }
     return true;
   }
 
@@ -71,16 +73,17 @@ class Board {
 
   drawRow(y) {
     for (let x = 0; x < this.cols; x++) {
-      drawBlock(OFFSET_X + x * BLOCK_SIZE, y * this.blockSize, this.grid[x][y]);
+      drawBlock(OFFSET_X + x * this.blockSize, y * this.blockSize, this.grid[x][y]);
     }
   }
 
   drawAllBlocks() {
     for (let i = 0; i < this.cols; i++) {
       for (let j = 0; j < this.rows; j++) {
-        const block = this.grid[i][j];
-        if (block)
+        const block = this.get(i, j);
+        if (block) {
           drawBlock(OFFSET_X + i * BLOCK_SIZE, j * this.blockSize, block);
+        }
       }
     }
   }

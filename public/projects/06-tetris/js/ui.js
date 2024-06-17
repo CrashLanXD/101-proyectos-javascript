@@ -32,17 +32,10 @@ function drawDynamicUI() {
 }
 
 function drawWalls() {
-  for (
-    let i = 0;
-    i <= 24;
-    i++ // left
-  )
+  for (let i = 0; i <= 24; i++) // Left
     drawBlock(BLOCK_SIZE, i * BLOCK_TYPES.wall.length, BLOCK_TYPES.wall);
-  for (
-    let i = 0;
-    i <= 24;
-    i++ // right
-  )
+    
+  for (let i = 0; i <= 24; i++) // Right
     drawBlock(96, i * BLOCK_TYPES.wall.length, BLOCK_TYPES.wall);
 }
 
