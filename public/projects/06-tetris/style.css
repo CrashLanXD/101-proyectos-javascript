@@ -98,7 +98,7 @@ header {
 
     .d-pad-row {
       display: contents;
-      .left, .right, .down, .center, .empty {
+      .left, .right, .down, .up, .center, .empty {
         width: 62px;
         height: 62px;
         aspect-ratio: 1 / 1;
@@ -120,9 +120,16 @@ header {
         background: radial-gradient(circle, #252525 33.33%, #0b0b0b 66.67%);
       }
 
-      .down {
+      .down, .up {
         background: repeating-linear-gradient(180deg, #0b0b0b, #0b0b0b 9px, #121212 9px, #121212 18px);
+      }
+
+      .down {
         border-radius: 0 0 10px 10px;
+      }
+
+      .up {
+        border-radius: 10px 10px 0 0;
       }
     }
   }
@@ -221,7 +228,7 @@ header {
     top: 20px;
     padding: 0;
   }
-  .left, .right, .down, .center, .empty {
+  .left, .right, .down, .up, .center, .empty {
     width: 56px;
     height: 56px;
     aspect-ratio: 1 / 1;
