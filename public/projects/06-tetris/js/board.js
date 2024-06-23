@@ -26,22 +26,33 @@ class Board {
   }
 
   removeRows() {
-    let rowsRemoved = 0;
+    const rowsToBeRemoved = [];
 
     for (let y = this.rows - 1; y >= 0; y--) {
       if (this.isRowCompleted(y)) {
         isGamePaused = true;
-        this.removeRow(y);
-        rowsRemoved++;
-        y++; // Check the same again as rows above have moved
+        rowsToBeRemoved.push(y);
       }
     }
 
-    if (rowsRemoved > 0) {
-      const newScore = rowsRemoved * this.points[rowsRemoved - 1] * (level + 1);
-      setScore(score + newScore);
-      setLines(lines + rowsRemoved);
-      isGamePaused = false;
+    if (rowsToBeRemoved.length > 0) {
+      for (let i = 0; i < rowsToBeRemoved.length; i++) {
+        this.animateRowRemoval(rowsToBeRemoved[i]);
+      }
+
+      setTimeout(() => {
+        const rowsRemoved = rowsToBeRemoved.length;
+        const newScore =
+          rowsRemoved * this.points[rowsRemoved - 1] * (level + 1);
+        setScore(score + newScore);
+        setLines(lines + rowsRemoved);
+
+        for (let i = rowsToBeRemoved.length - 1; i >= 0; i--) {
+          this.removeRow(rowsToBeRemoved[i]);
+        }
+
+        isGamePaused = false;
+      }, 1260);
     }
   }
 
@@ -86,5 +97,30 @@ class Board {
         }
       }
     }
+  }
+
+  animateRowRemoval(row) {
+    const y = row * BLOCK_SIZE;
+    const w = BLOCK_SIZE * COLS;
+    const intervals = [180, 360, 540, 720, 900];
+
+    color(activeColorPalette.primary);
+    rect(OFFSET_X, y, w, this.blockSize);
+
+    intervals.forEach((interval, index) => {
+      setTimeout(() => {
+        if (index % 2 === 0) {
+          this.drawRow(row);
+        } else {
+          color(activeColorPalette.primary);
+          rect(OFFSET_X, y, w, this.blockSize);
+        }
+      }, interval);
+    });
+
+    setTimeout(() => {
+      color(activeColorPalette.background);
+      rect(OFFSET_X, y, w, this.blockSize);
+    }, 1080);
   }
 }
