@@ -54,5 +54,13 @@
       "Dirige a la serpiente a través del campo de juego mientras se alimenta. Pero ten cuidado, Evita chocar contra las paredes o contra tu propia cola.",
     "compatibility": { "pc": true, "mobile": false },
     "theme": { "isDarkModeOnly": true }
+  },
+  {
+    "slug": "08-pewpew",
+    "title": "Pew Pew",
+    "description":
+      "Juego inspirado en Pew Pew Live. Donde controlas una nave que debe enfrentarse a hordas de enemigos mientras esquivas una gran cantidad de proyectiles.",
+    "compatibility": { "pc": true, "mobile": false },
+    "theme": { "isDarkModeOnly": true }
   }
 ]

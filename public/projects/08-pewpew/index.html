@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[pew pew]</title>
+    <!-- 
+    This project is inspired by the game Pew Pew Live. 
+    Original game by: jyaif
+    Official website: https://pewpew.live/
+    GitHub: https://github.com/jyaif
+    It's a very good game and I highly recommend playing it. ;)
+    -->
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        min-height: 100dvh;
+        background: #000;
+      }
+
+      .cursor {
+        cursor: none;
+      }
+
+      canvas {
+        width: 100%;
+        height: 100%;
+        image-rendering: crisp-edges;
+        image-rendering: -moz-crisp-edges;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+      let t;
+      document.addEventListener("mousemove", () => {
+        clearTimeout(t);
+        document.body.classList.remove("cursor");
+        t = setTimeout(() => document.body.classList.add("cursor"), 2000);
+      });
+    </script>
+    <script src="js/globals.js"></script>
+    <script src="js/Entity.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/Enemies.js"></script>
+    <script src="js/Items.js"></script>
+    <script src="js/Bullets.js"></script>
+    <script src="js/Level.js"></script>
+    <script src="js/QuickPause.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/Menu.js"></script>
+    <script src="js/Particle.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
