@@ -1,0 +1,181 @@
+---
+import AboutLayout from "../layouts/AboutLayout.astro";
+import AboutHeader from "../components/AboutHeader.astro";
+import AboutHero from "../components/AboutHero.astro";
+import AboutFooter from "../components/AboutFooter.astro";
+---
+
+<AboutLayout title="101 projects in JavaScript by CLXD">
+  <AboutHeader />
+  <AboutHero />
+  <main id="main" class="container mx-auto p-6 text-lg mb-6">
+    <section class="flex flex-col md:flex-row justify-between items-center w-full">
+      <h1 class="text-9xl">{"ᗡX⅃Ɔ"}</h1>
+      <div class="flex flex-col text-right gap-y-6">
+        <h2 class="text-6xl">only javascript</h2>
+        <p class="text-base">proyectos interesantes de código abierto</p>
+      </div>
+    </section>
+
+    <section class="mt-24">
+      <div
+        class="text-container ml-auto mb-6 text-pretty flex flex-col gap-y-3 justify-end text-right"
+      >
+        <div class="flex flex-col md:flex-row justify-end items-center text-5xl gap-6">
+          <img
+            class="w-1/2 md:w-[19rem] ml-auto"
+            src="/imgs/barcode.webp"
+            alt="barcode"
+            loading="lazy"
+          />
+          <h2 class="text-balance">Un proyecto lleno de mas proyectos</h2>
+        </div>
+        <p>
+          El punto de esto es ser una web que contenga varias ideas lo mas
+          vanilla posibles. Que cualquiera pueda llevarse el codigo, copiarlo y
+          ejecutarlo. El punto es mostrar lo que se puede crear con JavaScript,
+          ya sea para diversion, utilidad o matemáticas.
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row items-center gap-20">
+        <div>
+          <div class="text-container flex flex-col gap-y-6">
+            <div class="h-6 w-full color-effect"></div>
+            <p class="text-pretty">
+              Todo empezó con ideas vagas para un gran proyecto en mi
+              portafolio. Luego pensé, ¿por qué no juntar todas esas ideas en
+              algo más concreto? Algo que, aunque ya exista, pueda ser
+              reinventado. Al ver la iniciativa de Midudev con su JavaScript
+              100, decidí crear mi propia versión, un lugar donde la creatividad
+              y el código abierto se unan.
+            </p>
+            <p class="text-pretty">
+              Se incluyen tres temáticas principales, herramientas útiles,
+              videojuegos y simulaciones o proyectos matemáticos. La dificultad
+              de estos varía, hay de todo, pueden ser de 400 o de 4000 lineas.
+            </p>
+            <p class="text-pretty">
+              {"{ 101 }"} está para inspirarte, dar ideas, no está pensado para colaboraciones
+              directas, aunque si encuentras errores o tienes ideas para mejoras
+              puedes aportar al repo la idea es que explores los proyectos, te inspires,
+              crees los tuyos y sean mejores.
+            </p>
+          </div>
+        </div>
+        <ul class="theme-list text-4xl">
+          <li>
+            Utilidad <svg
+              class="size-8"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M19 5h-7l-4 14l-3 -6h-2"></path><path d="M14 13l6 6"
+              ></path><path d="M14 19l6 -6"></path></svg
+            >
+          </li>
+          <li>
+            videojuegos <svg
+              class="size-8"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z"
+              ></path><path d="M6 12h4m-2 -2v4"></path><path d="M15 11l0 .01"
+              ></path><path d="M18 13l0 .01"></path></svg
+            >
+          </li>
+          <li>
+            Matematicas <svg
+              class="size-8"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4"></path><path
+                d="M14.5 5.5l4 4"></path><path d="M12 8l-5 -5l-4 4l5 5"
+              ></path><path d="M7 8l-1.5 1.5"></path><path
+                d="M16 12l5 5l-4 4l-5 -5"></path><path d="M16 17l-1.5 1.5"
+              ></path></svg
+            >
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <AboutFooter />
+</AboutLayout>
+
+<style>
+  body {
+    background-color: light-dark(var(--r-white), var(--r-black));
+    color: light-dark(var(--r-black), var(--r-white));
+
+    transition: background 150ms;
+    min-height: 100dvh;
+
+    font-family: InterVariable;
+
+    background-image: repeating-linear-gradient(
+        to right,
+        transparent 0 150px,
+        light-dark(#00000008, #ffffff08) 150px 151px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0 150px,
+        light-dark(#00000008, #ffffff08) 150px 151px
+      );
+  }
+
+  .text-container {
+    max-width: 65ch;
+  }
+
+  .color-effect {
+    background: linear-gradient(90deg, var(--r-red) 33.33%, transparent 33.33%),
+      linear-gradient(90deg, var(--r-orange) 66.66%, transparent 33.33%),
+      linear-gradient(90deg, var(--r-yellow) 100%, transparent 33.33%);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  .theme-list li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .theme-list li svg {
+    color: var(--r-orange);
+  }
+
+  .theme-list li:first-of-type svg {
+    color: var(--r-red);
+  }
+  .theme-list li:last-of-type svg {
+    color: var(--r-yellow);
+  }
+</style>

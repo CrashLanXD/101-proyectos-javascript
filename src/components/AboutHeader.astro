@@ -1,0 +1,351 @@
+---
+import ArrowIcon from "../components/icons/ArrowIcon.astro";
+---
+
+<nav>
+  <div class="nav__content">
+    <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer">
+      <span class="sr-only">CLXD's website</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xml:space="preserve"
+        viewBox="0 0 700 700"
+        ><path
+          d="m156 367.9 44 13.1 15.7 184-59.7-61ZM500 381l44-13.1V504l-57.9 61zM145 495.2l-59-62.5v-85.2l59 17.9zm410 0V365.4l59-17.9v85.2zM33.7 331 77 345v80l-46-45Zm632.6 0c-.7-.5 2.7 49 2.7 49l-46 45v-80z"
+        ></path><path
+          fill="currentColor"
+          d="M550 330s-79 54.3-81 55v195l-65-108 2.2 172.8h-35V451.1l58.8-.1v-41H270v41l60.8-.1v193.9H296V472l-65 108 .1-195-81.1-55 200-185M222 325.5l71 52.5h114l71-52.5L350 197Zm-199 6L62 290l137-91 20-39 84-53V55l42-15v103L25 336.2ZM355 143V40l42 15v52l84 53 20 39 137 91 39 41.5-2 4.7z"
+        ></path><path
+          fill="currentColor"
+          d="m287 58 9-3v49l-82 51-21 40-105.5 72-.5-5zm326 204-.5 5L507 195l-21-40-82-51V55l9 3zm-217.5 98.9h-91L266 311l52-59.4h64l54 59.4z"
+        ></path></svg
+      >
+    </a>
+    <div class="nav__control">
+      <input type="checkbox" id="menu" class="sr-only" />
+      <label for="menu">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"></path>
+        </svg>
+        <span class="sr-only">Toggle Menu</span>
+      </label>
+    </div>
+    <div class="nav__options">
+      <a
+        class="link"
+        href="https://x.com/intent/follow?screen_name=crashlanxd"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>Follow</span>
+        <ArrowIcon class="size-6" />
+      </a>
+      <a class="link" href="/" target="_self">
+        <span>Projects</span>
+        <ArrowIcon class="size-6" />
+      </a>
+      <a
+        class="link"
+        href="https://github.com/CrashLanXD/101-proyectos-javascript"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>Github</span>
+        <ArrowIcon class="size-6" />
+      </a>
+    </div>
+    <button aria-pressed="false" class="theme-toggle">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="currentColor"
+          d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="currentColor"
+          d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+        ></path>
+      </svg>
+      <span class="sr-only">Toggle Theme</span>
+    </button>
+  </div>
+</nav>
+
+<script is:inline>
+  (() => {
+    const toggle = document.querySelector(".theme-toggle");
+
+    if (!toggle) return;
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.dataset.theme = savedTheme;
+      toggle.setAttribute("aria-pressed", savedTheme === "light");
+    }
+
+    const switchTheme = () => {
+      const isDark = toggle.matches("[aria-pressed=true]") ? false : true;
+      const newTheme = isDark ? "light" : "dark";
+      toggle.setAttribute("aria-pressed", isDark);
+      document.documentElement.dataset.theme = newTheme;
+      localStorage.setItem("theme", newTheme);
+    };
+
+    const toggleTheme = (e) => {
+      e.preventDefault();
+      if (!document.startViewTransition) switchTheme();
+      else document.startViewTransition(switchTheme);
+    };
+
+    toggle.addEventListener("click", toggleTheme);
+  })();
+</script>
+
+<style>
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: light-dark(#f9f9f9, #0a0a0a);
+  }
+
+  nav {
+    min-width: 100%;
+    height: 60px;
+    position: sticky;
+    inset: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 800;
+    background: var(--bg);
+    z-index: 10;
+    border-bottom: 4px solid var(--r-orange);
+    transition: background 150ms;
+  }
+
+  .nav__content {
+    width: 1100px;
+    display: flex;
+    max-width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    gap: 1rem;
+    position: relative;
+    justify-content: space-between;
+    background: var(--bg);
+    transition: background 150ms;
+  }
+
+  .nav__control {
+    width: 60px;
+  }
+
+  label {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .nav__control svg {
+    width: 24px;
+    stroke-width: 2.5;
+    rotate: calc(var(--active-nav, 0) * 45deg);
+    transition: rotate var(--speed);
+  }
+
+  input:focus-visible + label {
+    outline: 1px solid var(--r-yellow);
+  }
+
+  .nav__content > a,
+  .theme-toggle {
+    padding: 1rem 2rem;
+    max-height: 100%;
+    color: var(--color);
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+
+    svg {
+      color: currentColor;
+      fill: currentColor;
+      width: 50%;
+    }
+  }
+
+  .nav__content > a:is(:hover, :focus-visible), .theme-toggle:is(:hover, :focus-visible) {
+    --intent: 1;
+  }
+
+  .nav__content > a::after,
+  .theme-toggle::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    border-radius: 12px;
+    background: hsl(0 0% 50% / calc(var(--intent, 0) * 0.25));
+    transition: background 150ms;
+  }
+
+  .nav__options a {
+    position: relative;
+    padding: 1rem 2rem;
+    height: 60px;
+  }
+
+  .nav__options svg {
+    height: 16px;
+    stroke-width: 2.5px;
+  }
+
+  .nav__options {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: var(--bg);
+    width: 100%;
+    translate: 0 calc(-100% + (var(--active-nav, 0) * (100% + 2px)));
+    transition: translate var(--speed);
+    z-index: -1;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 1px solid var(--r-yellow);
+  }
+
+  :root:has(#menu:checked) {
+    --active-nav: 1;
+  }
+
+  .nav__options a:not(:last-of-type) {
+    border-bottom: 2px solid var(--r-orange);
+  }
+
+  nav a {
+    display: flex;
+    place-items: center;
+    padding: 1rem;
+    text-decoration: none;
+    justify-content: space-between;
+    color: currentColor;
+  }
+
+  nav a:is(:hover, :focus-visible) {
+    --active: 1;
+  }
+
+  .link svg {
+    opacity: var(--active, 0);
+    rotate: calc(var(--active, 0) * -45deg);
+    scale: calc(1 + (var(--active, 0) * 0.1));
+    transition:
+      opacity calc(var(--speed) * 1.5),
+      rotate var(--speed),
+      scale var(--speed);
+  }
+
+  :root {
+    --speed: 0.25s;
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --lerp-0: 1;
+      --lerp-1: calc(sin(30deg));
+      --speed: 0.25s;
+    }
+    .nav__control {
+      display: none;
+    }
+    .nav__options {
+      flex: 1;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      position: static;
+      width: auto;
+      translate: 0 0;
+      z-index: 1;
+    }
+
+    .nav__options a:not(:last-of-type) {
+      border-bottom: 0;
+    }
+
+    .link::before {
+      content: "";
+      position: absolute;
+      height: 300%;
+      border-bottom: 4px solid var(--r-orange);
+      bottom: 0;
+      background: var(--bg);
+      z-index: -1;
+      left: 0;
+      right: 0;
+      transition: 150ms;
+    }
+    .link {
+      translate: 0 calc(var(--lerp, 0) * 80%);
+      transition: translate var(--speed);
+    }
+
+    :is(.link:hover, .link:focus-visible) {
+      --lerp: var(--lerp-0);
+      z-index: 5;
+
+      &::before {
+        border-color: var(--r-yellow);
+      }
+    }
+    .link:has(+ :is(.link:hover, .link:focus-visible)),
+    :is(.link:hover, .link:focus-visible) + .link {
+      --lerp: var(--lerp-1);
+      z-index: 4;
+
+      &::before {
+        border-color: var(--r-red);
+      }
+    }
+  }
+
+  .theme-toggle[aria-pressed="true"] svg path:last-of-type {
+    display: block;
+  }
+
+  .theme-toggle[aria-pressed="true"] svg path:first-of-type,
+  .theme-toggle svg path:last-of-type {
+    display: none;
+  }
+</style>

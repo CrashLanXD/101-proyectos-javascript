@@ -1,0 +1,66 @@
+<section class="scrub">
+  <h1>101 proyectos javascript</h1>
+  <a href="#main" class="zigzag-arrow">↯ <span class="sr-only">Go down</span></a
+  >
+</section>
+
+<style>
+  @property --scroll {
+    initial-value: 0;
+    inherits: true;
+    syntax: "<number>";
+  }
+  @property --scrub {
+    initial-value: 0;
+    inherits: true;
+    syntax: "<number>";
+  }
+
+  section {
+    height: calc(100vh - 60px);
+    display: grid;
+    place-items: center;
+    align-content: center;
+    text-align: center;
+  }
+
+  .scrub {
+    animation: scrub linear both;
+    animation-timeline: scroll();
+  }
+
+  @keyframes scrub {
+    100% {
+      --scroll: 100;
+      --scrub: 100;
+    }
+  }
+
+  h1,
+  a {
+    --velocity: calc(var(--scroll) - var(--scrub));
+    transition: --scrub 0.25s ease-in;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(2rem, 8vw + 1rem, 12rem);
+    text-shadow:
+      0 calc(var(--velocity) * 0.3px) var(--p-blue),
+      0 calc(var(--velocity) * 0.6px) var(--p-green),
+      0 calc(var(--velocity) * 0.9px) var(--p-yellow),
+      0 calc(var(--velocity) * 1.2px) var(--p-orange),
+      0 calc(var(--velocity) * 1.5px) var(--p-red);
+    margin: 1rem;
+  }
+
+  .zigzag-arrow {
+    font-size: 5rem;
+    font-weight: 700;
+    position: absolute;
+    right: 40px;
+    bottom: 20px;
+  }
+
+  .zigzag-arrow:hover {
+    color: var(--c-blue);
+  }
+</style>
