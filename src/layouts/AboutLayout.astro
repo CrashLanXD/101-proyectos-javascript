@@ -37,12 +37,37 @@ const description =
   <body>
     <slot />
     <style is:global>
-      [data-theme="light"] {
-        color-scheme: light only;
-      }
+      :root {
+        --p-blue: #198cd9;
+        --p-green: #78be20;
+        --p-yellow: #ffb500;
+        --p-orange: #ff8200;
+        --p-red: #ef3827;
 
+        --r-white: #e5e4d1;
+        --r-black: light-dark(#343232, #111111);
+        --r-red: #e22f2e;
+        --r-orange: #dc6d2c;
+        --r-yellow: #ddb631;
+
+        --c-blue: #2c388c;
+
+        --hide-in-dark: block;
+        --hide-in-light: none;
+        /*--c-orange: #FD5514;
+        --c-burnt-orange: #FE1E1C;
+        --c-crimson-red: #C71620;
+        --c-sky: #136FBA;
+        --c-purple: #2A1B44;*/
+      }
       [data-theme="dark"] {
         color-scheme: dark only;
+        --hide-in-dark: none;
+        --hide-in-light: block;
+      }
+
+      [data-theme="light"] {
+        color-scheme: light only;
       }
 
       html {
@@ -85,34 +110,6 @@ const description =
         to {
           clip-path: polygon(130% 0, -30% 0, -15% 100%, 110% 115%);
         }
-      }
-
-      :root {
-        --text: light-dark(#1f0d21, #f0f0f0);
-        --background: light-dark(#fbf4fb, #0b0b0b);
-        --primary: light-dark(#6e1e76, #d989e1);
-        --secondary: light-dark(#d46ce0, #881f93);
-        --accent: light-dark(#c122d3, #cb2cdd);
-        --foreground: light-dark(#fcf8f9, #262626);
-
-        --p-blue: #198cd9;
-        --p-green: #78be20;
-        --p-yellow: #ffb500;
-        --p-orange: #ff8200;
-        --p-red: #ef3827;
-
-        --r-white: #e5e4d1;
-        --r-black: light-dark(#343232, #111111);
-        --r-red: #e22f2e;
-        --r-orange: #dc6d2c;
-        --r-yellow: #ddb631;
-        
-        --c-blue: #2C388C;
-        /*--c-orange: #FD5514;
-        --c-burnt-orange: #FE1E1C;
-        --c-crimson-red: #C71620;
-        --c-sky: #136FBA;
-        --c-purple: #2A1B44;*/
       }
 
       @font-face {
