@@ -2,19 +2,20 @@
 import { ViewTransitions } from "astro:transitions";
 interface Props {
   title: string;
+  defaultTheme: string;
 }
 
-const { title } = Astro.props;
+const { title, defaultTheme } = Astro.props;
 const description =
   "Explora una colección de 101 proyectos en JavaScript, desde simulaciones hasta juegos y algoritmos, diseñados para experimentar con diferentes conceptos de programación.";
 ---
 
 <!doctype html>
-<html lang="es" class="bg-[--background-100]">
+<html lang="es" data-theme={defaultTheme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    <meta name="author" content="Eduardo Sanchez Hernandez" />
+    <meta name="author" content="CLXD | Eduardo Sanchez Hernandez" />
     <meta
       name="keywords"
       content="javascript, js, programming, programación, desarrollo web, algoritmos, HTML, CSS, proyectos de código abierto, aprendizaje interactivo, frontend, backend, simulaciones, juegos en JavaScript, desarrollo web moderno, práctica de programación, desarrollo de aplicaciones, ejercicios de programación, JavaScript avanzado"
@@ -23,17 +24,11 @@ const description =
     <meta name="twitter:creator" content="@CrashLanXD" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta
-      name="twitter:image"
-      content="https://javascript101clxd.netlify.app/og.png"
-    />
+    <meta name="twitter:image" content="https://clxd101js.netlify.app/og.png" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta
-      property="og:image"
-      content="https://javascript101clxd.netlify.app/og.png"
-    />
-    <link rel="canonical" href="https://javascript101clxd.netlify.app" />
+    <meta property="og:image" content="https://clxd101js.netlify.app/og.png" />
+    <link rel="canonical" href="https://clxd101js.netlify.app" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -42,31 +37,110 @@ const description =
   </head>
   <body>
     <slot />
-  </body><style is:global>
-    :root {
-      color-scheme: light dark;
-    }
-    @font-face {
-      font-family: InterVariable;
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url("/fonts/InterVariable.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Krypton";
-      src: url("/fonts/MonaspaceKrypton-Medium.woff2") format("woff2");
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    html {
-      font-family: system-ui, sans-serif;
-      scroll-behavior: smooth;
-    }
-    @media (prefers-color-scheme: light) {
+    <style is:global>
       :root {
+        --p-blue: #198cd9;
+        --p-green: #78be20;
+        --p-yellow: #ffb500;
+        --p-orange: #ff8200;
+        --p-red: #ef3827;
+
+        --r-white: #e5e4d1;
+        --r-black: light-dark(#343232, #111111);
+        --r-red: #e22f2e;
+        --r-orange: #dc6d2c;
+        --r-yellow: #ddb631;
+
+        --c-blue: #2c388c;
+
+        --hide-in-dark: block;
+        --hide-in-light: none;
+      }
+      [data-theme="dark"] {
+        color-scheme: dark only;
+        --hide-in-dark: none;
+        --hide-in-light: block;
+      }
+
+      [data-theme="light"] {
+        color-scheme: light only;
+      }
+      html {
+        color-scheme: light dark;
+      }
+
+      ::view-transition-group(root) {
+        animation-duration: 1s;
+      }
+      ::view-transition-new(root),
+      ::view-transition-old(root) {
+        mix-blend-mode: normal;
+      }
+
+      ::view-transition-new(root) {
+        animation-name: reveal-light;
+      }
+
+      ::view-transition-old(root),
+      .dark::view-transition-old(root) {
+        animation: none;
+      }
+      .dark::view-transition-new(root) {
+        animation-name: reveal-dark;
+      }
+
+      @keyframes reveal-dark {
+        from {
+          clip-path: polygon(-30% 0, -30% 0, -15% 100%, -10% 115%);
+        }
+        to {
+          clip-path: polygon(-30% 0, 130% 0, 115% 100%, -10% 115%);
+        }
+      }
+
+      @keyframes reveal-light {
+        from {
+          clip-path: polygon(130% 0, 130% 0, 115% 100%, 110% 115%);
+        }
+        to {
+          clip-path: polygon(130% 0, -30% 0, -15% 100%, 110% 115%);
+        }
+      }
+
+      @font-face {
+        font-family: InterVariable;
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("/fonts/InterVariable.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Krypton";
+        src: url("/fonts/MonaspaceKrypton-Medium.woff2") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      html {
+        font-family: system-ui, sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      .font-Krypton {
+        font-family: "Krypton", ui-monospace, Consolas, monospace;
+      }
+    </style>
+  </body>
+</html>
+
+<!-- @media (prefers-color-scheme: light) {
+    [data-theme="light"] {
         --text-50: #f2f2f2;
         --text-100: #e6e6e6;
         --text-200: #cccccc;
@@ -126,10 +200,10 @@ const description =
         --accent-800: #664400;
         --accent-900: #332200;
         --accent-950: #1a1100;
-      }
+      
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
+    @media (prefers-color-scheme: dark) { 
+    [data-theme="dark"] {
         --text-50: #0d0d0d;
         --text-100: #1a1a1a;
         --text-200: #333333;
@@ -189,16 +263,6 @@ const description =
         --accent-800: #ffdd99;
         --accent-900: #ffeecc;
         --accent-950: #fff7e5;
-      }
+      
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-    }
-    .font-Krypton {
-      font-family: "Krypton", ui-monospace, Consolas, monospace;
-    }
-  </style>
-</html>
+  -->

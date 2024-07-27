@@ -1,8 +1,9 @@
 <footer>
-  <div class="mx-auto max-w-screen-xl">
+  <di class="mx-auto max-w-screen-xl">
     <p class="w-full text-sm text-center">
       made by ⊂└メᕤ {"<3"}
     </p>
+    <slot/>
   </div>
   <div class="loading-bar">
     <div class="bar" style="background-color: #482726"></div>
@@ -39,6 +40,7 @@
     color: light-dark(var(--r-white), var(--r-black));
     padding: 24px 0;
     position: relative;
+    transition: background 150ms;
   }
 
   .loading-bar {

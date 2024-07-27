@@ -1,13 +1,13 @@
 ---
-import AboutLayout from "../layouts/AboutLayout.astro";
-import AboutHeader from "../components/AboutHeader.astro";
-import AboutHero from "../components/AboutHero.astro";
-import AboutFooter from "../components/AboutFooter.astro";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/AboutHeader.astro";
+import Hero from "../components/AboutHero.astro";
+import Footer from "../components/AboutFooter.astro";
 ---
 
-<AboutLayout title="101 projects in JavaScript by CLXD">
-  <AboutHeader />
-  <AboutHero />
+<Layout title="101 projects in JavaScript by CLXD" defaultTheme="system">
+  <Header title="Projects" link="/"/>
+  <Hero />
   <main id="main" class="container mx-auto p-6 text-lg mb-6">
     <section
       class="flex flex-col md:flex-row justify-between items-center w-full"
@@ -123,8 +123,8 @@ import AboutFooter from "../components/AboutFooter.astro";
       </div>
     </section>
   </main>
-  <AboutFooter />
-</AboutLayout>
+  <Footer />
+</Layout>
 
 <style>
   body {

@@ -1,5 +1,8 @@
 ---
 import ArrowIcon from "../components/icons/ArrowIcon.astro";
+
+interface Props { title: string; link: string; }
+const { title, link } = Astro.props;
 ---
 
 <nav>
@@ -50,8 +53,8 @@ import ArrowIcon from "../components/icons/ArrowIcon.astro";
         <span>Follow</span>
         <ArrowIcon class="size-6" />
       </a>
-      <a class="link" href="/" target="_self">
-        <span>Projects</span>
+      <a class="link" href={link} target="_self">
+        <span>{title}</span>
         <ArrowIcon class="size-6" />
       </a>
       <a
@@ -92,42 +95,38 @@ import ArrowIcon from "../components/icons/ArrowIcon.astro";
 </nav>
 
 <script is:inline>
-  (() => {
-    const toggle = document.querySelector(".theme-toggle");
+  document.addEventListener("astro:page-load", () => {
+    (() => {
+      const toggle = document.querySelector(".theme-toggle");
 
-    if (!toggle) return;
+      if (!toggle) return;
 
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      document.documentElement.dataset.theme = savedTheme;
-      toggle.setAttribute("aria-pressed", savedTheme === "light");
-    }
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        document.documentElement.dataset.theme = savedTheme;
+        toggle.setAttribute("aria-pressed", savedTheme === "light");
+      }
 
-    const switchTheme = () => {
-      const isDark = toggle.matches("[aria-pressed=true]") ? false : true;
-      const newTheme = isDark ? "light" : "dark";
-      toggle.setAttribute("aria-pressed", isDark);
-      document.documentElement.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
-    };
+      const switchTheme = () => {
+        const isDark = toggle.matches("[aria-pressed=true]") ? false : true;
+        const newTheme = isDark ? "light" : "dark";
+        toggle.setAttribute("aria-pressed", isDark);
+        document.documentElement.dataset.theme = newTheme;
+        localStorage.setItem("theme", newTheme);
+      };
 
-    const toggleTheme = (e) => {
-      e.preventDefault();
-      if (!document.startViewTransition) switchTheme();
-      else document.startViewTransition(switchTheme);
-    };
+      const toggleTheme = (e) => {
+        e.preventDefault();
+        if (!document.startViewTransition) switchTheme();
+        else document.startViewTransition(switchTheme);
+      };
 
-    toggle.addEventListener("click", toggleTheme);
-  })();
+      toggle.addEventListener("click", toggleTheme);
+    })();
+  });
 </script>
 
 <style>
-  *,
-  *:after,
-  *:before {
-    box-sizing: border-box;
-  }
-
   :root {
     --bg: light-dark(#f9f9f9, #0a0a0a);
   }
@@ -204,7 +203,8 @@ import ArrowIcon from "../components/icons/ArrowIcon.astro";
     }
   }
 
-  .nav__content > a:is(:hover, :focus-visible), .theme-toggle:is(:hover, :focus-visible) {
+  .nav__content > a:is(:hover, :focus-visible),
+  .theme-toggle:is(:hover, :focus-visible) {
     --intent: 1;
   }
 
