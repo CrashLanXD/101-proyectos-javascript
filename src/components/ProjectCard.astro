@@ -17,12 +17,13 @@ interface Props {
 const { project, number, loading } = Astro.props;
 const { slug, title, description, compatibility, thumbnailSrc } = project;
 
-const GitHubUrl =
+const GitHubURL =
   "https://github.com/CrashLanXD/101-proyectos-javascript/tree/master/public/projects";
+const projectURL = `/the-vault/${slug}`;
 ---
 
 <article class="relative flex flex-col items-center max-w-96 mx-auto">
-  <a href={`/projects/${slug}`} class="group transition">
+  <a href={projectURL} class="group transition">
     <span
       class:list={[
         "absolute top-2 left-2 transition-all",
@@ -61,7 +62,7 @@ const GitHubUrl =
             "dark:text-amber-400 dark:bg-black/60 dark:border-orange-700",
             "hover:brightness-110 hover:scale-105 transition-all"
           ]}
-          href={`/projects/${slug}`}><WorldIcon class="size-5 mr-1" /> Visitar</a
+          href={projectURL}><WorldIcon class="size-5 mr-1" /> Visitar</a
         >
         <a
           class:list={[
@@ -70,7 +71,7 @@ const GitHubUrl =
             "dark:bg-black/60 dark:border-white/10",
             "hover:brightness-110 hover:scale-105 transition-all"
           ]}
-          href={`${GitHubUrl}/${slug}`}
+          href={`${GitHubURL}/${slug}`}
           target="_blank"
           rel="noopener noreferrer"><GitHubIcon class="size-5 mr-1" /> Código</a
         >
