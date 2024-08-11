@@ -13,7 +13,7 @@ import ProjectCard from "@/components/ProjectCard.astro";
   {
     PROJECTS.map((project, index) => {
       const number = `${index + 1}`.padStart(2, "0");
-      return <ProjectCard project={project} number={number} />;
+      return <ProjectCard project={project} number={number} loading={index > 2 ? "lazy" : "eager"} />;
     })
   }
 
