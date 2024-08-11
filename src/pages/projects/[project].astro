@@ -20,6 +20,6 @@ const number = `${index + 1}`.padStart(2, "0");
 ---
 
 <Layout title={`Proyecto ${number}: ${info.title}`} defaultTheme="system">
-  <iframe title={`${info.title}`} class="w-screen h-dvh" src={`/projects/${project}/index.html`}></iframe>
+  <iframe title={`${info.title}`} class="w-screen h-dvh" src={`/${project}/index.html`}></iframe>
   <ProjectBadge title={info.title} number={number}/>
 </Layout>
