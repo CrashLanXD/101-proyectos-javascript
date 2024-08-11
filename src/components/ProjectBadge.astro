@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+  number: number | string;
+}
+
+const { title, number } = Astro.props;
+---
+
+<div
+  class="fixed left-2 bottom-2 px-4 py-1 font-Krypton text-light text-center z-50 flex flex-col justify-center mix-blend-difference"
+>
+  <p
+    class="text-base mx-auto capitalize [text-shadow:_0_0_16px_rgba(255,255,255,0.5)] inline-flex"
+  >
+    {"{ 101"}{
+      title.length >= 16 && (
+        <span class="hidden md:block whitespace-pre"> proyectos JS </span>
+      )
+    }{" }"}
+  </p>
+  <h2
+    class:list={[
+      "text-base tracking-tighter text-orange-400",
+      "hidden md:block",
+    ]}
+  >
+    {`#${number}> ${title}`}
+  </h2>
+
+  <a class="text-xs hover:underline" href="/">← Volver</a>
+</div>
