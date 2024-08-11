@@ -1,0 +1,50 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import Hero from "@/sections/Hero.astro";
+import AboutHero from "@/sections/about/Hero.astro";
+
+import Header from "@/sections/Header.astro";
+import Footer from "@/sections/Footer.astro";
+
+import Action from "@/components/Action.astro";
+
+import ProjectBadge from "@/components/ProjectBadge.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+
+import { type Project } from "@/types/Project";
+
+const url = "/clxd/components";
+const exampleProject: Project = {
+  slug: `${url.replace("/", "")}`,
+  title: "ProjectInfo",
+  description: "Consectetur et nulla fugiat dolore anim dolore in nulla esse.",
+  compatibility: { pc: false, mobile: true },
+};
+---
+
+<Layout
+  title="101 proyectos de JavaScript - por @crashlanxd"
+  defaultTheme="dark"
+>
+  <Header title="CLXD" link={url} />
+  <Hero />
+  <AboutHero />
+
+  <div class="flex justify-evenly items-center my-16">
+    <Action as="button" aria-disabled="true">Action disabled</Action>
+    <Action as="button" aria-disabled="false">Action enabled</Action>
+  </div>
+
+  <div
+    class="container my-16 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 gap-4"
+  >
+    <ProjectCard project={exampleProject} number={"01"} loading="lazy" />
+    <ProjectCard project={exampleProject} number={"06"} loading="lazy" />
+    <ProjectCard project={exampleProject} number={999} loading="lazy" />
+  </div>
+
+  <ProjectBadge title="Components . . . " number="999" />
+
+  <Footer />
+</Layout>

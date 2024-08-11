@@ -1,0 +1,62 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }>;
+
+const { as: Tag, class: className, ...props } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    "relative inline-block action group",
+    "font-semibold uppercase text-dark text-base text-center",
+    "px-5 py-2.5 rounded-md",
+    "skew-x-[-21deg] transition hover:scale-110 hover:text-white active:scale-95",
+    "aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:text-neutral-700",
+    className,
+  ]}
+  {...props}
+>
+  <span class="inline-block skew-x-[21deg]"><slot /></span>
+</Tag>
+
+<style is:global>
+  .action::before {
+    @apply absolute inset-0 size-full rounded-md;
+    content: "";
+    z-index: -10;
+    background-size: 150%;
+    animation: animate-gold-bg 6s ease-in-out infinite;
+  }
+
+  .action::after {
+    @apply absolute inset-0 m-1 size-full bg-white rounded-md hover:bg-transparent transition-colors;
+    content: "";
+    z-index: -5;
+    height: calc(100% - 8px);
+    width: calc(100% - 8px);
+  }
+
+  .action[aria-disabled]::before {
+    @apply bg-gradient-to-tr from-neutral-400 to-neutral-600;
+    animation: none;
+  }
+
+  .action[aria-disabled]::after {
+    @apply bg-neutral-400;
+  }
+
+  @keyframes animate-gold-bg {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+</style>
