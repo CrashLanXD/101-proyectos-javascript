@@ -5,11 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: "var(--r-black, #000)",
-        light: "var(--r-white, #fff)",
-        "r-red": "var(--r-red, #e22f2e)",
-        "r-orange": "var(--r-orange, #dc6d2c)",
-        "r-yellow": "var(--r-yellow, #ddb631)",
+        dark: "#343232",
+        light: "e5e4d1",
+        "r-red": "#e22f2e",
+        "r-orange": "#dc6d2c",
+        "r-yellow": "#ddb631",
       },
       fontFamily: {
         krypton: ["Krypton", "ui-monospace", "Consolas", "monospace"],
