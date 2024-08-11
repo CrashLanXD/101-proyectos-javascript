@@ -2,7 +2,7 @@
 import { ViewTransitions } from "astro:transitions";
 interface Props {
   title: string;
-  defaultTheme: string;
+  defaultTheme?: string;
 }
 
 const { title, defaultTheme } = Astro.props;
@@ -11,7 +11,7 @@ const description =
 ---
 
 <!doctype html>
-<html lang="es" data-theme={defaultTheme}>
+<html lang="es" data-theme={defaultTheme ?? ""}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -134,6 +134,27 @@ const description =
       }
       .font-Krypton {
         font-family: "Krypton", ui-monospace, Consolas, monospace;
+      }
+
+      body {
+        background-color: light-dark(var(--r-white), var(--r-black));
+        color: light-dark(var(--r-black), var(--r-white));
+
+        transition: background 150ms;
+        min-height: 100dvh;
+
+        font-family: InterVariable;
+
+        background-image: repeating-linear-gradient(
+            to right,
+            transparent 0 150px,
+            light-dark(#00000008, #ffffff08) 150px 151px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0 150px,
+            light-dark(#00000008, #ffffff08) 150px 151px
+          );
       }
     </style>
   </body>
