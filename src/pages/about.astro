@@ -1,8 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/AboutHeader.astro";
-import Hero from "../components/AboutHero.astro";
-import Footer from "../components/AboutFooter.astro";
+import Layout from "@/layouts/Layout.astro";
+
+import Header from "@/sections/Header.astro";
+import Hero from "@/sections/about/Hero.astro";
+import Footer from "@/sections/Footer.astro";
 ---
 
 <Layout title="101 projects in JavaScript by CLXD" defaultTheme="system">
@@ -127,27 +128,6 @@ import Footer from "../components/AboutFooter.astro";
 </Layout>
 
 <style>
-  body {
-    background-color: light-dark(var(--r-white), var(--r-black));
-    color: light-dark(var(--r-black), var(--r-white));
-
-    transition: background 150ms;
-    min-height: 100dvh;
-
-    font-family: InterVariable;
-
-    background-image: repeating-linear-gradient(
-        to right,
-        transparent 0 150px,
-        light-dark(#00000008, #ffffff08) 150px 151px
-      ),
-      repeating-linear-gradient(
-        to bottom,
-        transparent 0 150px,
-        light-dark(#00000008, #ffffff08) 150px 151px
-      );
-  }
-
   .barcode {
     display: var(--hide-in-dark);
   }

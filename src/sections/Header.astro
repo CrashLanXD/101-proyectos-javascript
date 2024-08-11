@@ -1,7 +1,10 @@
 ---
 import ArrowIcon from "@/icons/ArrowIcon.astro";
 
-interface Props { title: string; link: string; }
+interface Props {
+  title: string;
+  link: string;
+}
 const { title, link } = Astro.props;
 ---
 
@@ -94,35 +97,35 @@ const { title, link } = Astro.props;
   </div>
 </nav>
 
-<script is:inline>
+<script>
+  import { $ } from "@/lib/domSelector";
   document.addEventListener("astro:page-load", () => {
-    (() => {
-      const toggle = document.querySelector(".theme-toggle");
+    const toggle = $(".theme-toggle");
 
-      if (!toggle) return;
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.dataset.theme = savedTheme;
+      toggle?.setAttribute("aria-pressed", String(savedTheme === "light"));
+    }
 
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme) {
-        document.documentElement.dataset.theme = savedTheme;
-        toggle.setAttribute("aria-pressed", savedTheme === "light");
+    const switchTheme = () => {
+      const isDark = !toggle?.matches("[aria-pressed=true]");
+      const newTheme = isDark ? "light" : "dark";
+      toggle?.setAttribute("aria-pressed", String(isDark));
+      document.documentElement.dataset.theme = newTheme;
+      localStorage.setItem("theme", newTheme);
+    };
+
+    const toggleTheme = (e: Event) => {
+      e.preventDefault();
+      if (!(document as any).startViewTransition) {
+        switchTheme();
+      } else {
+        (document as any).startViewTransition(switchTheme);
       }
+    };
 
-      const switchTheme = () => {
-        const isDark = toggle.matches("[aria-pressed=true]") ? false : true;
-        const newTheme = isDark ? "light" : "dark";
-        toggle.setAttribute("aria-pressed", isDark);
-        document.documentElement.dataset.theme = newTheme;
-        localStorage.setItem("theme", newTheme);
-      };
-
-      const toggleTheme = (e) => {
-        e.preventDefault();
-        if (!document.startViewTransition) switchTheme();
-        else document.startViewTransition(switchTheme);
-      };
-
-      toggle.addEventListener("click", toggleTheme);
-    })();
+    toggle?.addEventListener("click", toggleTheme);
   });
 </script>
 
@@ -132,30 +135,15 @@ const { title, link } = Astro.props;
   }
 
   nav {
-    min-width: 100%;
-    height: 60px;
-    position: sticky;
-    inset: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 800;
+    @apply min-w-full sticky inset-0 uppercase text-xs font-extrabold z-10 border-b-4 border-b-r-orange transition-colors;
     background: var(--bg);
-    z-index: 10;
-    border-bottom: 4px solid var(--r-orange);
-    transition: background 150ms;
+    height: 60px;
   }
 
   .nav__content {
-    width: 1100px;
-    display: flex;
-    max-width: 100%;
-    margin: 0 auto;
-    height: 100%;
-    gap: 1rem;
-    position: relative;
-    justify-content: space-between;
+    @apply flex max-w-full mx-auto h-full gap-4 relative justify-between transition-colors;
     background: var(--bg);
-    transition: background 150ms;
+    width: 1100px;
   }
 
   .nav__control {
@@ -163,11 +151,7 @@ const { title, link } = Astro.props;
   }
 
   label {
-    display: grid;
-    place-items: center;
-    height: 100%;
-    width: 100%;
-    cursor: pointer;
+    @apply grid place-items-center size-full cursor-pointer;
   }
 
   .nav__control svg {
@@ -183,23 +167,12 @@ const { title, link } = Astro.props;
 
   .nav__content > a,
   .theme-toggle {
-    padding: 1rem 2rem;
-    max-height: 100%;
-    color: var(--color);
-    aspect-ratio: 1 / 1;
+    @apply px-4 py-8 max-h-full aspect-square bg-transparent grid place-items-center border-none cursor-pointer relative;
     padding: 0;
-    border: 0;
-    display: grid;
-    place-items: center;
     border-radius: 12px;
-    background: transparent;
-    cursor: pointer;
-    position: relative;
 
-    svg {
-      color: currentColor;
-      fill: currentColor;
-      width: 50%;
+    & svg {
+      @apply text-current fill-current w-1/2;
     }
   }
 
@@ -210,17 +183,14 @@ const { title, link } = Astro.props;
 
   .nav__content > a::after,
   .theme-toggle::after {
-    position: absolute;
-    inset: 0;
+    @apply absolute inset-0 transition-colors;
     content: "";
     border-radius: 12px;
     background: hsl(0 0% 50% / calc(var(--intent, 0) * 0.25));
-    transition: background 150ms;
   }
 
   .nav__options a {
-    position: relative;
-    padding: 1rem 2rem;
+    @apply relative px-8 py-4;
     height: 60px;
   }
 

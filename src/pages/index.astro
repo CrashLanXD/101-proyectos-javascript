@@ -1,11 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import Header from "../components/AboutHeader.astro";
-import Projects from "../components/Projects.astro";
-import Footer from "../components/AboutFooter.astro";
 import { Image } from "astro:assets";
-import WorldIcon from "../components/icons/WorldIcon.astro";
+import Layout from "@/layouts/Layout.astro";
+
+import Hero from "@/sections/Hero.astro";
+import Header from "@/sections/Header.astro";
+import Footer from "@/sections/Footer.astro";
+import Projects from "@/sections/Projects.astro";
+
+import WorldIcon from "@/icons/WorldIcon.astro";
 ---
 
 <Layout title="101 proyectos de JavaScript - por @crashlanxd" defaultTheme="dark">
@@ -32,7 +34,7 @@ import WorldIcon from "../components/icons/WorldIcon.astro";
         title="100 proyectos de JavaScript - página web original por @midudev"
         href="https://www.javascript100.dev/"
         target="_blank"
-        class="hover:text-[--r-yellow] transition-colors"
+        class="hover:text-r-yellow transition-colors"
         rel="noopener noreferrer"
       >
         <WorldIcon class="size-6" />
@@ -40,26 +42,3 @@ import WorldIcon from "../components/icons/WorldIcon.astro";
     </p>
   </Footer>
 </Layout>
-
-<style>
-  body {
-    background-color: light-dark(var(--r-white), var(--r-black));
-    color: light-dark(var(--r-black), var(--r-white));
-
-    transition: background 150ms;
-    min-height: 100dvh;
-
-    font-family: InterVariable;
-
-    background-image: repeating-linear-gradient(
-        to right,
-        transparent 0 150px,
-        light-dark(#00000008, #ffffff08) 150px 151px
-      ),
-      repeating-linear-gradient(
-        to bottom,
-        transparent 0 150px,
-        light-dark(#00000008, #ffffff08) 150px 151px
-      );
-  }
-</style>
