@@ -33,8 +33,11 @@
     span {
       text-shadow: none;
       color: transparent;
-      -webkit-text-stroke-color: var(--r-yellow);
+      -webkit-text-stroke-color: var(--r-red);
       -webkit-text-stroke-width: 2px;
+      &:is([data-theme='dark'] *) {
+        -webkit-text-stroke-color: var(--r-yellow);
+      }
     }
   }
 </style>
