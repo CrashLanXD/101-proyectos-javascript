@@ -9,12 +9,19 @@ import ProjectCard from "@/components/ProjectCard.astro";
   <input
     type="text"
     id="searchInput"
-    placeholder="Hola ;D"
+    placeholder="Buscar proyectos"
+    spellcheck="false"
+    autocorrect="off"
+    autocapitalize="off"
+    maxlength="100"
+    aria-label="Buscar proyectos"
+    autocomplete="off"
+    inputmode="text"
     class:list={[
       "w-full mx-auto px-3 py-2",
       "bg-transparent outline-none text-dark dark:text-light transition-colors",
       "border-b-2 border-b-neutral-400 hover:border-b-neutral-600 focus:border-b-neutral-600",
-      "dark:border-b-neutral-500 hover:dark:border-b-neutral-200 focus:dark:border-b-neutral-200"
+      "dark:border-b-neutral-500 hover:dark:border-b-neutral-200 focus:dark:border-b-neutral-200",
     ]}
   />
 </div>
@@ -28,13 +35,7 @@ import ProjectCard from "@/components/ProjectCard.astro";
   {
     PROJECTS.map((project, index) => {
       const number = `${index + 1}`.padStart(2, "0");
-      return (
-        <ProjectCard
-          project={project}
-          number={number}
-          loading={"lazy"}
-        />
-      );
+      return <ProjectCard project={project} number={number} loading={"lazy"} />;
     })
   }
 
