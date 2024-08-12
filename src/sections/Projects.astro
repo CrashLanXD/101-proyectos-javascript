@@ -3,6 +3,21 @@ import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "@/components/ProjectCard.astro";
 ---
 
+<div
+  class="container mx-auto grid place-items-center max-w-6xl 2xl:max-w-screen-2xl px-4 mb-5 -mt-5"
+>
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Hola ;D"
+    class:list={[
+      "w-full mx-auto px-3 py-2",
+      "bg-transparent outline-none text-dark dark:text-light transition-colors",
+      "border-b-2 border-b-neutral-400 hover:border-b-neutral-600 focus:border-b-neutral-600",
+      "dark:border-b-neutral-500 hover:dark:border-b-neutral-200 focus:dark:border-b-neutral-200"
+    ]}
+  />
+</div>
 <main
   class:list={[
     "container max-w-6xl 2xl:max-w-screen-2xl",
@@ -13,11 +28,50 @@ import ProjectCard from "@/components/ProjectCard.astro";
   {
     PROJECTS.map((project, index) => {
       const number = `${index + 1}`.padStart(2, "0");
-      return <ProjectCard project={project} number={number} loading={index > 2 ? "lazy" : "eager"} />;
+      return (
+        <ProjectCard
+          project={project}
+          number={number}
+          loading={"lazy"}
+        />
+      );
     })
   }
 
-  <article class="min-h-80 relative items-center rounded-lg">
+  <article
+    id="noResultsMessage"
+    class:list={[
+      "min-h-80 relative items-center rounded-lg",
+      "col-span-1 sm:col-span-2 lg:col-span-3 2xl:col-span-4",
+      "hidden",
+    ]}
+  >
+    <span
+      class="flex justify-center flex-col h-full items-center font-semibold text-center text-xl"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="size-16 mb-2"
+        viewBox="0 0 24 24"
+        ><path d="M0 0h24v24H0z" stroke="none"></path><path
+          d="M14.986 3.51A9 9 0 1 0 16.5 19.794c2.489-1.437 4.181-3.978 4.5-6.794M10 10h.01M14 8h.01"
+        ></path><path
+          d="M12 15c1-1.333 2-2 3-2M20 9v.01M20 6a2.003 2.003 0 0 0 .914-3.782 1.98 1.98 0 0 0-2.414.483"
+        ></path></svg
+      >
+      No pude encontrar lo que buscabas :[
+    </span>
+  </article>
+
+  <article
+    id="constructionMessage"
+    class="min-h-80 relative items-center rounded-lg"
+  >
     <span
       class="flex justify-center flex-col h-full items-center font-semibold text-center text-xl"
       ><svg
@@ -34,3 +88,56 @@ import ProjectCard from "@/components/ProjectCard.astro";
     </span>
   </article>
 </main>
+
+<script>
+  import { type Project } from "@/types/Project";
+  import { $, $$ } from "@/lib/domSelector";
+  import { PROJECTS } from "@/constants/projects";
+
+  const searchInput = $("#searchInput") as HTMLInputElement;
+  const allProjects = $$(".project");
+  const constructionMessage = $("#constructionMessage");
+  const noResultsMessage = $("#noResultsMessage");
+
+  const projectTitles: string[] = Array.from(allProjects).map((p) => {
+    return p.querySelector("h3")?.textContent?.trim() ?? "";
+  });
+
+  searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
+
+  function filterProjects(searchItem: string) {
+    const searchLower = searchItem.toLowerCase();
+
+    const filteredProjects = PROJECTS.filter(({ title, labels }, idx) => {
+      const number = `${idx + 1}`.padStart(2, "0");
+
+      return (
+        number.includes(searchLower) ||
+        title.toLowerCase().includes(searchLower) ||
+        labels?.some((label) => label.toLocaleLowerCase().includes(searchLower))
+      );
+    });
+
+    showProjectCards(filteredProjects);
+
+    constructionMessage?.classList.toggle("hidden", searchLower !== "");
+    noResultsMessage?.classList.toggle("hidden", filteredProjects.length > 0);
+  }
+
+  function showProjectCards(filteredProjects: Project[]) {
+    const filteredTitles = filteredProjects.map((project) => project.title);
+
+    allProjects.forEach((project, idx) => {
+      const projectTitle = projectTitles[idx];
+      const isVisible = filteredTitles.includes(projectTitle);
+      project.classList.toggle("hidden", !isVisible);
+    });
+  }
+
+  searchInput.addEventListener("input", (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value;
+    filterProjects(searchTerm);
+  });
+
+  filterProjects(searchInput.value);
+</script>
