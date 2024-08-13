@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>🔴🟠🟡 Color Picker</title>
+  </head>
+  <body>
+    <header>
+      <div class="loading-bar">
+        <div class="bar" style="background-color: #482726"></div>
+        <div class="bar" style="background-color: #472d23"></div>
+        <div class="bar" style="background-color: #542e29"></div>
+        <div class="bar" style="background-color: #67322d"></div>
+        <div class="bar" style="background-color: #89412b"></div>
+        <div class="bar" style="background-color: #a55a31"></div>
+        <div class="bar" style="background-color: #b75a31"></div>
+        <div class="bar" style="background-color: #c65135"></div>
+        <div class="bar" style="background-color: #d27346"></div>
+        <div class="bar" style="background-color: #d8995c"></div>
+        <div class="bar" style="background-color: #648353"></div>
+        <div class="bar" style="background-color: #879519"></div>
+        <div class="bar" style="background-color: #506829"></div>
+        <div class="bar" style="background-color: #1f322f"></div>
+        <div class="bar" style="background-color: #2d67a9"></div>
+        <div class="bar" style="background-color: #567abd"></div>
+        <div class="bar" style="background-color: #233492"></div>
+        <div class="bar" style="background-color: #27175a"></div>
+        <div class="bar" style="background-color: #9f4caa"></div>
+        <div class="bar" style="background-color: #863871"></div>
+        <div class="bar" style="background-color: #bb4e92"></div>
+        <div class="bar" style="background-color: #e04a7b"></div>
+        <div class="bar" style="background-color: #b42a55"></div>
+        <div class="bar" style="background-color: #c05e4a"></div>
+        <div class="bar" style="background-color: #d52f16"></div>
+      </div>
+      <div>
+        <p id="message"></p>
+      </div>
+    </header>
+    <main class="container">
+      <section>
+        <canvas id="mainCanvas"></canvas>
+        <div id="magnifierContainer">
+          <canvas id="magnifier"></canvas>
+        </div>
+      </section>
+
+      <section class="info">
+        <div id="colorDisplay"></div>
+        <div class="color-conversion">
+          <ul class="list" id="colorTypes">
+            <svg xmlns="http://www.w3.org/2000/svg" style="display:none;"><symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0h24v24H0z" stroke="none"/><path d="M7 9.667A2.667 2.667 0 0 1 9.667 7h8.666A2.667 2.667 0 0 1 21 9.667v8.666A2.667 2.667 0 0 1 18.333 21H9.667A2.667 2.667 0 0 1 7 18.333z"/><path d="M4.012 16.737A2.005 2.005 0 0 1 3 15V5c0-1.1.9-2 2-2h10c.75 0 1.158.385 1.5 1"/></symbol></svg>
+            <li>RGB: <span id="valueRgb">255, 255, 255</span><button data-copy-target="valueRgb" title="copy text"><svg>
+                  <use href="#icon-copy"></use>
+                </svg>copy</button></li>
+            <li>HEX: <span id="valueHex">#FFFFFF</span><button data-copy-target="valueHex" title="copy text"><svg>
+                  <use href="#icon-copy"></use>
+                </svg>copy</button></li>
+            <li>HSL: <span id="valueHsl">0, 100%, 100%</span><button data-copy-target="valueHsl" title="copy text"><svg>
+                  <use href="#icon-copy"></use>
+                </svg>copy</button></li>
+            <li>CMYK: <span id="valueCmyk">0%, 0%, 0%, 0%</span><button data-copy-target="valueCmyk" title="copy text"><svg>
+                  <use href="#icon-copy"></use>
+                </svg>copy</button></li>
+          </ul>
+        </div>
+        <div class="dropzone">
+          <label for="fileLoader"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" stroke="none"/><path d="M15 8h.01M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6z"/><path d="m3 16 5-5c.928-.893 2.072-.893 3 0l5 5"/><path d="m14 14 1-1c.928-.893 2.072-.893 3 0l3 3"/></svg> Selecciona tu imagen o usa ctrl + v</label>
+          <input id="fileLoader" type="file" accept="image/*" />
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <p>made by ⊂└メᕤ <3</p>
+      </div>
+      <div class="loading-bar">
+        <div class="bar" style="background-color: #482726"></div>
+        <div class="bar" style="background-color: #472d23"></div>
+        <div class="bar" style="background-color: #542e29"></div>
+        <div class="bar" style="background-color: #67322d"></div>
+        <div class="bar" style="background-color: #89412b"></div>
+        <div class="bar" style="background-color: #a55a31"></div>
+        <div class="bar" style="background-color: #b75a31"></div>
+        <div class="bar" style="background-color: #c65135"></div>
+        <div class="bar" style="background-color: #d27346"></div>
+        <div class="bar" style="background-color: #d8995c"></div>
+        <div class="bar" style="background-color: #648353"></div>
+        <div class="bar" style="background-color: #879519"></div>
+        <div class="bar" style="background-color: #506829"></div>
+        <div class="bar" style="background-color: #1f322f"></div>
+        <div class="bar" style="background-color: #2d67a9"></div>
+        <div class="bar" style="background-color: #567abd"></div>
+        <div class="bar" style="background-color: #233492"></div>
+        <div class="bar" style="background-color: #27175a"></div>
+        <div class="bar" style="background-color: #9f4caa"></div>
+        <div class="bar" style="background-color: #863871"></div>
+        <div class="bar" style="background-color: #bb4e92"></div>
+        <div class="bar" style="background-color: #e04a7b"></div>
+        <div class="bar" style="background-color: #b42a55"></div>
+        <div class="bar" style="background-color: #c05e4a"></div>
+        <div class="bar" style="background-color: #d52f16"></div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

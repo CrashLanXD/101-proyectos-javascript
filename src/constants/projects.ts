@@ -82,4 +82,14 @@ export const PROJECTS: Array<Project> = [
     labels: [...CATEGORIES.videoGames.english, "webgl", "canvas", "oop", "touchpad", "long"],
     thumbnailSrc: "/projects/thumbnails/08.webp",
   },
+  {
+    slug: "09-color-picker",
+    title: "Color Picker",
+    description:
+      "Una herramienta para seleccionar colores de cualquier imagen. Puedes cargar imágenes, explorar píxeles con una lupa y obtener los valores de color en diferentes formatos.",
+    compatibility: { pc: true, mobile: false },
+    theme: "both",
+    labels: [...CATEGORIES.utility.spanish, "utility", "canvas", "ctx 2d", "ui", "tool", "color conversion", "accessibility", "offline", "API", "conversion de colores"],
+    thumbnailSrc: "/projects/thumbnails/colorPicker.webp",
+  },
 ];
