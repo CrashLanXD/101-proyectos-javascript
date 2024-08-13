@@ -23,12 +23,14 @@ export const CATEGORIES = {
   videoGames: {
     english: [
       "video games",
+      "videogames",
       "arcade",
       "classic",
       "controls",
       "gameplay"
     ],
     spanish: [
+      "videogames",
       "videojuegos",
       "arcade",
       "clásico",
