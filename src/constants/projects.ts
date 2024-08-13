@@ -87,7 +87,7 @@ export const PROJECTS: Array<Project> = [
     title: "Color Picker",
     description:
       "Una herramienta para seleccionar colores de cualquier imagen. Puedes cargar imágenes, explorar píxeles con una lupa y obtener los valores de color en diferentes formatos.",
-    compatibility: { pc: true, mobile: false },
+    compatibility: { pc: true, mobile: true },
     theme: "both",
     labels: [...CATEGORIES.utility.spanish, "utility", "canvas", "ctx 2d", "ui", "tool", "color conversion", "accessibility", "offline", "API", "conversion de colores"],
     thumbnailSrc: "/projects/thumbnails/colorPicker.webp",
