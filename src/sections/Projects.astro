@@ -95,50 +95,77 @@ import ProjectCard from "@/components/ProjectCard.astro";
   import { $, $$ } from "@/lib/domSelector";
   import { PROJECTS } from "@/constants/projects";
 
-  const searchInput = $("#searchInput") as HTMLInputElement;
-  const allProjects = $$(".project");
-  const constructionMessage = $("#constructionMessage");
-  const noResultsMessage = $("#noResultsMessage");
+  document.addEventListener("astro:page-load", () => {
+    const $elems = {
+      searchInput: $("#searchInput") as HTMLInputElement,
+      allProjects: $$(".project"),
+      constructionMessage: $("#constructionMessage"),
+      noResultsMessage: $("#noResultsMessage"),
+    };
 
-  const projectTitles: string[] = Array.from(allProjects).map((p) => {
-    return p.querySelector("h3")?.textContent?.trim() ?? "";
-  });
+    if (Object.values($elems).some((el) => !el)) return;
 
-  searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
+    const projectTitles: string[] = Array.from($elems.allProjects).map((p) => {
+      return p.querySelector("h3")?.textContent?.trim() ?? "";
+    });
 
-  function filterProjects(searchItem: string) {
-    const searchLower = searchItem.toLowerCase();
+    if (projectTitles.length > 0) {
+      $elems.searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
+    }
 
-    const filteredProjects = PROJECTS.filter(({ title, labels }, idx) => {
-      const number = `${idx + 1}`.padStart(2, "0");
+    function filterProjects(searchTerm: string): Project[] {
+      const searchLower = searchTerm.toLowerCase();
+      return PROJECTS.filter(({ title, labels }, idx) => {
+        const number = `${idx + 1}`.padStart(2, "0");
+        return (
+          number.includes(searchLower) ||
+          title.toLowerCase().includes(searchLower) ||
+          labels?.some((label) => label.toLowerCase().includes(searchLower))
+        );
+      });
+    }
 
-      return (
-        number.includes(searchLower) ||
-        title.toLowerCase().includes(searchLower) ||
-        labels?.some((label) => label.toLocaleLowerCase().includes(searchLower))
+    function renderProjects(filteredProjects: Project[]) {
+      const filteredTitles = new Set(
+        filteredProjects.map((project) => project.title)
       );
-    });
 
-    showProjectCards(filteredProjects);
+      $elems.allProjects.forEach((project, idx) => {
+        const projectTitle = projectTitles[idx];
+        const shouldShow = filteredTitles.has(projectTitle);
+        if (project.classList.contains("hidden") !== !shouldShow)
+          project.classList.toggle("hidden", !shouldShow);
+      });
 
-    constructionMessage?.classList.toggle("hidden", searchLower !== "");
-    noResultsMessage?.classList.toggle("hidden", filteredProjects.length > 0);
-  }
+      $elems.constructionMessage?.classList.toggle(
+        "hidden",
+        $elems.searchInput.value.trim() !== ""
+      );
+      $elems.noResultsMessage?.classList.toggle(
+        "hidden",
+        filteredProjects.length > 0
+      );
+    }
 
-  function showProjectCards(filteredProjects: Project[]) {
-    const filteredTitles = filteredProjects.map((project) => project.title);
+    function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
+      let debounceTimer: ReturnType<typeof setTimeout>;
+      return function (this: any, ...args: Parameters<T>) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+      };
+    };
 
-    allProjects.forEach((project, idx) => {
-      const projectTitle = projectTitles[idx];
-      const isVisible = filteredTitles.includes(projectTitle);
-      project.classList.toggle("hidden", !isVisible);
-    });
-  }
+    $elems.searchInput.addEventListener(
+      "input",
+      debounce((e: Event) => {
+        const searchTerm = (e.target as HTMLInputElement).value;
+        const filteredProjects = filterProjects(searchTerm);
+        renderProjects(filteredProjects);
+      }, 300)
+    );
 
-  searchInput.addEventListener("input", (e) => {
-    const searchTerm = (e.target as HTMLInputElement).value;
-    filterProjects(searchTerm);
+    // Initial render based on the current input value
+    const initialFilteredProjects = filterProjects($elems.searchInput.value);
+    renderProjects(initialFilteredProjects);
   });
-
-  filterProjects(searchInput.value);
 </script>
