@@ -1,0 +1,123 @@
+---
+import SearchIcon from "@/icons/SearchIcon.astro";
+---
+
+<div
+  class:list={[
+    "container max-w-6xl 2xl:max-w-screen-2xl px-5 mb-5 -mt-5 gap-2",
+    "mx-auto flex items-center justify-center group",
+  ]}
+>
+  <SearchIcon
+    class:list={[
+      "size-6 mt-2 transition-all",
+      "text-neutral-400 dark:text-neutral-500",
+      "group-hover:text-neutral-600 dark:group-hover:text-neutral-200",
+      "group-focus-within:text-neutral-600 dark:group-focus-within:text-neutral-200",
+      "group-hover:scale-110 group-focus-within:scale-110",
+    ]}
+  />
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Buscar proyectos"
+    spellcheck="false"
+    autocorrect="off"
+    autocapitalize="off"
+    maxlength="100"
+    aria-label="Buscar proyectos"
+    autocomplete="off"
+    inputmode="text"
+    class:list={[
+      "w-full mx-auto px-3 py-2",
+      "bg-transparent outline-none border-b-2 transition-colors",
+      "text-dark dark:text-light",
+      "border-b-neutral-400 dark:border-b-neutral-500",
+      "hover:border-b-neutral-600 dark:hover:border-b-neutral-200",
+      "focus:border-b-neutral-600 dark:focus:border-b-neutral-200",
+    ]}
+  />
+</div>
+
+<script>
+  import { type Project } from "@/types/Project";
+  import { $, $$ } from "@/lib/domSelector";
+  import { PROJECTS } from "@/constants/projects";
+
+  document.addEventListener("astro:page-load", () => {
+    const $elems = {
+      searchInput: $("#searchInput") as HTMLInputElement,
+      allProjects: $$(".project"),
+      constructionMessage: $("#constructionMessage"),
+      noResultsMessage: $("#noResultsMessage"),
+    };
+
+    if (Object.values($elems).some((el) => !el)) return;
+
+    const projectTitles: string[] = Array.from($elems.allProjects).map((p) => {
+      return p.querySelector("h3")?.textContent?.trim() ?? "";
+    });
+
+    if (projectTitles.length > 0) {
+      $elems.searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
+    }
+
+    function filterProjects(searchTerm: string): Project[] {
+      const searchLower = searchTerm.toLowerCase();
+      return PROJECTS.filter(({ title, labels }, idx) => {
+        const number = `${idx + 1}`.padStart(2, "0");
+        return (
+          number.includes(searchLower) ||
+          title.toLowerCase().includes(searchLower) ||
+          labels?.some((label) => label.toLowerCase().includes(searchLower))
+        );
+      });
+    }
+
+    function renderProjects(filteredProjects: Project[]) {
+      const filteredTitles = new Set(
+        filteredProjects.map((project) => project.title)
+      );
+
+      $elems.allProjects.forEach((project, idx) => {
+        const projectTitle = projectTitles[idx];
+        const shouldShow = filteredTitles.has(projectTitle);
+        if (project.classList.contains("hidden") !== !shouldShow)
+          project.classList.toggle("hidden", !shouldShow);
+      });
+
+      $elems.constructionMessage?.classList.toggle(
+        "hidden",
+        $elems.searchInput.value.trim() !== ""
+      );
+      $elems.noResultsMessage?.classList.toggle(
+        "hidden",
+        filteredProjects.length > 0
+      );
+    }
+
+    function debounce<T extends (...args: any[]) => void>(
+      func: T,
+      delay: number
+    ) {
+      let debounceTimer: ReturnType<typeof setTimeout>;
+      return function (this: any, ...args: Parameters<T>) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+
+    $elems.searchInput.addEventListener(
+      "input",
+      debounce((e: Event) => {
+        const searchTerm = (e.target as HTMLInputElement).value;
+        const filteredProjects = filterProjects(searchTerm);
+        renderProjects(filteredProjects);
+      }, 300)
+    );
+
+    // Initial render based on the current input value
+    const initialFilteredProjects = filterProjects($elems.searchInput.value);
+    renderProjects(initialFilteredProjects);
+  });
+</script>
