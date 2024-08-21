@@ -1,0 +1,82 @@
+:root {
+  --text: light-dark(#495794, #ae245b);
+  --background: light-dark(#d9d8d3, #2a3336);
+  --secondary: light-dark(#cdcac3, #262d33);
+
+  --color-bg-start: light-dark(#b2afb0, #0C0B0C);
+  --color-bg-middle: light-dark(#eae8e4, #161518);
+  --color-bg-end: light-dark(#c0bcb4, #201F24);
+
+  --color-d-pad-start: light-dark(#d6d3d1, #151212);
+  --color-d-pad-middle: light-dark(#eae8e4, #1a191d);
+  --color-d-pad-end: light-dark(#f2f1ed, #151313);
+
+  --color-d-pad-center-a: light-dark(#252525, #5c6061);
+  --color-d-pad-center-b: light-dark(#0b0b0b, #303634);
+
+  --color-d-pad-border: light-dark(#0b0b0b, #303634);
+
+  --color-l-r-pad-start: light-dark(#0b0b0b, #303634);
+  --color-l-r-pad-middle: light-dark(#121212, #5c6061);
+  --color-t-b-pad-start: var(--color-l-r-pad-start);
+  --color-t-b-pad-middle: var(--color-l-r-pad-middle);
+
+  --color-ab-bg-start: light-dark(#9b9899, #0f0e0e);
+  --color-ab-bg-middle: light-dark(#eae8e4, #1a191d);
+  --color-ab-bg-end: light-dark(#fffdf8, #1e1c1c);
+
+  --color-ab-button-top: light-dark(#b30f42, #788286);
+  --color-ab-button-bottom: light-dark(#640116, #3e4844);
+  --color-ab-button-border: light-dark(#d74f73, #687477);
+
+  --color-options-buttons-start: light-dark(#c0bcd7, #788286);
+  --color-options-buttons-end: light-dark(#727075, #3e4844);
+}
+
+:root {
+  --shadow-options:
+    inset 0 4px 3px 2px rgba(255, 255, 255, 0.2),
+    0 4px 6px 0 rgba(0, 0, 0, 0.8),
+    0 0px 0px .5px rgba(0, 0, 0, 0.5);
+  --shadow-options-active:
+    inset 0 4px 3px 2px rgba(255, 255, 255, 0.2),
+    0 2px 4px 0 rgba(0, 0, 0, 0.8),
+    0 0px 0px .5px rgba(0, 0, 0, 0.5);
+
+  --gradient-bg: linear-gradient(to left,
+      var(--color-bg-start) 0%,
+      var(--color-bg-middle) 2%,
+      var(--color-bg-middle) 98%,
+      var(--color-bg-end) 100%);
+
+  --gradient-d-pad: linear-gradient(to bottom,
+      var(--color-d-pad-start) 0%,
+      var(--color-d-pad-middle) 50%,
+      var(--color-d-pad-end) 100%);
+
+  --gradient-d-pad-center: radial-gradient(circle, var(--color-d-pad-center-a) 33.33%, var(--color-d-pad-center-b) 66.67%);
+
+  --gradient-l-r-pad: repeating-linear-gradient(90deg,
+      var(--color-l-r-pad-start),
+      var(--color-l-r-pad-start) 9px,
+      var(--color-l-r-pad-middle) 9px,
+      var(--color-l-r-pad-middle) 18px);
+  --gradient-t-b-pad: repeating-linear-gradient(180deg,
+      var(--color-l-r-pad-start),
+      var(--color-l-r-pad-start) 9px,
+      var(--color-l-r-pad-middle) 9px,
+      var(--color-l-r-pad-middle) 18px);
+
+  --gradient-ab-bg: linear-gradient(185deg,
+      var(--color-ab-bg-start) 0%,
+      var(--color-ab-bg-middle) 51%,
+      var(--color-ab-bg-end) 100%);
+
+  --gradient-ab-button: linear-gradient(to bottom,
+      var(--color-ab-button-top) 0%,
+      var(--color-ab-button-bottom) 100%);
+
+  --gradient-options-buttons: linear-gradient(to bottom,
+      var(--color-options-buttons-start) 0%,
+      var(--color-options-buttons-end) 100%);
+}

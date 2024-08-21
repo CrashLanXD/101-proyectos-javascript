@@ -1,33 +1,32 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
 html {
   color-scheme: light dark;
 }
 
-:root {
-  --text: #495794;
-  --background: #d9d8d3;
-  --secondary: #cdcac3;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #ae245b;
-    --background: #2a3336;
-    --secondary: #262d33;
-  }
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-input, button, select { font: inherit; }
-
 body {
+  min-height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: var(--background);
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
+  background: var(--gradient-bg);
   color: var(--text);
-  overflow: hidden;
 }
 
 canvas {
@@ -43,7 +42,7 @@ main {
   align-items: center;
   width: 100%;
   height: 100%;
-  row-gap: 32px;
+  row-gap: 2rem;
 }
 
 button {
@@ -55,28 +54,30 @@ button {
 }
 
 header {
-  height: 44px;
+  height: 2.75rem;
   display: flex;
   justify-content: end;
   align-items: center;
-  padding: 0 16px;
-  background: var(--background);
+  pad: 0 1rem;
+  background: transparent;
 
   #pauseButton {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     aspect-ratio: 1 / 1;
     z-index: 10;
+    margin-right: 1rem;
+    background: transparent;
 
     border-style: double;
-    border-width: 0 0 0 20px;
+    border-width: 0 0 0 1.25rem;
     border-color: transparent transparent transparent var(--text);
     cursor: pointer;
     transition: all 0.2s ease-out;
 
     &.paused {
       border-style: solid;
-      border-width: 12px 0 12px 20px;
+      border-width: 0.75rem 0 0.75rem 1.25rem;
     }
   }
 }
@@ -85,51 +86,65 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 0.75rem;
   width: 100%;
 
   .d-pad {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-content: center;
-    background: var(--secondary);
+    background: var(--gradient-d-pad);
     border-radius: 50%;
-    padding: 10px;
+    padding: 0.75rem;
 
     .d-pad-row {
       display: contents;
-      .left, .right, .down, .up, .center, .empty {
-        width: 62px;
-        height: 62px;
+
+      .left,
+      .right,
+      .down,
+      .up,
+      .center,
+      .empty {
+        width: 4rem;
+        height: 4rem;
         aspect-ratio: 1 / 1;
       }
 
-      .left, .right {
-        background: repeating-linear-gradient(90deg, #0b0b0b, #0b0b0b 9px, #121212 9px, #121212 18px);
+      .left,
+      .right {
+        background: var(--gradient-l-r-pad);
+        border: 4px solid var(--color-d-pad-border);
       }
 
       .left {
         border-radius: 10px 0 0 10px;
+        border-right: none;
       }
 
       .right {
         border-radius: 0 10px 10px 0;
+        border-left: none;
       }
 
       .center {
-        background: radial-gradient(circle, #252525 33.33%, #0b0b0b 66.67%);
+        background: var(--gradient-d-pad-center);
       }
 
-      .down, .up {
-        background: repeating-linear-gradient(180deg, #0b0b0b, #0b0b0b 9px, #121212 9px, #121212 18px);
+      .down,
+      .up {
+        background: var(--gradient-t-b-pad);
+        border: 4px solid var(--color-d-pad-border);
       }
 
       .down {
         border-radius: 0 0 10px 10px;
+        border-top: none;
       }
 
       .up {
         border-radius: 10px 10px 0 0;
+        border-bottom: none;
       }
     }
   }
@@ -155,7 +170,7 @@ header {
     }
 
     div:first-of-type {
-      background: var(--secondary);
+      background: var(--gradient-ab-bg);
       border-radius: 40px;
 
       button {
@@ -163,8 +178,17 @@ header {
         height: 68px;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
-        background: light-dark(#ae245b, #121212);
+        background: var(--gradient-ab-button);
+        box-shadow: 0 8px 8px -2px rgba(0, 0, 0, 0.8), inset 0 2px 6px -2px rgba(255, 255, 255, 0.8);
         margin: 8px;
+        border-top: 4px solid var(--color-ab-button-border);
+        transform: rotate(25deg);
+
+        &:active {
+          box-shadow: 0 6px 4px -2px rgba(0, 0, 0, 0.8), inset 0 2px 6px -2px rgba(255, 255, 255, 0.8);
+          border-top-width: 2px;
+          scale: 1;
+        }
       }
     }
   }
@@ -172,8 +196,8 @@ header {
 
 .options-container {
   position: absolute;
-  bottom: 20px;
-  gap: 20px;
+  bottom: 1.25rem;
+  gap: 1.25rem;
   width: 100%;
   height: fit-content;
   display: flex;
@@ -190,20 +214,25 @@ header {
     }
 
     div {
-      background: var(--secondary);
-      padding: 5px;
-      border-radius: 20px;
+      background: var(--gradient-ab-bg);
+      padding: 0.25rem;
+      border-radius: 1.25rem;
 
       select {
-        background: light-dark(#939498, #121212);
+        background: var(--gradient-options-buttons);
+        box-shadow: var(--shadow-options);
         color: transparent;
-        border-radius: 20px;
-        width: 70px;
+        border-radius: 1.25rem;
+        width: 4.50rem;
         border: none;
 
         option {
           background: #121212;
           color: #fff;
+        }
+
+        &:active {
+          box-shadow: var(--shadow-options-active);
         }
       }
     }
@@ -214,32 +243,45 @@ header {
   header {
     position: absolute;
     right: 0;
+    background: transparent;
   }
+
   main {
     position: absolute;
     height: 100%;
+    background: var(--gradient-bg);
   }
+
   canvas {
     width: auto;
     height: 100dvh;
   }
+
   #button-container {
     position: absolute;
-    top: 20px;
+    top: 1.25rem;
     padding: 0;
   }
-  .left, .right, .down, .up, .center, .empty {
-    width: 56px;
-    height: 56px;
+
+  .left,
+  .right,
+  .down,
+  .up,
+  .center,
+  .empty {
+    width: 3.5rem;
+    height: 3.5rem;
     aspect-ratio: 1 / 1;
   }
+
   .options-container {
     justify-content: end;
-    padding: 12px 6px;
+    padding: 0.75rem 0.50rem;
   }
+
   .ab-buttons {
-    margin-top: 50px;
-    margin-right: 20px;
+    margin-top: 3rem;
+    margin-right: 1.25rem;
   }
 }
 
@@ -247,20 +289,25 @@ header {
   header {
     position: absolute;
     right: 0;
+    background: transparent;
   }
+
   main {
     height: 100dvh;
   }
+
   canvas {
     width: auto;
     height: 100%;
   }
+
   #button-container {
     display: none;
   }
+
   .options-container {
     position: absolute;
     justify-content: end;
-    padding-right: 50px;
+    padding-right: 3rem;
   }
 }
