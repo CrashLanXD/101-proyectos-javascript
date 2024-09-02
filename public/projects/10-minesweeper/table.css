@@ -1,0 +1,45 @@
+/* 
+  Yes, this is challenging, and I might fix this in the future. 
+  The use of !important might not be necessary either. 
+  The grid should not deform at any point and you should be able to scroll through it entirely. 
+  However, the nav elements may not reach full width. 
+  It's not perfect yet, but it works for now. 
+*/
+
+
+.grid {
+  background: var(--darkgrey);
+  width: 100%;
+  table-layout: fixed;
+  border: 8px solid var(--darkgrey);
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.app-container {
+  width: min-content;
+  height: min-content;
+  max-height: 100dvh;
+  max-width: 100dvw;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+  background: var(--grey);
+  row-gap: 1rem;
+  box-shadow: inset -9px -9px var(--darkgrey), inset 9px 9px var(--white);
+  border: 1px solid var(--black);
+  min-width: min-content;
+}

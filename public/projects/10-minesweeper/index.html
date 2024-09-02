@@ -1,0 +1,92 @@
+<!-- Cspell: disable -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="table.css">
+</head>
+
+<body>
+  <main>
+    <div class="app-container">
+      <nav class="app-nav">
+        <button id="Minimize" class="winCL" title="Minimize">–</button>
+        <h1>Minesweeper</h1>
+        <button id="Maximize" class="winCL" title="Maximize">+</button>
+      </nav>
+      <nav class="game-menu">
+        <label for="menu"><span class="action-letter">G</span>ame</label>
+        <label for="help"><span class="action-letter">H</span>elp</label>
+        <select name="menu" id="menu">
+          <option value="new">[N]ew [F2]</span></option>
+          <hr />
+          <option value="beginner">[B]eginner</option>
+          <option value="intermediate">[I]ntermediate</option>
+          <option value="expert">[E]xpert</option>
+          <hr>
+          <option value="bestTimes">Best [T]imes...</option>
+          <hr>
+          <option value="exit">E[x]it</option>
+        </select>
+        <select name="Help" id="help">
+          <option value="help">How to Play</option>
+        </select>
+      </nav>
+      <div class="game-container">
+        <header>
+          <span id="minesLeft">000</span>
+          <button id="faceContainer">
+            <div id="happyFace" class="happy"></div>
+          </button>
+          <span id="seconds">000</span>
+        </header>
+        <table class="grid"></table>
+      </div>
+    </div>
+  </main>
+  <dialog id="helpDialog">
+    <div>
+      <nav class="app-nav">
+        <button id="minimizeHelp" class="winCL">–</button>
+        <h2>Minesweeper Help</h2>
+        <button id="closeHelp" class="winCL">X</button>
+      </nav>
+      <div>
+        <h3>How to Play</h3>
+        <p>Welcome to Minesweeper! The objective of the game is to clear the grid without detonating any mines. Here’s
+          how to play:</p>
+        <ul>
+          <li><strong>Left Click:</strong> Reveal a cell. If the cell contains a mine, the game is over. If the cell is
+            empty, it will display a number indicating how many mines are adjacent to it. If it is empty and has no
+            adjacent mines, it will automatically reveal neighboring cells.</li>
+          <li><strong>Right Click:</strong> Flag a cell to mark it as a potential mine. You can also use this to unflag
+            a cell. This helps you keep track of cells you suspect contain mines.</li>
+          <li><strong>Mouse Wheel Click:</strong> When a cell is flagged with the correct number of adjacent flags, you
+            can use the mouse wheel click (middle button) on an empty cell to automatically reveal all adjacent cells.
+            This only works if the flags around the cell match the number displayed.</li>
+          <li><strong>Game Over:</strong> If you click on a cell that contains a mine, the game will end, and all mines
+            will be revealed.</li>
+          <li><strong>Winning the Game:</strong> The game is won when all non-mine cells are revealed, or all mines are
+            correctly flagged.</li>
+        </ul>
+        <p><strong>Additional Tips:</strong></p>
+        <ul>
+          <li>Use the numbers displayed in each cell to help deduce the locations of the mines.</li>
+          <li>Be cautious with your flagging and revealing; incorrect flags or revealing the wrong cells can quickly
+            lead to a game over.</li>
+          <li>The grid size and number of mines vary depending on the difficulty level you choose: Beginner,
+            Intermediate, or Expert.</li>
+        </ul>
+        <p>Good luck, and have fun!</p>
+      </div>
+    </div>
+  </dialog>
+  <script src="main.js"></script>
+  <script src="controller.js"></script>
+</body>
+
+</html>

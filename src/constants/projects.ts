@@ -92,4 +92,14 @@ export const PROJECTS: Array<Project> = [
     labels: [...CATEGORIES.utility.spanish, "utility", "canvas", "ctx 2d", "ui", "tool", "color conversion", "accessibility", "offline", "API", "conversion de colores"],
     thumbnailSrc: "/projects/thumbnails/colorPicker.webp",
   },
+  {
+    slug: "10-minesweeper",
+    title: "Minesweeper",
+    description:
+    "Es un Minesweeper... Despeja el tablero sin activar las minas, ¡y demuestra tu destreza y estrategia!",
+    compatibility: { pc: true, mobile: false },
+    theme: "dark",
+    labels: [...CATEGORIES.videoGames.english, "microsoft classic", "retro"],
+    thumbnailSrc: "/projects/thumbnails/minesweeper.webp",
+  }
 ];
