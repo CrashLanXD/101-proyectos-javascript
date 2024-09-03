@@ -213,6 +213,7 @@ function checkMine(cell) {
     if (minesAround === 0) {
       revealAdjacentCells(row, col);
     }
+    checkGameCompleted();
   }
 }
 
