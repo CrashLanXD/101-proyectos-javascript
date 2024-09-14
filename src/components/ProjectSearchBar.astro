@@ -62,14 +62,56 @@ import SearchIcon from "@/icons/SearchIcon.astro";
       $elems.searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
     }
 
+    function levenshteinDistance(a: string, b: string): number {
+      const matrix: number[][] = [];
+
+      if (!a.length) return b.length;
+      if (!b.length) return a.length;
+
+      for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+      }
+
+      for (let i = 0; i <= a.length; i++) {
+        matrix[0][i] = i;
+      }
+
+      for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1) === a.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1, // substitution
+              matrix[i][j - 1] + 1, // insertion
+              matrix[i - 1][j] + 1 // deletion
+            );
+          }
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
     function filterProjects(searchTerm: string): Project[] {
       const searchLower = searchTerm.toLowerCase();
+      const titleThreshold = 4;
+      const labelThreshold = 2;
+
       return PROJECTS.filter(({ title, labels }, idx) => {
         const number = `${idx + 1}`.padStart(2, "0");
+        const titleDistance = levenshteinDistance(title.toLowerCase(), searchLower);
+
+        const labelMatches = labels?.some((label) => {
+          const labelDistance = levenshteinDistance(label.toLowerCase(), searchLower);
+          return labelDistance <= labelThreshold;
+        }); 
+
         return (
           number.includes(searchLower) ||
           title.toLowerCase().includes(searchLower) ||
-          labels?.some((label) => label.toLowerCase().includes(searchLower))
+          labels?.some((label) => label.toLowerCase().includes(searchLower)) ||
+          titleDistance <= titleThreshold ||
+          labelMatches
         );
       });
     }
@@ -111,7 +153,9 @@ import SearchIcon from "@/icons/SearchIcon.astro";
       "input",
       debounce((e: Event) => {
         const searchTerm = (e.target as HTMLInputElement).value;
+        console.time("filterProjects");
         const filteredProjects = filterProjects(searchTerm);
+        console.timeEnd("filterProjects");
         renderProjects(filteredProjects);
       }, 300)
     );
