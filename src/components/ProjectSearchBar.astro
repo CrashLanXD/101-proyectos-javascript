@@ -50,46 +50,44 @@ import SearchIcon from "@/icons/SearchIcon.astro";
       allProjects: $$(".project"),
       constructionMessage: $("#constructionMessage"),
       noResultsMessage: $("#noResultsMessage"),
+      projectsGrid: $(".projects-grid"),
     };
 
     if (Object.values($elems).some((el) => !el)) return;
 
-    const projectTitles: string[] = Array.from($elems.allProjects).map((p) => {
-      return p.querySelector("h3")?.textContent?.trim() ?? "";
-    });
+    // cache project elemenst and titles
+    const projectElements = Array.from($elems.allProjects);
+    const projectTitles = projectElements.map((p) => p.querySelector("h3")?.textContent?.trim() ?? "");
 
     if (projectTitles.length > 0) {
       $elems.searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
     }
 
-    function levenshteinDistance(a: string, b: string): number {
-      const matrix: number[][] = [];
+    // optimize levenshtein distance function with lazy evaluation
+    function levenshteinDistance(a: string, b: string, threshold: number): number {
+      const aLen = a.length;
+      const bLen = b.length;
+      if (Math.abs(aLen - bLen) > threshold) return threshold + 1;
 
-      if (!a.length) return b.length;
-      if (!b.length) return a.length;
+      const matrix = Array(bLen + 1).fill(null).map(() => Array(aLen + 1).fill(0));
 
-      for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-      }
+      for (let i = 0; i <= bLen; i++) matrix[i][0] = i;
+      for (let j = 0; j <= aLen; j++) matrix[0][j] = j;
 
-      for (let i = 0; i <= a.length; i++) {
-        matrix[0][i] = i;
-      }
-
-      for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-          if (b.charAt(i - 1) === a.charAt(j - 1)) {
-            matrix[i][j] = matrix[i - 1][j - 1];
-          } else {
-            matrix[i][j] = Math.min(
-              matrix[i - 1][j - 1] + 1, // substitution
-              matrix[i][j - 1] + 1, // insertion
-              matrix[i - 1][j] + 1 // deletion
-            );
-          }
+      for (let i = 1; i <= bLen; i++) {
+        let minRow = threshold + 1;
+        for (let j = 1; j <= aLen; j++) {
+          const cost = b[i - 1] === a[j - 1] ? 0 : 1;
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
+          );
+          minRow = Math.min(minRow, matrix[i][j]);
         }
+        if (minRow > threshold) return threshold + 1;
       }
-      return matrix[b.length][a.length];
+      return matrix[bLen][aLen];
     }
 
     function filterProjects(searchTerm: string): Project[] {
@@ -98,18 +96,17 @@ import SearchIcon from "@/icons/SearchIcon.astro";
       const labelThreshold = 2;
 
       return PROJECTS.filter(({ title, labels }, idx) => {
-        const number = `${idx + 1}`.padStart(2, "0");
-        const titleDistance = levenshteinDistance(title.toLowerCase(), searchLower);
+        const number = idx < 9 ? `0${idx + 1}` : `${idx + 1}`;
+        const titleDistance = levenshteinDistance(title.toLowerCase(), searchLower, titleThreshold);
 
         const labelMatches = labels?.some((label) => {
-          const labelDistance = levenshteinDistance(label.toLowerCase(), searchLower);
-          return labelDistance <= labelThreshold;
+          return levenshteinDistance(label.toLowerCase(), searchLower, labelThreshold) <= labelThreshold;
         }); 
 
         return (
           number.includes(searchLower) ||
-          title.toLowerCase().includes(searchLower) ||
-          labels?.some((label) => label.toLowerCase().includes(searchLower)) ||
+          title.toLowerCase().startsWith(searchLower) ||
+          labels?.some((label) => label.toLowerCase().startsWith(searchLower)) ||
           titleDistance <= titleThreshold ||
           labelMatches
         );
@@ -117,50 +114,41 @@ import SearchIcon from "@/icons/SearchIcon.astro";
     }
 
     function renderProjects(filteredProjects: Project[]) {
-      const filteredTitles = new Set(
-        filteredProjects.map((project) => project.title)
-      );
+      const filteredTitles = new Set(filteredProjects.map((project) => project.title));
+      const classChanges: { $el: Element; shouldShow: boolean }[] = [];
 
       $elems.allProjects.forEach((project, idx) => {
         const projectTitle = projectTitles[idx];
         const shouldShow = filteredTitles.has(projectTitle);
         if (project.classList.contains("hidden") !== !shouldShow)
-          project.classList.toggle("hidden", !shouldShow);
+          classChanges.push({ $el: project, shouldShow });
       });
 
-      $elems.constructionMessage?.classList.toggle(
-        "hidden",
-        $elems.searchInput.value.trim() !== ""
-      );
-      $elems.noResultsMessage?.classList.toggle(
-        "hidden",
-        filteredProjects.length > 0
-      );
+      for (const { $el, shouldShow } of classChanges) $el.classList.toggle("hidden", !shouldShow);
+
+      $elems.constructionMessage?.classList.toggle("hidden", $elems.searchInput.value.trim() !== "");
+      $elems.noResultsMessage?.classList.toggle("hidden", filteredProjects.length > 0);
     }
 
-    function debounce<T extends (...args: any[]) => void>(
-      func: T,
-      delay: number
-    ) {
-      let debounceTimer: ReturnType<typeof setTimeout>;
+    function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
+      let debounceTimer: ReturnType<typeof setTimeout> | null = null;
       return function (this: any, ...args: Parameters<T>) {
-        clearTimeout(debounceTimer);
+        if (debounceTimer) clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => func.apply(this, args), delay);
       };
     }
 
-    $elems.searchInput.addEventListener(
-      "input",
-      debounce((e: Event) => {
-        const searchTerm = (e.target as HTMLInputElement).value;
-        console.time("filterProjects");
-        const filteredProjects = filterProjects(searchTerm);
-        console.timeEnd("filterProjects");
-        renderProjects(filteredProjects);
-      }, 300)
-    );
+    function handleInputEvent(e: Event) {
+      const searchTerm = (e.target as HTMLInputElement).value;
+      console.time("filterProjects");
+      const filteredProjects = filterProjects(searchTerm);
+      renderProjects(filteredProjects);
+      console.timeEnd("filterProjects");
+    }
 
-    // Initial render based on the current input value
+    $elems.searchInput.addEventListener("input", debounce(handleInputEvent, 300));
+
+    // Initial render based on the current input value ¯\_(ツ)_/¯
     const initialFilteredProjects = filterProjects($elems.searchInput.value);
     renderProjects(initialFilteredProjects);
   });
