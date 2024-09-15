@@ -1,59 +1,42 @@
 ---
 import ArrowIcon from "@/icons/ArrowIcon.astro";
+import PlusIcon from "@/icons/PlusIcon.astro";
+import CLXD from "@/icons/CLXD.astro";
 
 interface Props {
   title: string;
   link: string;
+  extra?: {
+    t1?: string; t3?: string;
+    l1?: string; l3?: string;
+  }
 }
-const { title, link } = Astro.props;
+
+const { title, link, extra } = Astro.props;
+const { t1, t3, l1, l3 } = extra ?? {};
 ---
 
 <nav>
   <div class="nav__content">
     <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer">
       <span class="sr-only">CLXD's website</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xml:space="preserve"
-        viewBox="0 0 700 700"
-        ><path
-          d="m156 367.9 44 13.1 15.7 184-59.7-61ZM500 381l44-13.1V504l-57.9 61zM145 495.2l-59-62.5v-85.2l59 17.9zm410 0V365.4l59-17.9v85.2zM33.7 331 77 345v80l-46-45Zm632.6 0c-.7-.5 2.7 49 2.7 49l-46 45v-80z"
-        ></path><path
-          fill="currentColor"
-          d="M550 330s-79 54.3-81 55v195l-65-108 2.2 172.8h-35V451.1l58.8-.1v-41H270v41l60.8-.1v193.9H296V472l-65 108 .1-195-81.1-55 200-185M222 325.5l71 52.5h114l71-52.5L350 197Zm-199 6L62 290l137-91 20-39 84-53V55l42-15v103L25 336.2ZM355 143V40l42 15v52l84 53 20 39 137 91 39 41.5-2 4.7z"
-        ></path><path
-          fill="currentColor"
-          d="m287 58 9-3v49l-82 51-21 40-105.5 72-.5-5zm326 204-.5 5L507 195l-21-40-82-51V55l9 3zm-217.5 98.9h-91L266 311l52-59.4h64l54 59.4z"
-        ></path></svg
-      >
+      <CLXD />
     </a>
     <div class="nav__control">
       <input type="checkbox" id="menu" class="sr-only" />
       <label for="menu">
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"></path>
-        </svg>
+        <PlusIcon />
         <span class="sr-only">Toggle Menu</span>
       </label>
     </div>
     <div class="nav__options">
       <a
         class="link"
-        href="https://x.com/intent/follow?screen_name=crashlanxd"
+        href={l1 ?? "https://x.com/intent/follow?screen_name=crashlanxd"}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span>Follow</span>
+        <span>{t1 ?? "Follow"}</span>
         <ArrowIcon class="size-6" />
       </a>
       <a class="link" href={link} target="_self">
@@ -62,36 +45,16 @@ const { title, link } = Astro.props;
       </a>
       <a
         class="link"
-        href="https://github.com/CrashLanXD/101-proyectos-javascript"
+        href={l3 ?? "https://github.com/CrashLanXD/101-proyectos-javascript"}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span>Github</span>
+        <span>{t3 ?? "Github"}</span>
         <ArrowIcon class="size-6" />
       </a>
     </div>
     <button aria-pressed="false" class="theme-toggle">
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          fill="currentColor"
-          d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-        ></path>
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          fill="currentColor"
-          d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
-        ></path>
-      </svg>
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" fill="currentColor" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path><path stroke-linecap="round" stroke-linejoin="round" fill="currentColor" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"></path></svg>
       <span class="sr-only">Toggle Theme</span>
     </button>
   </div>
@@ -130,9 +93,7 @@ const { title, link } = Astro.props;
 </script>
 
 <style>
-  :root {
-    --bg: light-dark(#f9f9f9, #0a0a0a);
-  }
+  :root { --bg: light-dark(#f2f2f2, #0c0c0c); }
 
   nav {
     @apply min-w-full sticky inset-0 uppercase text-xs font-extrabold z-10 border-b-4 border-b-r-orange transition-colors;
@@ -165,28 +126,11 @@ const { title, link } = Astro.props;
     outline: 1px solid var(--r-yellow);
   }
 
-  .nav__content > a,
-  .theme-toggle {
-    @apply px-4 py-8 max-h-full aspect-square bg-transparent grid place-items-center border-none cursor-pointer relative;
-    padding: 0;
-    border-radius: 12px;
-
+  .nav__content > a, .theme-toggle {
+    @apply p-0 max-h-full rounded-xl aspect-square bg-transparent grid place-items-center hover:bg-black/20 dark:hover:bg-white/20 transition-colors m-1;
     & svg {
-      @apply text-current fill-current w-1/2;
+      @apply text-current fill-current w-[60%];
     }
-  }
-
-  .nav__content > a:is(:hover, :focus-visible),
-  .theme-toggle:is(:hover, :focus-visible) {
-    --intent: 1;
-  }
-
-  .nav__content > a::after,
-  .theme-toggle::after {
-    @apply absolute inset-0 transition-colors;
-    content: "";
-    border-radius: 12px;
-    background: hsl(0 0% 50% / calc(var(--intent, 0) * 0.25));
   }
 
   .nav__options a {
@@ -210,8 +154,7 @@ const { title, link } = Astro.props;
     z-index: -1;
   }
 
-  a:focus-visible,
-  button:focus-visible {
+  a:focus-visible, button:focus-visible {
     outline: 1px solid var(--r-yellow);
   }
 
@@ -299,8 +242,7 @@ const { title, link } = Astro.props;
         border-color: var(--r-yellow);
       }
     }
-    .link:has(+ :is(.link:hover, .link:focus-visible)),
-    :is(.link:hover, .link:focus-visible) + .link {
+    .link:has(+ :is(.link:hover, .link:focus-visible)), :is(.link:hover, .link:focus-visible) + .link {
       --lerp: var(--lerp-1);
       z-index: 4;
 
@@ -314,8 +256,7 @@ const { title, link } = Astro.props;
     display: block;
   }
 
-  .theme-toggle[aria-pressed="true"] svg path:first-of-type,
-  .theme-toggle svg path:last-of-type {
+  .theme-toggle[aria-pressed="true"] svg path:first-of-type, .theme-toggle svg path:last-of-type {
     display: none;
   }
 </style>
