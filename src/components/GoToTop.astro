@@ -1,0 +1,19 @@
+<div id="top" class="sr-only inset-0" aria-hidden="true"></div>
+<a href="#top" role="button" id="scroll-to-top" aria-label="Volver al inicio de la página"
+  class:list={[
+    "fixed bottom-5 right-3 mix-blend-difference text-white",
+    "flex items-center justify-center z-50 transition-all select-none",
+    "hover:-rotate-12 hover:scale-150 active:rotate-12"
+  ]}
+><span class="text-[48px] md:text-[36px] leading-5 text-center rotate-180 font-sans">↯</span></a>
+
+<style is:global>
+  #scroll-to-top {
+    opacity: 0;
+    animation: scroll-page both linear;
+    animation-timeline: scroll();
+    animation-range: entry 0% exit 30dvh;
+  }
+  @keyframes scroll-page { to { opacity: 1; } }
+  @supports not (animation-range: entry 0% exit 30dvh) { @keyframes scroll-page { 10% { opacity: 1; } to { opacity: 1; } } }
+</style>
