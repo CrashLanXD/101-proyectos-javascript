@@ -1,14 +1,7 @@
 <section class="h-96 mx-auto flex items-center my-20 relative">
-  <div
-    class="-z-10 absolute w-[98%] opacity-50 mx-auto inset-0 bg-black bg-[radial-gradient(var(--r-orange)_3px,light-dark(var(--r-white),var(--r-black))_1px)] bg-[size:32px_32px]"
-  >
-  </div>
-  <div
-    class="hero-title font-krypton mx-auto text-5xl sm:text-6xl 2xl:text-7xl md:ml-16 2xl:mx-auto flex"
-  >
-    <p
-      class="text-r-red dark:text-r-yellow 2xl:[&>br]:hidden md:ml-20 2xl:mx-auto lowercase"
-    >
+  <div class="-z-10 absolute w-[95.8%] opacity-50 mx-auto inset-0 bg-black bg-[radial-gradient(light-dark(#f00,var(--r-orange))_3px,light-dark(var(--r-white),var(--r-black))_1px)] bg-[size:32px_32px]"/>
+  <div class="hero-title font-krypton mx-auto text-5xl sm:text-6xl 2xl:text-7xl md:ml-16 2xl:mx-auto flex">
+    <p class="text-r-red dark:text-r-yellow 2xl:[&>br]:hidden md:ml-20 2xl:mx-auto lowercase"> 
       <span>(</span><br />101<span>,</span><br />Proyectos<span>,</span><br
       />en<span>,</span><br />JavaScript<br /><span>)</span>
     </p>
@@ -17,16 +10,13 @@
 
 <style>
   .hero-title {
-    text-shadow: 0 0 16px
-      light-dark(rgba(255, 132, 132, 0.6), rgba(251, 169, 26, 0.5));
+    text-shadow: 0 0 16px light-dark(rgba(252, 6, 6, 0.4), rgba(251, 169, 26, 0.5));
 
-    p > :first-child,
-    p > :last-child {
-      margin-left: -40px;
+    p > :first-child, p > :last-child {
+      @apply -ml-7 md:-m-10;
     }
     @media (width >= 1536px) {
-      p > :first-child,
-      p > :last-child {
+      p > :first-child, p > :last-child {
         margin: 0;
       }
     }
