@@ -2,6 +2,7 @@
 import ArrowIcon from "@/icons/ArrowIcon.astro";
 import PlusIcon from "@/icons/PlusIcon.astro";
 import CLXD from "@/icons/CLXD.astro";
+import Popover from "@/components/Popover.astro";
 
 interface Props {
   title: string;
@@ -18,7 +19,7 @@ const { t1, t3, l1, l3 } = extra ?? {};
 
 <nav>
   <div class="nav__content">
-    <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer">
+    <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer" id="clxd">
       <span class="sr-only">CLXD's website</span>
       <CLXD />
     </a>
@@ -33,7 +34,7 @@ const { t1, t3, l1, l3 } = extra ?? {};
       <a
         class="link"
         href={l1 ?? "https://x.com/intent/follow?screen_name=crashlanxd"}
-        target="_blank"
+        target={l1 ? "_self" : "_blank"}
         rel="noopener noreferrer"
       >
         <span>{t1 ?? "Follow"}</span>
@@ -46,7 +47,7 @@ const { t1, t3, l1, l3 } = extra ?? {};
       <a
         class="link"
         href={l3 ?? "https://github.com/CrashLanXD/101-proyectos-javascript"}
-        target="_blank"
+        target={l3 ? "_self" : "_blank"}
         rel="noopener noreferrer"
       >
         <span>{t3 ?? "Github"}</span>
@@ -58,6 +59,7 @@ const { t1, t3, l1, l3 } = extra ?? {};
       <span class="sr-only">Toggle Theme</span>
     </button>
   </div>
+  <Popover /> 
 </nav>
 
 <script>
@@ -104,7 +106,6 @@ const { t1, t3, l1, l3 } = extra ?? {};
   .nav__content {
     @apply flex max-w-full mx-auto h-full gap-4 relative justify-between transition-colors;
     background: var(--bg);
-    width: 1100px;
   }
 
   .nav__control {
@@ -127,7 +128,7 @@ const { t1, t3, l1, l3 } = extra ?? {};
   }
 
   .nav__content > a, .theme-toggle {
-    @apply p-0 max-h-full rounded-xl aspect-square bg-transparent grid place-items-center hover:bg-black/20 dark:hover:bg-white/20 transition-colors m-1;
+    @apply p-0 mx-4 max-h-full rounded-xl aspect-square bg-transparent grid place-items-center hover:bg-black/20 dark:hover:bg-white/20 transition-colors m-1;
     & svg {
       @apply text-current fill-current w-[60%];
     }
