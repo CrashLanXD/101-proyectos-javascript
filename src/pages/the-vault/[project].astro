@@ -7,21 +7,21 @@ export function getStaticPaths() {
   return PROJECTS.map((p) => {
     return {
       params: { project: p.slug },
+      props: { title: p.title },
     };
   });
 }
 
-const { project } = Astro.params;
-
-const index = PROJECTS.findIndex((p) => p.slug === project);
-const info = PROJECTS[index];
+const { title } = Astro.props;
+const { project: slug } = Astro.params;
+const index  = PROJECTS.findIndex((p) => p.slug === slug);
 const number = `${index + 1}`.padStart(2, "0");
 ---
 
-<Layout title={`Proyecto ${number}: ${info.title}`}>
+<Layout title={`Proyecto ${number}: ${title}`}>
   <iframe
-    title={`${info.title}`}
+    title={`${title}`}
     class="w-screen h-dvh"
-    src={`/projects/${project}/index.html`}></iframe>
-  <ProjectBadge title={info.title} number={number} />
+    src={`/projects/${slug}/index.html`}></iframe>
+  <ProjectBadge title={title} number={number} />
 </Layout>
