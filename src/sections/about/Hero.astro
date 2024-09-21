@@ -1,6 +1,11 @@
-<section class="scrub w-full relative">
-  <h1>101 proyectos javascript</h1>
-  <a href="#main" class="zigzag-arrow hover:scale-110">↯ <span class="sr-only">Go down</span></a
+<section
+  class="scrub w-full relative grid place-items-center content-center text-center uppercase font-black"
+>
+  <h1 class="text-[clamp(2rem,8vw_+_1rem,12rem)]">101 proyectos javascript</h1>
+  <a
+    href="#main"
+    class="absolute right-10 bottom-5 font-bold text-[5rem] hover:scale-125 hover:-rotate-12 active:rotate-12 font-sans"
+    >↯<span class="sr-only">Go down</span></a
   >
 </section>
 
@@ -16,15 +21,8 @@
     syntax: "<number>";
   }
 
-  section {
-    height: calc(100vh - 60px);
-    display: grid;
-    place-items: center;
-    align-content: center;
-    text-align: center;
-  }
-
   .scrub {
+    height: min(calc(100vh - 60px), 980px);
     animation: scrub linear both;
     animation-timeline: scroll();
   }
@@ -39,10 +37,9 @@
   h1,
   a {
     --velocity: calc(var(--scroll) - var(--scrub));
-    transition: --scrub 0.25s ease-in;
-    font-weight: 900;
-    text-transform: uppercase;
-    font-size: clamp(2rem, 8vw + 1rem, 12rem);
+    transition:
+      --scrub 0.25s ease-in,
+      transform 150ms;
     text-shadow:
       0 calc(var(--velocity) * 0.3px) var(--p-blue),
       0 calc(var(--velocity) * 0.6px) var(--p-green),
@@ -50,13 +47,5 @@
       0 calc(var(--velocity) * 1.2px) var(--p-orange),
       0 calc(var(--velocity) * 1.5px) var(--p-red);
     margin: 1rem;
-  }
-
-  .zigzag-arrow {
-    font-size: 5rem;
-    font-weight: 700;
-    position: absolute;
-    right: 40px;
-    bottom: 20px;
   }
 </style>
