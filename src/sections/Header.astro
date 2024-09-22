@@ -18,7 +18,7 @@ const { title, link, extra } = Astro.props;
 const { t1, t3, l1, l3 } = extra ?? {};
 ---
 
-<Image src="/imgs/rick.webp" alt="Rick Astley" width={447} height={558} loading={"eager"} class="fixed -top-40 left-1/2 w-36 z-10" />
+<Image src="/imgs/rick.webp" alt="" width={447} height={558} loading={"eager"} aria-hidden="true" class="fixed -top-40 left-1/2 w-36 z-10" />
 <nav>
   <div class="nav__content">
     <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer" id="clxd" aria-expanded="false">
