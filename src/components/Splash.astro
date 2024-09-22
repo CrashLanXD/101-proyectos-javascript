@@ -1,0 +1,92 @@
+<span
+  id="splash"
+  class="absolute bottom-0 right-4 text-2xl md:text-3xl block font-krypton w-fit max-w-xs md:max-w-md"
+></span>
+
+<style>
+  span {
+    --rotation: -20deg;
+    animation: subtitle 350ms infinite alternate;
+    text-shadow: 1px 1px 0 #000;
+    color: #ff0;
+  }
+
+  @keyframes subtitle {
+    0% {
+      transform: scale(0.875) rotate(var(--rotation));
+    }
+    100% {
+      transform: scale(1) rotate(var(--rotation));
+    }
+  }
+</style>
+
+<script>
+  import { $ } from "@/lib/domSelector";
+  import { messages } from "@/constants/randomPhrases";
+
+  document.addEventListener("astro:page-load", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const splash = $("#splash");
+    const modeKey = "splash";
+    const code = [ "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a" ];
+    let codePos = 0;
+    let codeTimerLen = 500;
+    let codeTimer: ReturnType<typeof setTimeout>;
+
+    if (!splash) return;
+
+    const displaySplash = () => {
+      splash.textContent =
+        messages[Math.floor(Math.random() * messages.length)];
+    };
+
+    const toggleMode = () => {
+      const isActive = localStorage.getItem(modeKey) === "true";
+      if (isActive) {
+        splash.remove();
+        localStorage.removeItem(modeKey);
+      } else {
+        displaySplash();
+        window.location.reload();
+        localStorage.setItem(modeKey, "true");
+      }
+    };
+
+    if (urlParams.has(modeKey)) {
+      const splashMode = urlParams.get(modeKey);
+      if (splashMode === "false") {
+        splash.remove();
+        localStorage.removeItem(modeKey);
+      } else if (
+        splashMode === "true" ||
+        localStorage.getItem(modeKey) === "true" ||
+        urlParams.has(modeKey) // has, so you can do /?splash and it will be true
+      ) {
+        displaySplash();
+        localStorage.setItem(modeKey, "true");
+      }
+    } else if (localStorage.getItem(modeKey) === "true") {
+      displaySplash();
+    } else {
+      splash.remove();
+    }
+
+    document.addEventListener("keyup", (e) => {
+      const { key } = e;
+      if (key === code[codePos]) {
+        codePos++;
+        clearTimeout(codeTimer);
+        if (codePos === code.length) {
+          toggleMode();
+          codePos = 0;
+        }
+        codeTimer = setTimeout(() => {
+          codePos = 0;
+        }, codeTimerLen);
+      } else {
+        codePos = 0;
+      }
+    });
+  });
+</script>
