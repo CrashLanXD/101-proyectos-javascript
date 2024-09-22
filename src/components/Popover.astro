@@ -10,17 +10,19 @@ import WorldIcon from "@/icons/WorldIcon.astro";
   id="dropdown"
   class:list={[
     "anchor closed",
-		"transition-all duration-75",
+    "transition-all duration-75",
     "z-[55] p-2.5 rounded-xl capitalize border",
     "fixed min-w-64 max-h-fit overflow-hidden ml-6",
-		"bg-neutral-100 border-neutral-300 [&_h3]:text-neutral-600",
-		"dark:bg-neutral-950 dark:border-neutral-600 dark:[&_h3]:text-neutral-400",
+    "bg-neutral-100 border-neutral-300 [&_h3]:text-neutral-600",
+    "dark:bg-neutral-950 dark:border-neutral-600 dark:[&_h3]:text-neutral-400",
   ]}
 >
   <ul class="flex flex-col gap-y-1">
     <h3 class="p-1 text-sm font-light">Lorem ipsum</h3>
     <li>
-      <button id="copyLogo"><CLXD class="size-5 fill-dark dark:fill-light" />Copy Logo as SVG</button>
+      <button id="copyLogo"
+        ><CLXD class="size-5 fill-dark dark:fill-light" />Copy Logo as SVG</button
+      >
     </li>
     <li>
       <a href="/geist/introduction"><WorldIcon class="size-5" />Guidelines</a>
@@ -28,10 +30,19 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     <li>
       <a href="/#top"><HomeIcon class="size-5" />Home Page</a>
     </li>
-    <hr class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600" />
+    <hr
+      class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600"
+    />
     <h3 class="p-1 text-sm font-light">Hello, world!</h3>
     <li>
       <a href="/the-vault/101-101"><PCIcon class="size-5" /> ???</a>
+    </li>
+    <hr
+      class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600"
+    />
+    <li class="flex items-center justify-between py-2 text-sm font-normal">
+      <span aria-label="screen size" id="innerSize"></span>
+      <span id="batteryLevel">73% <span>not charging</span></span>
     </li>
   </ul>
 </div>
@@ -42,25 +53,28 @@ import WorldIcon from "@/icons/WorldIcon.astro";
   document.addEventListener("astro:page-load", () => {
     const dropdown = $("#dropdown");
     const clxd = $("#clxd");
-		const copyLogo = $("#copyLogo");
+    const copyLogo = $("#copyLogo");
 
-		if (!clxd || !dropdown || !copyLogo) { console.log("no ", clxd, dropdown, copyLogo); return; };
+    if (!clxd || !dropdown || !copyLogo) return;
 
     function toggleDropdown(wannaClose?: boolean) {
-      const expanded = wannaClose ?? clxd?.getAttribute("aria-expanded") === "true";
+      const expanded =
+        wannaClose ?? clxd?.getAttribute("aria-expanded") === "true";
       clxd?.setAttribute("aria-expanded", expanded ? "false" : "true");
       dropdown?.classList.toggle("opened", !expanded);
       dropdown?.classList.toggle("closed", expanded);
-    };
+    }
 
     clxd?.addEventListener("contextmenu", (e) => {
       e.preventDefault();
       toggleDropdown();
     });
 
-		copyLogo?.addEventListener("click", () => {
-			navigator.clipboard.writeText('<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 700 700"><path d="m156 367.9 44 13.1 15.7 184-59.7-61ZM500 381l44-13.1V504l-57.9 61zM145 495.2l-59-62.5v-85.2l59 17.9zm410 0V365.4l59-17.9v85.2zM33.7 331 77 345v80l-46-45Zm632.6 0c-.7-.5 2.7 49 2.7 49l-46 45v-80z"></path><path fill="currentColor" d="M550 330s-79 54.3-81 55v195l-65-108 2.2 172.8h-35V451.1l58.8-.1v-41H270v41l60.8-.1v193.9H296V472l-65 108 .1-195-81.1-55 200-185M222 325.5l71 52.5h114l71-52.5L350 197Zm-199 6L62 290l137-91 20-39 84-53V55l42-15v103L25 336.2ZM355 143V40l42 15v52l84 53 20 39 137 91 39 41.5-2 4.7z" ></path><path fill="currentColor" d="m287 58 9-3v49l-82 51-21 40-105.5 72-.5-5zm326 204-.5 5L507 195l-21-40-82-51V55l9 3zm-217.5 98.9h-91L266 311l52-59.4h64l54 59.4z"></path></svg>');
-		});
+    copyLogo?.addEventListener("click", () => {
+      navigator.clipboard.writeText(
+        '<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 700 700"><path d="m156 367.9 44 13.1 15.7 184-59.7-61ZM500 381l44-13.1V504l-57.9 61zM145 495.2l-59-62.5v-85.2l59 17.9zm410 0V365.4l59-17.9v85.2zM33.7 331 77 345v80l-46-45Zm632.6 0c-.7-.5 2.7 49 2.7 49l-46 45v-80z"></path><path fill="currentColor" d="M550 330s-79 54.3-81 55v195l-65-108 2.2 172.8h-35V451.1l58.8-.1v-41H270v41l60.8-.1v193.9H296V472l-65 108 .1-195-81.1-55 200-185M222 325.5l71 52.5h114l71-52.5L350 197Zm-199 6L62 290l137-91 20-39 84-53V55l42-15v103L25 336.2ZM355 143V40l42 15v52l84 53 20 39 137 91 39 41.5-2 4.7z" ></path><path fill="currentColor" d="m287 58 9-3v49l-82 51-21 40-105.5 72-.5-5zm326 204-.5 5L507 195l-21-40-82-51V55l9 3zm-217.5 98.9h-91L266 311l52-59.4h64l54 59.4z"></path></svg>'
+      );
+    });
 
     document.addEventListener("click", (e) => {
       if (e.target !== clxd) toggleDropdown(true);
@@ -69,19 +83,56 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") toggleDropdown(true);
     });
+
+    const batteryLevel = $("#batteryLevel");
+    if (batteryLevel && "getBattery" in navigator) {
+      (async () => {
+        // @ts-ignore 💀
+        const battery = await navigator.getBattery();
+
+        const updateBatteryStatus = () => {
+          const chargingStatus = battery.charging ? "charging" : "not charging";
+          batteryLevel.textContent = `${(battery.level * 100).toFixed(0)}% ${chargingStatus}`;
+        };
+
+        updateBatteryStatus();
+        battery.addEventListener("chargingchange", updateBatteryStatus);
+        battery.addEventListener("levelchange", updateBatteryStatus);
+      })();
+    } else if (batteryLevel) {
+      batteryLevel.remove();
+    }
   });
 </script>
-
 
 <style>
   li a, li button {
     @apply items-center px-1 py-2.5 w-full flex gap-x-2 rounded-md transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-900 text-sm font-normal;
   }
 
+  @property --w_raw {
+    syntax: "<length>";
+    initial-value: 100vw;
+    inherits: true;
+  }
+  @property --h_raw {
+    syntax: "<length>";
+    initial-value: 100vh;
+    inherits: true;
+  }
+  :root {
+    --w: tan(atan2(var(--w_raw), 1px));
+    --h: tan(atan2(var(--h_raw), 1px));
+  }
+
+  #innerSize::after {
+    counter-reset: w var(--w) h var(--h);
+    content: counter(w) "x" counter(h);
+  }
+
   #clxd { anchor-name: --clxd; }
-	
-	.anchor.closed { @apply pointer-events-none opacity-0 scale-50; }
-	.anchor.opened { @apply pointer-events-auto opacity-100 scale-100; }
+  .anchor.closed { @apply pointer-events-none opacity-0 scale-50; }
+  .anchor.opened { @apply pointer-events-auto opacity-100 scale-100; }
 
   .anchor {
     position-anchor: --clxd;
