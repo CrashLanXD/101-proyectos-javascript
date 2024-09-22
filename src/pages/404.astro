@@ -4,7 +4,6 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/sections/Header.astro";
 
 const _404_ = "404 404 404 404 404 404 404 404";
-const attemptedURL = Astro.url.pathname;
 ---
 
 <Layout title="404 Not Found">
@@ -35,9 +34,10 @@ const attemptedURL = Astro.url.pathname;
       >
         <h2 class="text-7xl">404 NOT FOUND</h2>
         <p class="my-2 text-lg font-normal text-pretty">
-          ¿Qué estás haciendo aquí? La ruta <span
-            class="bg-neutral-950 border border-r-orange p-1 rounded inline-block"
-            >`{attemptedURL}`</span
+          ¿Qué estás haciendo aquí? La ruta <code
+            id="attemptedURL"
+            class="bg-neutral-50 text-dark dark:bg-neutral-950 dark:text-light border border-r-orange px-2 py-1 rounded inline-block"
+            >/404</code
           > no existe.
         </p>
         <a
@@ -53,3 +53,11 @@ const attemptedURL = Astro.url.pathname;
     </div>
   </main>
 </Layout>
+
+<script>
+  import { $ } from "@/lib/domSelector";
+  document.addEventListener("astro:page-load", () => {
+    const attemptedURL = $("#attemptedURL");
+    if (attemptedURL) attemptedURL.textContent = window.location.pathname;
+  });
+</script>
