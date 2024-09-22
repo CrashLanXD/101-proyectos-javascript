@@ -3,6 +3,7 @@ import ArrowIcon from "@/icons/ArrowIcon.astro";
 import PlusIcon from "@/icons/PlusIcon.astro";
 import CLXD from "@/icons/CLXD.astro";
 import Popover from "@/components/Popover.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   title: string;
@@ -17,9 +18,10 @@ const { title, link, extra } = Astro.props;
 const { t1, t3, l1, l3 } = extra ?? {};
 ---
 
+<Image src="/imgs/rick.webp" alt="Rick Astley" width={447} height={558} loading={"eager"} class="fixed -top-40 left-1/2 w-36 z-10" />
 <nav>
   <div class="nav__content">
-    <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer" id="clxd">
+    <a href="https://clxd.vercel.app" target="_blank" rel="noopener noreferrer" id="clxd" aria-expanded="false">
       <span class="sr-only">CLXD's website</span>
       <CLXD />
     </a>
@@ -101,6 +103,7 @@ const { t1, t3, l1, l3 } = extra ?? {};
     @apply min-w-full sticky inset-0 uppercase text-xs font-extrabold z-10 border-b-4 border-b-r-orange transition-colors;
     background: var(--bg);
     height: 60px;
+    clip-path: inset(0 0 -9999px 0);
   }
 
   .nav__content {

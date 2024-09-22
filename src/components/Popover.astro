@@ -7,7 +7,6 @@ import WorldIcon from "@/icons/WorldIcon.astro";
 
 <div
   role="menu"
-  aria-expanded="false"
   id="dropdown"
   class:list={[
     "anchor closed",
@@ -48,10 +47,10 @@ import WorldIcon from "@/icons/WorldIcon.astro";
 		if (!clxd || !dropdown || !copyLogo) { console.log("no ", clxd, dropdown, copyLogo); return; };
 
     function toggleDropdown(wannaClose?: boolean) {
-      const expanded = wannaClose ?? dropdown?.getAttribute("aria-expanded") === "true";
+      const expanded = wannaClose ?? clxd?.getAttribute("aria-expanded") === "true";
+      clxd?.setAttribute("aria-expanded", expanded ? "false" : "true");
       dropdown?.classList.toggle("opened", !expanded);
       dropdown?.classList.toggle("closed", expanded);
-      dropdown?.setAttribute("aria-expanded", expanded ? "false" : "true");
     };
 
     clxd?.addEventListener("contextmenu", (e) => {
