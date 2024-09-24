@@ -7,6 +7,8 @@ import WorldIcon from "@/icons/WorldIcon.astro";
 
 <div
   role="menu"
+  aria-label="ClXD's menu"
+  aria-labelledby="clxd"
   id="dropdown"
   class:list={[
     "anchor closed",
@@ -17,32 +19,58 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     "dark:bg-neutral-950 dark:border-neutral-600 dark:[&_h3]:text-neutral-400",
   ]}
 >
-  <ul class="flex flex-col gap-y-1">
-    <h3 class="p-1 text-sm font-light">Lorem ipsum</h3>
-    <li>
-      <button id="copyLogo"
-        ><CLXD class="size-5 fill-dark dark:fill-light" />Copy Logo as SVG</button
+  <ul class="flex flex-col gap-y-1" role="menu">
+    <li role="none">
+      <h3 role="none" class="p-1 text-sm font-light">Lorem ipsum</h3>
+    </li>
+    <li role="none">
+      <button
+        id="copyLogo"
+        role="menuitem"
+        aria-label="Copy CLXD's logo as SVG"
+        tabindex="-1"
+        ><CLXD
+          aria-hidden="true"
+          class="size-5 fill-dark dark:fill-light"
+        />Copy Logo as SVG</button
       >
     </li>
-    <li>
-      <a href="/geist/introduction"><WorldIcon class="size-5" />Guidelines</a>
+    <li role="none">
+      <a href="/geist/introduction" role="menuitem" tabindex="-1"
+        ><WorldIcon aria-hidden="true" class="size-5" />Guidelines</a
+      >
     </li>
-    <li>
-      <a href="/#top"><HomeIcon class="size-5" />Home Page</a>
+    <li role="none">
+      <a href="/#top" role="menuitem" tabindex="-1"
+        ><HomeIcon aria-hidden="true" class="size-5" />Home Page</a
+      >
     </li>
-    <hr
-      class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600"
-    />
-    <h3 class="p-1 text-sm font-light">Hello, world!</h3>
-    <li>
-      <a href="/the-vault/101-101"><PCIcon class="size-5" /> ???</a>
+    <li role="none">
+      <hr
+        class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600"
+      />
     </li>
-    <hr
-      class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600"
-    />
-    <li class="flex items-center justify-between py-2 text-sm font-normal">
-      <span aria-label="screen size" id="innerSize"></span>
-      <span id="batteryLevel">73% <span>not charging</span></span>
+    <li role="none">
+      <h3 role="none" class="p-1 text-sm font-light">Hello, world!</h3>
+    </li>
+    <li role="none">
+      <a href="/the-vault/101-101" role="menuitem" tabindex="-1"
+        ><PCIcon aria-hidden="true" class="size-5" /> ???</a
+      >
+    </li>
+    <li role="none">
+      <hr
+        class="min-w-full h-px -mx-3 border-neutral-300 dark:border-neutral-600"
+      />
+    </li>
+    <li
+      class="flex items-center justify-between py-2 text-sm font-normal"
+      role="none"
+    >
+      <span aria-hidden="true" id="innerSize"></span>
+      <span aria-hidden="true" id="batteryLevel"
+        >73% <span>not charging</span></span
+      >
     </li>
   </ul>
 </div>
@@ -56,11 +84,14 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     const copyLogo = $("#copyLogo");
 
     if (!clxd || !dropdown || !copyLogo) return;
+    const menuItems = dropdown?.querySelectorAll("li button, li a");
 
     function toggleDropdown(wannaClose?: boolean) {
       const expanded =
         wannaClose ?? clxd?.getAttribute("aria-expanded") === "true";
       clxd?.setAttribute("aria-expanded", expanded ? "false" : "true");
+      menuItems?.forEach((i) => i.setAttribute("tabindex", !expanded ? "0" : "-1"));
+
       dropdown?.classList.toggle("opened", !expanded);
       dropdown?.classList.toggle("closed", expanded);
     }
@@ -68,6 +99,10 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     clxd?.addEventListener("contextmenu", (e) => {
       e.preventDefault();
       toggleDropdown();
+    });
+
+    dropdown?.addEventListener("click", (e) => {
+      e.stopPropagation();
     });
 
     copyLogo?.addEventListener("click", () => {
@@ -106,8 +141,12 @@ import WorldIcon from "@/icons/WorldIcon.astro";
 </script>
 
 <style>
-  li a, li button {
-    @apply items-center px-1 py-2.5 w-full flex gap-x-2 rounded-md transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-900 text-sm font-normal;
+  li a,
+  li button {
+    @apply items-center px-1 py-2.5 w-full flex gap-x-2 rounded-md text-sm font-normal transition-all;
+    @apply hover:bg-neutral-200 dark:hover:bg-neutral-900;
+    @apply focus:outline-none focus:ring-1 focus:ring-r-yellow;
+    @apply active:scale-95;
   }
 
   @property --w_raw {
@@ -130,15 +169,13 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     content: counter(w) "x" counter(h);
   }
 
-  #clxd { anchor-name: --clxd; }
-  .anchor.closed { @apply pointer-events-none opacity-0 scale-50; }
-  .anchor.opened { @apply pointer-events-auto opacity-100 scale-100; }
-
   .anchor {
-    position-anchor: --clxd;
-    inset-block-start: anchor(end);
-    inset-inline-start: anchor(self-end);
+    @apply top-14 -left-2 origin-top-left;
   }
-
-	@supports not (position-anchor: --clxd) { .anchor { @apply top-14 -left-2; } }
+  .anchor.closed {
+    @apply pointer-events-none opacity-0 scale-50;
+  }
+  .anchor.opened {
+    @apply pointer-events-auto opacity-100 scale-100;
+  }
 </style>
