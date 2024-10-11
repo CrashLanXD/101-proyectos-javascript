@@ -100,6 +100,7 @@ const projectURL = `/the-vault/${slug}`;
     animation: linear reveal both;
     animation-range: entry 5% cover 30%;
     animation-timeline: view();
+    &:nth-child(n+9) { content-visibility: auto; }
   }
   @supports not (animation-range: entry 5% cover 30%) {
     @keyframes reveal { 0% { opacity: 0; } 20% { opacity: 1; } }
