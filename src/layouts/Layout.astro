@@ -33,6 +33,13 @@ const description =
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <script is:inline>
+      (() => {
+        const _t = localStorage.getItem("theme");
+        if (_t) document.documentElement.dataset.theme = _t;
+      })();
+    </script>
     <ViewTransitions />
   </head>
   <body>
