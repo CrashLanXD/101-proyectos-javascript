@@ -4,6 +4,9 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/sections/Header.astro";
 import Hero from "@/sections/about/Hero.astro";
 import Footer from "@/sections/Footer.astro";
+import UtilIcon from "@/icons/UtilIcon.astro";
+import GameIcon from "@/icons/GameIcon.astro";
+import MathIcon from "@/icons/MathIcon.astro";
 ---
 
 <Layout title="101 projects in JavaScript by CLXD" defaultTheme="light">
@@ -76,59 +79,13 @@ import Footer from "@/sections/Footer.astro";
         </div>
         <ul class="theme-list text-4xl">
           <li>
-            Utilidad <svg
-              class="size-8 text-r-red"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-                d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4"></path><path
-                d="M14.5 5.5l4 4"></path><path d="M12 8l-5 -5l-4 4l5 5"
-              ></path><path d="M7 8l-1.5 1.5"></path><path
-                d="M16 12l5 5l-4 4l-5 -5"></path><path d="M16 17l-1.5 1.5"
-              ></path></svg
-            >
+            Utilidad <UtilIcon class="size-8 text-r-red" />
           </li>
           <li>
-            videojuegos <svg
-              class="size-8 text-r-orange"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-                d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z"
-              ></path><path d="M6 12h4m-2 -2v4"></path><path d="M15 11l0 .01"
-              ></path><path d="M18 13l0 .01"></path></svg
-            >
+            videojuegos <GameIcon class="size-8 text-r-orange" />
           </li>
           <li>
-            Matematicas <svg
-              class="size-8 text-r-yellow"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-                d="M19 5h-7l-4 14l-3 -6h-2"></path><path d="M14 13l6 6"
-              ></path><path d="M14 19l6 -6"></path></svg
-            >
+            Matematicas <MathIcon class="size-8 text-r-yellow" />
           </li>
         </ul>
       </div>

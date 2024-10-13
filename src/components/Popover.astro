@@ -1,6 +1,7 @@
 ---
-import CLXD from "@/icons/CLXD.astro";
+import CLXD from "@/icons/CLXD_LOW.astro";
 import HomeIcon from "@/icons/HomeIcon.astro";
+import JS101Icon from "@/icons/JS101Icon.astro";
 import PCIcon from "@/icons/PCIcon.astro";
 import WorldIcon from "@/icons/WorldIcon.astro";
 ---
@@ -25,14 +26,26 @@ import WorldIcon from "@/icons/WorldIcon.astro";
     </li>
     <li role="none">
       <button
-        id="copyLogo"
+        id="copyLogo101"
+        role="menuitem"
+        aria-label="Copy page's logo as SVG"
+        tabindex="-1"
+        ><JS101Icon
+          aria-hidden="true"
+          class="size-5 fill-dark dark:fill-light"
+        />Copy [101]'s Logo as SVG</button
+      >
+    </li>
+    <li role="none">
+      <button
+        id="copyLogoCLXD"
         role="menuitem"
         aria-label="Copy CLXD's logo as SVG"
         tabindex="-1"
         ><CLXD
           aria-hidden="true"
           class="size-5 fill-dark dark:fill-light"
-        />Copy Logo as SVG</button
+        />Copy CLXD's Logo as SVG</button
       >
     </li>
     <li role="none">
@@ -81,9 +94,10 @@ import WorldIcon from "@/icons/WorldIcon.astro";
   document.addEventListener("astro:page-load", () => {
     const dropdown = $("#dropdown");
     const clxd = $("#clxd");
-    const copyLogo = $("#copyLogo");
+    const copyLogoCLXD = $("#copyLogoCLXD");
+    const copyLogo101 = $("#copyLogo101");
 
-    if (!clxd || !dropdown || !copyLogo) return;
+    if (!clxd || !dropdown || !copyLogoCLXD || !copyLogo101) return;
     const menuItems = dropdown?.querySelectorAll("li button, li a");
 
     function toggleDropdown(wannaClose?: boolean) {
@@ -105,9 +119,14 @@ import WorldIcon from "@/icons/WorldIcon.astro";
       e.stopPropagation();
     });
 
-    copyLogo?.addEventListener("click", () => {
+    copyLogoCLXD?.addEventListener("click", () => {
       navigator.clipboard.writeText(
         '<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 700 700"><path d="m156 367.9 44 13.1 15.7 184-59.7-61ZM500 381l44-13.1V504l-57.9 61zM145 495.2l-59-62.5v-85.2l59 17.9zm410 0V365.4l59-17.9v85.2zM33.7 331 77 345v80l-46-45Zm632.6 0c-.7-.5 2.7 49 2.7 49l-46 45v-80z"></path><path fill="currentColor" d="M550 330s-79 54.3-81 55v195l-65-108 2.2 172.8h-35V451.1l58.8-.1v-41H270v41l60.8-.1v193.9H296V472l-65 108 .1-195-81.1-55 200-185M222 325.5l71 52.5h114l71-52.5L350 197Zm-199 6L62 290l137-91 20-39 84-53V55l42-15v103L25 336.2ZM355 143V40l42 15v52l84 53 20 39 137 91 39 41.5-2 4.7z" ></path><path fill="currentColor" d="m287 58 9-3v49l-82 51-21 40-105.5 72-.5-5zm326 204-.5 5L507 195l-21-40-82-51V55l9 3zm-217.5 98.9h-91L266 311l52-59.4h64l54 59.4z"></path></svg>'
+      ).then(() => alert("Copied! Go paste it wherever you want."));
+    });
+    copyLogo101?.addEventListener("click", () => {
+      navigator.clipboard.writeText(
+        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 55 55"><style>path{fill:#dc6d2c}@media (prefers-color-scheme:dark){path{fill:#ddb631}}</style><g fill-rule="evenodd" clip-rule="evenodd"><path fill="#ffb712" d="M16 6c2.761 0 5 2.298 5 5.133v11.734C21 25.702 18.761 28 16 28s-5-2.298-5-5.133V11.133C11 8.298 13.239 6 16 6Zm23 0c2.761 0 5 2.298 5 5.133v11.733C44 25.701 41.761 28 39 28s-5-2.299-5-5.134V11.133C34 8.298 36.239 6 39 6z"/><path fill="#ff9e12" d="M10.101 31.973C8.51 29.787 5.523 29.35 3.416 31 1.3 32.657.871 35.791 2.458 38l3.832-3c-3.832 3-3.83 3.002-3.83 3.004l.004.004.006.009.015.02a8.959 8.959 0 0 0 .147.196c.087.115.205.265.353.445.295.36.712.845 1.25 1.41a31.991 31.991 0 0 0 4.721 4.057C13.12 47.078 19.34 50 27.5 50c8.16 0 14.38-2.922 18.544-5.855a31.994 31.994 0 0 0 4.722-4.057c.538-.565.954-1.05 1.25-1.41a17.331 17.331 0 0 0 .5-.641l.014-.02.006-.009.003-.004c.002-.002.003-.004-3.829-3.004l3.832 3c1.587-2.209 1.158-5.343-.958-7-2.107-1.65-5.093-1.213-6.685.973l-.015.019a15.473 15.473 0 0 1-.912 1.046 22.308 22.308 0 0 1-3.286 2.817C37.751 37.922 33.366 40 27.5 40s-10.252-2.078-13.186-4.145a22.307 22.307 0 0 1-3.286-2.817 15.488 15.488 0 0 1-.912-1.046l-.015-.02zm34.783.02-.003.004c0 .001-.002.003 3.706 2.906L44.879 32l.006-.007z"/></g></svg>'
       ).then(() => alert("Copied! Go paste it wherever you want."));
     });
 
