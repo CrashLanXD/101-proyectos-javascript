@@ -1,5 +1,8 @@
 ---
 import SearchIcon from "@/icons/SearchIcon.astro";
+import UtilIcon from "@/icons/UtilIcon.astro";
+import GameIcon from "@/icons/GameIcon.astro";
+import MathIcon from "@/icons/MathIcon.astro";
 ---
 
 <div
@@ -12,8 +15,8 @@ import SearchIcon from "@/icons/SearchIcon.astro";
     class:list={[
       "size-6 mt-2 transition-all",
       "text-neutral-400 dark:text-neutral-500",
-      "group-hover:text-neutral-600 dark:group-hover:text-neutral-200",
-      "group-focus-within:text-neutral-600 dark:group-focus-within:text-neutral-200",
+      "group-hover:text-dark dark:group-hover:text-light",
+      "group-focus-within:text-dark dark:group-focus-within:text-light",
       "group-hover:scale-110 group-focus-within:scale-110",
     ]}
   />
@@ -37,7 +40,22 @@ import SearchIcon from "@/icons/SearchIcon.astro";
       "focus:border-b-neutral-600 dark:focus:border-b-neutral-200",
     ]}
   />
+  <div class="contents">
+    <button title="utility" id="utilSearch" class="active:bg-r-red"><UtilIcon /></button>
+    <button title="videogames" id="gameSearch" class="active:bg-r-orange"><GameIcon /></button>
+    <button title="math" id="mathSearch" class="active:bg-r-yellow"><MathIcon /></button>
+  </div>
 </div>
+
+<style>
+  button {
+    @apply transition-all grid place-items-center size-10 aspect-square;
+    @apply text-neutral-400 dark:text-neutral-500;
+    @apply hover:border-dark dark:hover:border-light active:border-dark dark:active:border-light;
+    @apply hover:text-dark dark:hover:text-light active:text-dark dark:active:text-light;
+    @apply rounded-md border-2 border-transparent active:scale-95;
+  }
+</style>
 
 <script>
   import { type Project } from "@/types/Project";
@@ -51,6 +69,9 @@ import SearchIcon from "@/icons/SearchIcon.astro";
       constructionMessage: $("#constructionMessage"),
       noResultsMessage: $("#noResultsMessage"),
       projectsGrid: $(".projects-grid"),
+      utilSearch: $("#utilSearch"),
+      gameSearch: $("#gameSearch"),
+      mathSearch: $("#mathSearch"),
     };
 
     if (Object.values($elems).some((el) => !el)) return;
@@ -136,6 +157,16 @@ import SearchIcon from "@/icons/SearchIcon.astro";
         if (debounceTimer) clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => func.apply(this, args), delay);
       };
+    }
+    
+    if ($elems.utilSearch && $elems.gameSearch && $elems.mathSearch) {
+      const triggerSearchForCategory = (category: string) => { 
+        $elems.searchInput.value = "";
+        renderProjects(filterProjects(category));
+      }
+      $elems.utilSearch.addEventListener("click", () => triggerSearchForCategory("utility"));
+      $elems.gameSearch.addEventListener("click", () => triggerSearchForCategory("videoGames"));
+      $elems.mathSearch.addEventListener("click", () => triggerSearchForCategory("mathematics"));
     }
 
     function handleInputEvent(e: Event) {
