@@ -41,19 +41,48 @@ import MathIcon from "@/icons/MathIcon.astro";
     ]}
   />
   <div class="contents">
-    <button title="utility" id="utilSearch" class="active:bg-r-red"><UtilIcon /></button>
-    <button title="videogames" id="gameSearch" class="active:bg-r-orange"><GameIcon /></button>
-    <button title="math" id="mathSearch" class="active:bg-r-yellow"><MathIcon /></button>
+    <label
+      title="utility"
+      id="utilSearch"
+      class="category-btn has-[input:checked]:bg-r-red"
+    >
+      <UtilIcon />
+      <input type="radio" name="search-selector" value="utility" />
+    </label>
+    <label
+      title="videogames"
+      id="gameSearch"
+      class="category-btn has-[input:checked]:bg-r-orange"
+    >
+      <GameIcon />
+      <input type="radio" name="search-selector" value="videogames" />
+    </label>
+    <label
+      title="math"
+      id="mathSearch"
+      class="category-btn has-[input:checked]:bg-r-yellow"
+    >
+      <MathIcon />
+      <input type="radio" name="search-selector" value="mathematics" />
+    </label>
   </div>
 </div>
 
 <style>
-  button {
-    @apply transition-all grid place-items-center size-10 aspect-square;
-    @apply text-neutral-400 dark:text-neutral-500;
-    @apply hover:border-dark dark:hover:border-light active:border-dark dark:active:border-light;
-    @apply hover:text-dark dark:hover:text-light active:text-dark dark:active:text-light;
+  .category-btn {
+    @apply transition-all grid place-items-center size-10 aspect-square relative cursor-pointer;
+    @apply text-neutral-400 dark:text-neutral-500 hover:border-dark;
     @apply rounded-md border-2 border-transparent active:scale-95;
+    input[type="radio"] {
+      @apply sr-only;
+    }
+    &:has(input:checked) {
+      @apply border-dark dark:border-light;
+
+      svg {
+        @apply mix-blend-difference text-white;
+      }
+    }
   }
 </style>
 
@@ -69,28 +98,39 @@ import MathIcon from "@/icons/MathIcon.astro";
       constructionMessage: $("#constructionMessage"),
       noResultsMessage: $("#noResultsMessage"),
       projectsGrid: $(".projects-grid"),
-      utilSearch: $("#utilSearch"),
-      gameSearch: $("#gameSearch"),
-      mathSearch: $("#mathSearch"),
+      categoryBtns: $$(
+        ".category-btn input[type='radio']"
+      ) as NodeListOf<HTMLInputElement>,
     };
 
     if (Object.values($elems).some((el) => !el)) return;
 
+    let activeCategory: string | null = null;
+    const localStorageKey = "activeCategory";
+
     // cache project elemenst and titles
     const projectElements = Array.from($elems.allProjects);
-    const projectTitles = projectElements.map((p) => p.querySelector("h3")?.textContent?.trim() ?? "");
+    const projectTitles = projectElements.map(
+      (p) => p.querySelector("h3")?.textContent?.trim() ?? ""
+    );
 
     if (projectTitles.length > 0) {
       $elems.searchInput.placeholder = `${projectTitles[Math.floor(Math.random() * projectTitles.length)]}`;
     }
 
     // optimize levenshtein distance function with lazy evaluation
-    function levenshteinDistance(a: string, b: string, threshold: number): number {
+    function levenshteinDistance(
+      a: string,
+      b: string,
+      threshold: number
+    ): number {
       const aLen = a.length;
       const bLen = b.length;
       if (Math.abs(aLen - bLen) > threshold) return threshold + 1;
 
-      const matrix = Array(bLen + 1).fill(null).map(() => Array(aLen + 1).fill(0));
+      const matrix = Array(bLen + 1)
+        .fill(null)
+        .map(() => Array(aLen + 1).fill(0));
 
       for (let i = 0; i <= bLen; i++) matrix[i][0] = i;
       for (let j = 0; j <= aLen; j++) matrix[0][j] = j;
@@ -111,31 +151,50 @@ import MathIcon from "@/icons/MathIcon.astro";
       return matrix[bLen][aLen];
     }
 
-    function filterProjects(searchTerm: string): Project[] {
+    function filterProjects(
+      searchTerm: string,
+      category: string | null
+    ): Project[] {
       const searchLower = searchTerm.toLowerCase();
       const titleThreshold = 4;
       const labelThreshold = 2;
 
       return PROJECTS.filter(({ title, labels }, idx) => {
         const number = idx < 9 ? `0${idx + 1}` : `${idx + 1}`;
-        const titleDistance = levenshteinDistance(title.toLowerCase(), searchLower, titleThreshold);
+        const titleDistance = levenshteinDistance(
+          title.toLowerCase(),
+          searchLower,
+          titleThreshold
+        );
 
         const labelMatches = labels?.some((label) => {
-          return levenshteinDistance(label.toLowerCase(), searchLower, labelThreshold) <= labelThreshold;
-        }); 
+          return (
+            levenshteinDistance(
+              label.toLowerCase(),
+              searchLower,
+              labelThreshold
+            ) <= labelThreshold
+          );
+        });
 
         return (
-          number.includes(searchLower) ||
-          title.toLowerCase().startsWith(searchLower) ||
-          labels?.some((label) => label.toLowerCase().startsWith(searchLower)) ||
-          titleDistance <= titleThreshold ||
-          labelMatches
+          (number.includes(searchLower) ||
+            title.toLowerCase().startsWith(searchLower) ||
+            labels?.some((label) =>
+              label.toLowerCase().startsWith(searchLower)
+            ) ||
+            titleDistance <= titleThreshold ||
+            labelMatches) &&
+          (!category ||
+            labels?.some((label) => label.toLowerCase().startsWith(category)))
         );
       });
     }
 
     function renderProjects(filteredProjects: Project[]) {
-      const filteredTitles = new Set(filteredProjects.map((project) => project.title));
+      const filteredTitles = new Set(
+        filteredProjects.map((project) => project.title)
+      );
       const classChanges: { $el: Element; shouldShow: boolean }[] = [];
 
       $elems.allProjects.forEach((project, idx) => {
@@ -145,42 +204,84 @@ import MathIcon from "@/icons/MathIcon.astro";
           classChanges.push({ $el: project, shouldShow });
       });
 
-      for (const { $el, shouldShow } of classChanges) $el.classList.toggle("hidden", !shouldShow);
+      for (const { $el, shouldShow } of classChanges)
+        $el.classList.toggle("hidden", !shouldShow);
 
-      $elems.constructionMessage?.classList.toggle("hidden", $elems.searchInput.value.trim() !== "");
-      $elems.noResultsMessage?.classList.toggle("hidden", filteredProjects.length > 0);
+      $elems.constructionMessage?.classList.toggle(
+        "hidden",
+        $elems.searchInput.value.trim() !== ""
+      );
+      $elems.noResultsMessage?.classList.toggle(
+        "hidden",
+        filteredProjects.length > 0
+      );
     }
 
-    function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
+    function debounce<T extends (...args: any[]) => void>(
+      func: T,
+      delay: number
+    ) {
       let debounceTimer: ReturnType<typeof setTimeout> | null = null;
       return function (this: any, ...args: Parameters<T>) {
         if (debounceTimer) clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => func.apply(this, args), delay);
       };
     }
-    
-    if ($elems.utilSearch && $elems.gameSearch && $elems.mathSearch) {
-      const triggerSearchForCategory = (category: string) => { 
-        $elems.searchInput.value = "";
-        renderProjects(filterProjects(category));
-      }
-      $elems.utilSearch.addEventListener("click", () => triggerSearchForCategory("utility"));
-      $elems.gameSearch.addEventListener("click", () => triggerSearchForCategory("videoGames"));
-      $elems.mathSearch.addEventListener("click", () => triggerSearchForCategory("mathematics"));
-    }
 
     function handleInputEvent(e: Event) {
       const searchTerm = (e.target as HTMLInputElement).value;
       console.time("filterProjects");
-      const filteredProjects = filterProjects(searchTerm);
+      const filteredProjects = filterProjects(searchTerm, activeCategory);
       renderProjects(filteredProjects);
       console.timeEnd("filterProjects");
     }
 
-    $elems.searchInput.addEventListener("input", debounce(handleInputEvent, 300));
+    function handleCategoryClick(categoryBtn: HTMLInputElement) {
+      const selectedCategory = categoryBtn.value;
+      localStorage.setItem(localStorageKey, selectedCategory);
+      let searchTerm = $elems.searchInput.value;
+      $elems.searchInput.value = "";
+
+      if (selectedCategory === activeCategory) {
+        activeCategory = null;
+        categoryBtn.checked = false;
+        searchTerm = "";
+      } else {
+        activeCategory = selectedCategory;
+        categoryBtn.checked = true;
+      }
+
+      renderProjects(filterProjects(searchTerm, activeCategory));
+    }
+
+    // Restore active category from local storage
+    if (localStorage.getItem(localStorageKey)) {
+      const storedActiveCategory = localStorage.getItem(localStorageKey);
+      if (storedActiveCategory) {
+        const storedActiveCategoryBtn = Array.from($elems.categoryBtns).find(
+          (btn) => btn.value === storedActiveCategory
+        );
+        if (storedActiveCategoryBtn) {
+          storedActiveCategoryBtn.checked = true;
+          activeCategory = storedActiveCategory;
+        }
+      }
+    }
+
+    $elems.categoryBtns.forEach((btn) =>
+      btn.addEventListener("click", () => handleCategoryClick(btn))
+    );
+
+    $elems.searchInput.addEventListener(
+      "input",
+      debounce(handleInputEvent, 300)
+    );
 
     // Initial render based on the current input value ¯\_(ツ)_/¯
-    const initialFilteredProjects = filterProjects($elems.searchInput.value);
+    const initialFilteredProjects = filterProjects(
+      $elems.searchInput.value,
+      activeCategory
+    );
     renderProjects(initialFilteredProjects);
   });
 </script>
