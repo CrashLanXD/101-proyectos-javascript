@@ -40,30 +40,60 @@ import MathIcon from "@/icons/MathIcon.astro";
       "focus:border-b-neutral-600 dark:focus:border-b-neutral-200",
     ]}
   />
-  <div class="contents">
+  <div class="contents" role="radiogroup" aria-label="Search by category">
     <label
       title="utility"
-      id="utilSearch"
+      for="utilSearch"
       class="category-btn has-[input:checked]:bg-r-red"
+      id="label-utility"
     >
       <UtilIcon />
-      <input type="radio" name="search-selector" value="utility" />
+      <input
+        type="radio"
+        id="utilSearch"
+        name="search-selector"
+        value="utility"
+        aria-labelledby="label-utility"
+        role="radio"
+        aria-checked="false"
+      />
+      <span class="sr-only">Utility</span>
     </label>
     <label
       title="videogames"
-      id="gameSearch"
+      for="videogamesSearch"
       class="category-btn has-[input:checked]:bg-r-orange"
+      id="label-videogames"
     >
       <GameIcon />
-      <input type="radio" name="search-selector" value="videogames" />
+      <input
+        type="radio"
+        id="videogamesSearch"
+        name="search-selector"
+        value="videogames"
+        aria-labelledby="label-videogames"
+        role="radio"
+        aria-checked="false"
+      />
+      <span class="sr-only">Videogames</span>
     </label>
     <label
       title="math"
-      id="mathSearch"
+      for="mathSearch"
       class="category-btn has-[input:checked]:bg-r-yellow"
+      id="label-mathematics"
     >
       <MathIcon />
-      <input type="radio" name="search-selector" value="mathematics" />
+      <input
+        type="radio"
+        id="mathSearch"
+        name="search-selector"
+        value="mathematics"
+        aria-labelledby="label-mathematics"
+        role="radio"
+        aria-checked="false"
+      />
+      <span class="sr-only">Mathematics</span>
     </label>
   </div>
 </div>
@@ -245,6 +275,7 @@ import MathIcon from "@/icons/MathIcon.astro";
       if (selectedCategory === activeCategory) {
         activeCategory = null;
         categoryBtn.checked = false;
+        categoryBtn.setAttribute("aria-checked", "false");
         searchTerm = "";
       } else {
         activeCategory = selectedCategory;
@@ -263,14 +294,20 @@ import MathIcon from "@/icons/MathIcon.astro";
         );
         if (storedActiveCategoryBtn) {
           storedActiveCategoryBtn.checked = true;
+          storedActiveCategoryBtn.setAttribute("aria-checked", "true");
           activeCategory = storedActiveCategory;
         }
       }
     }
 
-    $elems.categoryBtns.forEach((btn) =>
-      btn.addEventListener("click", () => handleCategoryClick(btn))
-    );
+    $elems.categoryBtns.forEach((btn) => {
+      btn.addEventListener("click", () => handleCategoryClick(btn));
+      btn.addEventListener("change", () => {
+        $elems.categoryBtns.forEach((b) => {
+          b.setAttribute("aria-checked", b === btn ? "true" : "false");
+        });
+      });
+    });
 
     $elems.searchInput.addEventListener(
       "input",
