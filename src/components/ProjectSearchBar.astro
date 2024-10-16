@@ -40,7 +40,7 @@ import MathIcon from "@/icons/MathIcon.astro";
       "focus:border-b-neutral-600 dark:focus:border-b-neutral-200",
     ]}
   />
-  <div class="contents" role="radiogroup" aria-label="Search by category">
+  <div class="contents" role="radiogroup" aria-label="Buscar proyectos por categoría">
     <label
       title="utility"
       for="utilSearch"
@@ -260,29 +260,25 @@ import MathIcon from "@/icons/MathIcon.astro";
 
     function handleInputEvent(e: Event) {
       const searchTerm = (e.target as HTMLInputElement).value;
-      console.time("filterProjects");
       const filteredProjects = filterProjects(searchTerm, activeCategory);
       renderProjects(filteredProjects);
-      console.timeEnd("filterProjects");
     }
 
     function handleCategoryClick(categoryBtn: HTMLInputElement) {
       const selectedCategory = categoryBtn.value;
-      localStorage.setItem(localStorageKey, selectedCategory);
-      let searchTerm = $elems.searchInput.value;
-      $elems.searchInput.value = "";
 
       if (selectedCategory === activeCategory) {
         activeCategory = null;
         categoryBtn.checked = false;
         categoryBtn.setAttribute("aria-checked", "false");
-        searchTerm = "";
+        localStorage.removeItem(localStorageKey);
       } else {
         activeCategory = selectedCategory;
         categoryBtn.checked = true;
+        localStorage.setItem(localStorageKey, selectedCategory);
       }
 
-      renderProjects(filterProjects(searchTerm, activeCategory));
+      renderProjects(filterProjects($elems.searchInput.value, activeCategory));
     }
 
     // Restore active category from local storage
