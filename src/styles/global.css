@@ -1,0 +1,86 @@
+:root {
+  --p-blue: #198cd9;
+  --p-green: #78be20;
+  --p-yellow: #ffb500;
+  --p-orange: #ff8200;
+  --p-red: #ef3827;
+
+  --r-white: #e5e4d1;
+  --r-black: light-dark(#343232, #111111);
+  --r-red: #e22f2e;
+  --r-orange: #dc6d2c;
+  --r-yellow: #ddb631;
+
+  --c-blue: #2c388c;
+}
+
+html {
+  color-scheme: light dark;
+}
+[data-theme="dark"] {
+  color-scheme: dark only;
+}
+[data-theme="light"] {
+  color-scheme: light only;
+}
+
+::view-transition-group(root) {
+  animation-duration: 700ms;
+}
+::view-transition-new(root) {
+  animation-name: reveal-screen;
+}
+::view-transition-old(root) {
+  animation: none;
+}
+
+@keyframes reveal-screen {
+  from {
+    clip-path: polygon(130% 0, 130% 0, 115% 100%, 110% 115%);
+  }
+  to {
+    clip-path: polygon(130% 0, -30% 0, -15% 100%, 110% 115%);
+  }
+}
+
+@font-face {
+  font-family: InterVariable;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Krypton";
+  src: url("/fonts/MonaspaceKrypton-Medium.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  @apply scroll-smooth motion-reduce:scroll-auto;
+  font-family: system-ui, sans-serif;
+  scrollbar-width: thin;
+}
+
+body {
+  background-color: light-dark(var(--r-white), var(--r-black));
+  color: light-dark(var(--r-black), var(--r-white));
+
+  transition: background 150ms;
+  min-height: 100dvh;
+
+  font-family: InterVariable;
+
+  background-image: repeating-linear-gradient(
+      to right,
+      transparent 0 150px,
+      light-dark(#00000008, #ffffff08) 150px 151px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 150px,
+      light-dark(#00000008, #ffffff08) 150px 151px
+    );
+}
