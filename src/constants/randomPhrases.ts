@@ -1,5 +1,6 @@
 export const messages: string[] = [
   "sudo rm -rf / --no-preserve-root",
+  ":(){:|:&};:",
   "Vanilla JS all the way.",
   "System.out.println('Java is fun');",
   "Debugging: Removing the needles from the haystack.",

@@ -1,0 +1,33 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, OG_IMAGE_URL } from "@/constants/meta";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<title>{title ?? SITE_TITLE}</title>
+<meta name="description" content={description ?? SITE_DESCRIPTION} />
+<meta name="author" content="CLXD" />
+<meta name="keywords" content="javascript, js, programming, programación, desarrollo web, algoritmos, HTML, CSS, proyectos de código abierto, aprendizaje interactivo, frontend, backend, simulaciones, juegos en JavaScript, desarrollo web moderno, práctica de programación, desarrollo de aplicaciones, ejercicios de programación, JavaScript avanzado" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@CrashLanXD" />
+<meta name="twitter:title" content={SITE_TITLE} />
+<meta name="twitter:description" content={SITE_DESCRIPTION} />
+<meta name="twitter:image" content={OG_IMAGE_URL} />
+
+<meta property="og:title" content={SITE_TITLE} />
+<meta property="og:description" content={SITE_DESCRIPTION} />
+<meta property="og:image" content={OG_IMAGE_URL} />
+<meta property="og:url" content={SITE_URL} />
+
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<meta name="generator" content={Astro.generator} />
+<meta name="viewport" content="width=device-width" />

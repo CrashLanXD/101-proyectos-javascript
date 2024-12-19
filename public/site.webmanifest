@@ -1,0 +1,16 @@
+{
+  "name": "101 Proyectos en JavaScript",
+  "short_name": "{ 101 }",
+  "description": "Explora 101 proyectos en JavaScript que van desde simulaciones hasta juegos y algoritmos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#343232",
+  "theme_color": "#141414",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

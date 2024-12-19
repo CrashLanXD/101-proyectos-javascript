@@ -1,41 +1,21 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import "@/styles/global.css";
+import SEO from "@/components/SEO.astro";
 
 interface Props {
-  title: string;
+  title?: string;
+  description?: string;
   defaultTheme?: "dark" | "light";
 }
 
-const { title, defaultTheme } = Astro.props;
-const description =
-  "Explora una colección de 101 proyectos en JavaScript, desde simulaciones hasta juegos y algoritmos, diseñados para experimentar con diferentes conceptos de programación.";
+const { title, description, defaultTheme } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es" data-theme={defaultTheme ?? ""}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="author" content="CLXD | Eduardo Sanchez Hernandez" />
-    <meta
-      name="keywords"
-      content="javascript, js, programming, programación, desarrollo web, algoritmos, HTML, CSS, proyectos de código abierto, aprendizaje interactivo, frontend, backend, simulaciones, juegos en JavaScript, desarrollo web moderno, práctica de programación, desarrollo de aplicaciones, ejercicios de programación, JavaScript avanzado"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@CrashLanXD" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://clxd101js.netlify.app/og.png" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://clxd101js.netlify.app/og.png" />
-    <link rel="canonical" href="https://clxd101js.netlify.app" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-
+    <SEO title={title} description={description} />
     <script is:inline>
       (() => {
         const _t = localStorage.getItem("theme");

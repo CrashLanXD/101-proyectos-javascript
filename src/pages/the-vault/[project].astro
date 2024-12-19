@@ -18,7 +18,7 @@ const index  = PROJECTS.findIndex((p) => p.slug === slug);
 const number = `${index + 1}`.padStart(2, "0");
 ---
 
-<Layout title={`Proyecto ${number}: ${title}`}>
+<Layout title={`Proyecto ${number}: ${title}`} description={`Prueba el proyecto número ${number}: ${title}, 100% vanilla!`}>
   <iframe
     title={`${title}`}
     class="w-screen h-dvh"
