@@ -7,15 +7,17 @@ interface Props {
   title?: string;
   description?: string;
   defaultTheme?: "dark" | "light";
+  googleVerification?: string;
 }
 
-const { title, description, defaultTheme } = Astro.props;
+const { title, description, defaultTheme, googleVerification } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es" data-theme={defaultTheme ?? ""}>
   <head>
     <SEO title={title} description={description} />
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
     <script is:inline>
       (() => {
         const _t = localStorage.getItem("theme");
