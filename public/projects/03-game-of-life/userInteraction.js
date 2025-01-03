@@ -1,36 +1,100 @@
-// This part handles user interaction
+const $$ = (id) => document.getElementById(id);
+
 addEventListener("DOMContentLoaded", () => {
-  const $cellSize = document.getElementById("cellSize");
-  const $boardSize = document.getElementById("boardSize");
-  const $updateSpeedInput = document.getElementById("updateSpeed");
-  const $probability = document.getElementById("probability");
-  const $gameRules = document.getElementById("gameRules");
-  const $applyChangesButton = document.getElementById("applyChanges");
+  const $ = {
+    gridWidth: $$("gridWidth"),
+    gridHeight: $$("gridHeight"),
+    cellSize: $$("cellSize"),
+    applyGridChanges: $$("applyGridChanges"),
+    gameRules: $$("gameRules"),
+    customRulestring: $$("customRulestring"),
+    applyRules: $$("applyRules"),
+    probability: $$("probability"),
+    probabilityValue: $$("probabilityValue"),
+    updateSpeed: $$("updateSpeed"),
+    speedValue: $$("speedValue"),
+    generateSoup: $$("generateSoup"),
+    colorPicker: $$("colorPicker"),
+    bgPicker: $$("bgPicker"),
+    currentRulestring: $$("currentRulestring"),
+    currentSpeedValue: $$("currentSpeedValue"),
+    currentProbabilityValue: $$("currentProbabilityValue"),
+  }
+  if (Object.values($$).some((el) => !el)) return;
 
-  // Add event listener to apply changes button
-  $applyChangesButton.addEventListener("click", () => {
-    // Extract width and height from board size input
-    const board = $boardSize.value.split("x");
-    const width = parseInt(board[0]);
-    const height = parseInt(board[1]);
+  applyDefaultValues();
 
-    // Extract cell size from input
-    const cellSize = parseInt($cellSize.value);
-
-    // Extract update speed from input
-    const updateSpeed = parseInt($updateSpeedInput.value);
-
-    // Extract probability of cells generation from input
-    const probability = parseFloat($probability.value) / 100;
-
-    // Extract update speed from input
-    const selectedRule = $gameRules.value;
-
-    // Set canvas size, initialize game, and update settings
-    size(Math.floor(width), Math.floor(height));
-    init(cellSize, GAME_TYPES[parseInt(selectedRule)], probability);
-    updateInterval = updateSpeed;
-    generations = 0;
-    changeText();
+  $.applyGridChanges.addEventListener("click", () => {
+    const gridWidth = Math.abs(~~parseInt($.gridWidth.value, 10) || 0);
+    const gridHeight = Math.abs(~~parseInt($.gridHeight.value, 10) || 0);
+    const cellSize = Math.abs(~~parseInt($.cellSize.value, 10) || 1);
+    game.cellSize = cellSize;
+    resize(gridWidth, gridHeight);
   });
+
+  $.applyRules.addEventListener("click", () => {
+    const rulestring = $.customRulestring.value;
+    if (rulestring.length > 0) game.parseRule(rulestring);
+    else {
+      game.rule = RULES[$.gameRules.value];
+      game.parseRule(game.rule.rulestring);
+    }
+    $.currentRulestring.textContent = game.rule.rulestring;
+  });
+
+  $.probability.addEventListener("input", () => {
+    const prob = (parseFloat($.probability.value) / 100);
+    $.probabilityValue.textContent = `${prob * 100}%`;
+  });
+
+  $.updateSpeed.addEventListener("input", () => {
+    const speed = parseInt($.updateSpeed.value);
+    $.speedValue.textContent = `${speed}ms`;
+  });
+
+  $.generateSoup.addEventListener("click", () => {
+    const prob = parseFloat($.probability.value) / 100 || 0.0;
+    updateSpeed = parseInt($.updateSpeed.value);
+    game.soup(prob);
+    $.currentProbabilityValue.textContent = `${prob * 100}%`;
+    $.currentSpeedValue.textContent = `${updateSpeed}ms`;
+  });
+
+  $.colorPicker.addEventListener("input", () => {
+    const rgb = hexToRgb($.colorPicker.value);
+    if (rgb) {
+      color = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      ctx.fillStyle = color;
+    }
+  });
+
+  $.bgPicker.addEventListener("input", () => document.body.style.backgroundColor = $.bgPicker.value);
+
+  function applyDefaultValues() {
+    $.gridWidth.value = $canvas.width;
+    $.gridHeight.value = $canvas.height;
+    $.cellSize.value = game.cellSize;
+
+    $.probability.value = `${game.rule.probability * 100}%`;
+    $.updateSpeed.value = updateSpeed;
+    $.colorPicker.value = rgbToHex(...rgbStringToValue(color));
+
+    $.currentRulestring.textContent = game.rule.rulestring;
+    $.currentSpeedValue.textContent = `${updateSpeed}ms`;
+    $.currentProbabilityValue.textContent = `${game.rule.probability * 100}%`;
+
+    generations = 0;
+  }
+
+  function rgbStringToValue(rgb) {
+    const match = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/.exec(rgb);
+    return match ? match.slice(1, 4).map((v) => parseInt(v)) : null;
+  }
+
+  function rgbToHex(r, g, b) { return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); }
+
+  function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
+  }
 });

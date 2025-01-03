@@ -3,148 +3,98 @@ class GameOfLife {
     this.cols = cols;
     this.rows = rows;
     this.cellSize = cellSize;
-    this.grid = []; // Initialize grid to hold cell states
-    this.ctx = ctx; // Canvas rendering context
-    this.rule; // Rule function to determine cell state transition
-
-    // Create an offscreen canvas for drawing
-    this.offscreenCanvas = document.createElement("canvas");
-    this.initOffScreenCanvas();
+    this.grid = [];
+    this.ctx = ctx;
+    this.rule = { rulestring: "", probability: 0, name: "The Game Of Life" };
+    this.B = new Array(9).fill(false); // Born
+    this.S = new Array(9).fill(false); // Survive
   }
 
-  // Initialize offscreen canvas
-  initOffScreenCanvas() {
-    this.offscreenCanvas.width = $canvas.width;
-    this.offscreenCanvas.height = $canvas.height;
-    this.offscreenCtx = this.offscreenCanvas.getContext("2d");
-  }
-
-  //Initialize the game with a specific rule
   init(rule) {
-    this.grid = make2DArray(this.cols, this.rows); // Create a 2D array to represent the grid
-    this.rule = rule; // Set the rule function
+    this.grid = make2DArray(this.cols, this.rows);
+    this.rule = rule;
+    this.parseRule(rule.rulestring);
   }
 
-  // Calculate the next generation of cell states
-  nextGeneration(rule) {
-    const newCells = make2DArray(this.cols, this.rows); // Create a new grid for the next generation
-    const neighborCounts = make2DArray(this.cols, this.rows); // Create a grid to store neighbors count
+  parseRule(rulestring) {
+    if (!RULESTRING_REGEX.test(rulestring)) throw new Error("Invalid rulestring :D");
+    this.B.fill(false);
+    this.S.fill(false);
 
-    // Count neighbors for each cell
-    for (let i = 0; i < this.cols; i++) {
-      for (let j = 0; j < this.rows; j++) {
-        neighborCounts[i][j] = this.countNeighbors(i, j);
-      }
+    const [first, second] = rulestring.split("/")
+    const bRule = first.startsWith("B") ? first : second;
+    const sRule = first.startsWith("S") ? first : second;
+
+    for (const char of bRule.slice(1)) this.B[+char] = true;
+    for (const char of sRule.slice(1)) this.S[+char] = true;
+  }
+
+  nextGeneration() {
+    const newCells = make2DArray(this.cols, this.rows);
+
+    for (let i = 0; i < this.cols; i++)
+    for (let j = 0; j < this.rows; j++) {
+      const neighbors = this.countNeighbors(i, j);
+      const isAlive = this.grid[i][j] > 0.00;
+
+      if (isAlive) {
+        if(this.S[neighbors]) newCells[i][j] = Math.max(0.05, this.grid[i][j] * 0.95);
+      } else if(this.B[neighbors]) newCells[i][j] = BORN;
     }
 
-    // Apply the rule to each cell to determine its next state
-    for (let i = 0; i < this.cols; i++) {
-      for (let j = 0; j < this.rows; j++) {
-        const isAlive = this.grid[i][j] > 0;
-        const neighbors = neighborCounts[i][j];
-
-        if (isAlive) this.grid[i][j] = Math.max(1, this.grid[i][j] - 1); // Decrease age of living cells
-
-        rule(newCells, i, j, isAlive, neighbors); // Apply the rule
-      }
-    }
-
-    // Update the grid with the new cell states
-    for (let i = 0; i < this.cols; i++) {
-      for (let j = 0; j < this.rows; j++) {
-        this.grid[i][j] = newCells[i][j];
-      }
-    }
-
-    generations++; // Increment generation count
+    this.grid = newCells;
+    generations++;
   }
 
-  // HighLife rule: A variant of Conway's Game of Life
-  highLifeRule(newCells, i, j, isAlive, neighbors) {
-    if (!isAlive && (neighbors === 3 || neighbors === 6 || neighbors === 8))
-      newCells[i][j] = COLORS.length - 1; // Revive cell
-    else if (isAlive && (neighbors === 2 || neighbors === 3))
-      newCells[i][j] = this.grid[i][j]; // Cell stay alive
-  }
-
-  // Life 34 rule: Another variant of Conway's Game of Life
-  life34Rule(newCells, i, j, isAlive, neighbors) {
-    if (!isAlive && (neighbors === 3 || neighbors === 4))
-      newCells[i][j] = COLORS.length - 1; // Revive cell
-    else if (isAlive && (neighbors === 2 || neighbors === 3))
-      newCells[i][j] = this.grid[i][j]; // Cell stay alive
-  }
-
-  // Normal rule: Classics Conway's Game of Life
-  normalRule(newCells, i, j, isAlive, neighbors) {
-    if (!isAlive && neighbors === 3)
-      newCells[i][j] = COLORS.length - 1; // Revive cell
-    else if (isAlive && (neighbors === 2 || neighbors === 3))
-      newCells[i][j] = this.grid[i][j]; // Cell stay alive
-  }
-
-  // Count the number of living neighbors for a given cell
   countNeighbors(x, y) {
     let count = 0;
-    const startX = Math.max(0, x - 1);
-    const startY = Math.max(0, y - 1);
-    const endX = Math.min(this.cols - 1, x + 1);
-    const endY = Math.min(this.rows - 1, y + 1);
+    const startX = x > 0 ? x - 1 : 0;
+    const startY = y > 0 ? y - 1 : 0;
+    const endX = x < this.cols - 1 ? x + 1 : this.cols - 1;
+    const endY = y < this.rows - 1 ? y + 1 : this.rows - 1;
 
-    // Iterate over neighboring cells
-    for (let i = startX; i <= endX; i++) {
-      for (let j = startY; j <= endY; j++) {
-        if (i === x && j === y) continue; // Skip the current cell
-        if (this.grid[i][j] > 0) count++; // Increment count if neighbor is alive
-      }
-    }
-    return count; // Return the total count of living neighbors
+    for (let i = startX; i <= endX; i++)
+    for (let j = startY; j <= endY; j++)
+      if (i !== x || j !== y) count += this.grid[i][j] > 0 ? 1 : 0;
+    
+    return count;
   }
 
-  // Draw the grid on the canvas
   draw() {
-    // Crear the offscreen canvas
-    this.offscreenCtx.clearRect(
-      0,
-      0,
-      this.offscreenCanvas.width,
-      this.offscreenCanvas.height
-    );
-
-    // Draw living cells on the offscreen canvas
-    for (let i = 0; i < this.cols; i++) {
-      for (let j = 0; j < this.rows; j++) {
-        if (this.grid[i][j] > 0) {
-          const color = COLORS[this.grid[i][j] - 1];
-          this.offscreenCtx.fillStyle = color;
-          this.offscreenCtx.fillRect(
-            i * this.cellSize,
-            j * this.cellSize,
-            this.cellSize,
-            this.cellSize
-          );
-        }
+    this.ctx.clearRect(0, 0, $canvas.width, $canvas.height);
+    this.ctx.fillStyle = color;
+    for (let i = 0; i < this.cols; i++)
+    for (let j = 0; j < this.rows; j++) {
+      if (this.grid[i][j] > 0) {
+        this.ctx.globalAlpha = this.grid[i][j];
+        this.ctx.fillRect(i * this.cellSize, j * this.cellSize, this.cellSize, this.cellSize);
       }
     }
-
-    // Draw the offscreen canvas on the main canvas
-    this.ctx.drawImage(this.offscreenCanvas, 0, 0);
   }
 
-  // Update the mage state and draw the grid
   update() {
-    this.draw(); // Draw the grid
-    this.nextGeneration(this.rule.bind(this)); // Calculate and apply the next generation of cell state
+    this.draw();
+    this.nextGeneration();
   }
 
-  // Initializes the board with random cells states based on given probability
-  randomStart(probability) {
-    // Loop through each cell in the grid
-    for (let i = 0; i < this.cols; i++) {
-      for (let j = 0; j < this.rows; j++) {
-        // Set the cell state randomly based on the probability
-        this.grid[i][j] = Math.random() > probability ? COLORS.length - 1 : 0;
-      }
-    }
+  soup(probability) {
+    const prob = probability ?? this.rule.probability;
+    for(let i = 0; i < this.cols; i++)
+    for(let j = 0; j < this.rows; j++)
+      this.grid[i][j] = Math.random() > prob ? 0 : BORN;
+  }
+
+  updateGridDimensions(w, h) {
+    const newCols = ~~w;
+    const newRows = ~~h;
+    
+    const newGrid = make2DArray(newCols, newRows);
+    for (let i = 0; i < Math.min(this.cols, newCols); i++)
+    for (let j = 0; j < Math.min(this.rows, newRows); j++)
+      newGrid[i][j] = this.grid[i][j];
+
+    this.cols = newCols;
+    this.rows = newRows;
+    this.grid = newGrid;
   }
 }

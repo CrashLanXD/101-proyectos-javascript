@@ -1,66 +1,64 @@
-// Define the colors used for cell representation
-const COLORS = [
-  "#373737",
-  "#555555",
-  "#737373",
-  "#919191",
-  "#afafaf",
-  "#cfcfcf",
-  "#efefef",
-  "#ffffff",
-];
+const $canvas = document.querySelector("canvas");
+const ctx = $canvas.getContext("2d");
 
-// Create a new instance of the GameOfLife class
-let game = new GameOfLife(0, 0, 0, 0);
+const $span = document.querySelector("#generation-count");
+
+const RULESTRING_REGEX = /^(B[0-8]*\/S[0-8]*|S[0-8]*\/B[0-8]*)$/;
+const MAX_ALPHA_VALUE = 1;
+const BORN = MAX_ALPHA_VALUE;
+
+let game; // game: GameOfLife
 let generations = 0;
+let color = "rgb(150, 150, 150)"; // #fbfbfb
+let updateSpeed = 100; // 100ms
+let lastFrameTime = 0;
+let ruleSelected;
 
-// Initialize the game with given parameters
 function init(cellSize, rule, probability) {
-  // Create a new GameOfLife instance with calculated dimension
-  game = new GameOfLife(
-    parseInt($canvas.width / cellSize),
-    parseInt($canvas.height / cellSize),
-    cellSize,
-    ctx
-  );
-
-  // Initialize the game with the specified rule and set random initial cell states
+  game = new GameOfLife(Math.floor($canvas.width / cellSize), Math.floor($canvas.height / cellSize), cellSize, ctx);
   game.init(rule);
-  game.randomStart(probability);
-  draw(); // Start the draw loop
+  game.soup(probability);
+  tick(); // Start the draw loop
 }
 
-// Variables for controlling the draw loop
-let counter = 0;
-let lastTime = 0;
-let updateInterval = 100;
+function resize(w, h) {
+  $canvas.width = w ?? window.innerWidth;
+  $canvas.height = h ?? window.innerHeight;
+  if (game) game.updateGridDimensions($canvas.width, $canvas.height);
+}
 
-// The draw function, responsible for updating and rendering the game
-function draw(time = 0) {
-  requestAnimationFrame(draw);
+function make2DArray(cols, rows) {
+  return Array.from({ length: cols }, () => Array(rows).fill(0))
+}
 
-  let deltaTime = time - lastTime;
-  lastTime = time;
-
-  counter += deltaTime;
-  if (counter > updateInterval) {
-    counter = 0;
-    fill(0, 0, $canvas.width, $canvas.height, "#000"); // Clear the canvas
-
-    game.update(); // Update game state
+function tick(timeStamp) {
+  if (timeStamp - lastFrameTime >= updateSpeed) {
+    lastFrameTime = timeStamp;
+    game.update();
     changeText(); // Update the generation counter
   }
+  requestAnimationFrame(tick)
 }
 
-// Function to update the generation counter text
-const $span = document.querySelector("span");
 function changeText() {
   $span.textContent = generations;
 }
 
-// Array containing different game rules
-const GAME_TYPES = [game.normalRule, game.highLifeRule, game.life34Rule];
+const RULES = { // examples
+  coral: { rulestring: "B3/S45678", name: "Coral", probability: 0.5, },
+  fredkin: { rulestring: "B1357/S02468", name: "Fredkin", probability: 0.004, },
+  highLife: { rulestring: "B36/S23", name: "High Life", probability: 0.4, },
+  life: { rulestring: "B3/S23", name: "Life", probability: 0.7, },
+  life34: { rulestring: "B34/S34", name: "34 Life", probability: 0.15, },
+  lifeWithoutDeath: { rulestring: "B3/S012345678", name: "Life Without Death", probability: 0.03, },
+  liveFreeOrDie: { rulestring: "B2/S0", name: "Live Free or Die", probability: 0.03, },
+  maze: { rulestring: "B3/S12345", name: "Maze", probability: 0.05, },
+  neonBlobs: { rulestring: "B08/S4", name: "Neon Blobs", probability: 0.5, },
+  replicator: { rulestring: "B1357/S1357", name: "Replicator", probability: 0.01, },
+  seeds: { rulestring: "B2/S", name: "Seeds", probability: 0.025, },
+  vote: { rulestring: "B5678/S45678", name: "Vote", probability: 0.5, },
+  cheerios: { rulestring: "B35678/S34567", name: "Cheerios", probability: 0.5, },
+};
 
-// Set canvas size and initialize the game with default parameters
-size(400, 280);
-init(3, GAME_TYPES[0], 0.7); // Cell size: 3, Rule: Normal, Probability: 0.7
+resize();
+init(7, ruleSelected = RULES.life, 0.7);
