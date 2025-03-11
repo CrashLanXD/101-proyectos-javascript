@@ -42,4 +42,5 @@ Todos los proyectos en { 101 Proyectos JS } están disponibles bajo la Licencia 
 
 Si tienes preguntas, comentarios o sugerencias, no dudes en ponerte en contacto:
 - Correo electrónico: [crashlanxd@gmail.com](mailto:crashlanxd@gmail.com)
-- X / Twitter: [@crashlanxd](https://x.com/crashlanxd)
+- X / Twitter: [@__CLXD__](https://x.com/__CLXD__)
+- X / Twitter: [@CrashLanXD](https://x.com/crashlanxd)
